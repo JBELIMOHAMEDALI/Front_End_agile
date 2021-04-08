@@ -70,7 +70,6 @@ export class SigninComponent implements OnInit {
 
       } else {
         this.verifAndRedirect(msg, userRole)
-
       }
     } catch (error) {
       let errormsg: string = "Vérifier vos coordonnées";
@@ -172,7 +171,7 @@ export class SigninComponent implements OnInit {
     }
   }
 
-
+//this is msg from dali
 
   //localstorage=type,id
   //khouloud@gmail.com
