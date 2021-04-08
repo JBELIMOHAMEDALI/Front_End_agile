@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { VoitureService } from '../../../services/voiture.service';
+import { Voiture } from '../../../models/voiture';
+import { Chauffeur } from '../../../models/chauffeur';
+import { NgForm } from '@angular/forms';
+import { LoginErrorComponent } from '../../auth/login-error/login-error.component';
+import { AffectVoitureService } from '../../../services/affect-voiture.service';
 
 @Component({
   selector: 'app-popup-affectation',
@@ -6,12 +14,158 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./popup-affectation.component.scss']
 })
 export class PopupAffectationComponent implements OnInit {
+  @Input() title: string = "";
+  @Input() id: number = -1;
+  @Input() voiture: any;
+  @Input() chauffeur: any;
 
-  constructor() { }
+  voitureList = new Array<Voiture>();
+  chauffeurList = new Array<Chauffeur>();
+  newid_chauffeur:string;
+  newid_voiture:string;
 
-  ngOnInit() {
+  constructor(public activeModal: NgbActiveModal,
+    private voitureService: VoitureService,
+    private modalService: NgbModal,
+    private router: Router,
+    private affectVoitureService: AffectVoitureService) { }
+
+  async ngOnInit() {
+
+    if (this.id != -1) {
+      
+      this.voiture = await this.voiture;
+      this.chauffeur = await this.chauffeur;
+      this.newid_chauffeur=this.chauffeur.id_chauffeur;
+      this.newid_voiture=this.voiture.id_voiture;
+
+    }
+
+
+    this.loadChauffeursNonAffectes(chauffeurs => {
+      this.chauffeurList = chauffeurs;
+    });
+    this.loadVoituresNonAffectees(voitures => {
+      this.voitureList = voitures;
+    });
+
+
+  }
+  async getOneAffectationbyid(id: string, callback) {
+    try {
+
+      const { msg } = await this.affectVoitureService.getOneAffectationbyId(id) as any || [];
+
+      if (msg.length > 0) {
+        callback(msg[0]);
+      } else {
+        callback(null);
+      }
+
+    } catch (error) {
+      callback(null);
+      return error;
+    }
   }
 
+
+  onSubmit(form: NgForm) {
+    if (this.id === -1) {
+
+      return this.addAffectation(form);
+    }
+
+    this.updateAffectation(form);
+
+  }
+
+
+
+  closeReload() {
+    const currentRoute = this.router.url;
+
+    this.activeModal.dismiss();
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentRoute]); // navigate to same route
+    });
+  }
+
+
+
+  async addAffectation(form: NgForm) {
+    try {
+      const payload={id_voiture: this.newid_voiture,id_chauffeur: this.newid_chauffeur}
+
+      const { msg, erorer } = await this.affectVoitureService.addAffectaion(payload) as any || [];
+      if (erorer) {
+        const modelServ = this.modalService.open(LoginErrorComponent);
+        modelServ.componentInstance.message = "Affectation non effectué !";
+      }
+    } catch (error) {
+      const modelServ = this.modalService.open(LoginErrorComponent);
+      modelServ.componentInstance.message = "Affectation non effectué !";
+    }
+    this.closeReload();
+  }
+
+
+  async updateAffectation(form: NgForm) {
+    try {
+      const payload={id_voiture: this.newid_voiture,id_chauffeur: this.newid_chauffeur,id_affectation:this.id}
+      const { msg, erorer } = await this.affectVoitureService.updateAffectaion(payload) as any || [];
+      if (erorer) {
+        const modelServ = this.modalService.open(LoginErrorComponent);
+        modelServ.componentInstance.message = "Modification non effectué !";
+      }
+    } catch (error) {
+      const modelServ = this.modalService.open(LoginErrorComponent);
+      modelServ.componentInstance.message = "Modification non effectué !";
+    }
+    this.closeReload();
+
+  }
+
+  async loadChauffeursNonAffectes(callback) {
+    try {
+      const { msg, erorer } = await this.affectVoitureService.getChauffeursVoituresNonaffectesActifs('chauffeur') as any || [];
+      if (erorer) {
+        callback([]);
+
+      } else {
+        callback(msg);
+      }
+
+    } catch (error) {
+      callback([]);
+    }
+  }
+
+  async loadVoituresNonAffectees(callback) {
+
+    try {
+      const { msg, erorer } = await this.affectVoitureService.getChauffeursVoituresNonaffectesActifs('voiture') as any || [];
+      if (erorer) {
+        callback([]);
+      } else {
+        callback(msg);
+      }
+
+    } catch (error) {
+      callback([]);
+    }
+
+  }
+
+onChangeChauffeur(id_chauffeur:string){
+  this.newid_chauffeur=id_chauffeur;
+ 
+} 
+
+onChangeVoiture(id_voiture:string){
+    this.newid_voiture=id_voiture;
+
+  
+} 
 
 
 }

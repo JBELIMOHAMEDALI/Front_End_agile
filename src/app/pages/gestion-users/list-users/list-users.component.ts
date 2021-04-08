@@ -47,42 +47,42 @@ export class ListUsersComponent implements OnInit {
     modalRef.componentInstance.id = id;
 
   }
-  async desactiver(id: string) {
+  // async desactiver(id: string) {
 
-    try {
-      const { erorer, msg } = await this.chefServ.disableChauffeurAccount(id) as any;
+  //   try {
+  //     const { erorer, msg } = await this.chefServ.disableChauffeurAccount(id) as any;
 
-      if (!erorer) {
-        // this.getUsers();
-        this.reloud();
-      }
-
-
-    } catch (error) {
-      const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = error.message;
-    }
-
-  }
+  //     if (!erorer) {
+  //       // this.getUsers();
+  //       this.reloud();
+  //     }
 
 
-  async activer(id: string) {
+  //   } catch (error) {
+  //     const modelServ = this.modalService.open(LoginErrorComponent);
+  //     modelServ.componentInstance.message = error.message;
+  //   }
 
-    try {
-      const { erorer, msg } = await this.chefServ.disableChauffeurAccount(id) as any;
-
-      if (!erorer) {
-        // this.getUsers();
-        this.reloud();
-      }
+  // }
 
 
-    } catch (error) {
-      const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = error.message;
-    }
+  // async activer(id: string) {
 
-  }
+  //   try {
+  //     const { erorer, msg } = await this.chefServ.disableChauffeurAccount(id) as any;
+
+  //     if (!erorer) {
+  //       // this.getUsers();
+  //       this.reloud();
+  //     }
+
+
+  //   } catch (error) {
+  //     const modelServ = this.modalService.open(LoginErrorComponent);
+  //     modelServ.componentInstance.message = error.message;
+  //   }
+
+  // }
 
   reloud() {
     const currentRoute = this.router.url;

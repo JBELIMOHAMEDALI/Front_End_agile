@@ -64,7 +64,7 @@
                  
                 </tr>
               </thead>
-
+              <ng-container *ngIf="this.voitureListActif.length>0">
               <tbody *ngFor="let voiture of this.voitureListActif">
                 <tr (dblclick)="showVoiture(voiture.id_voiture,true)" style="text-align: center;">
                   <th scope="row">{{voiture.matricule}}</th>            
@@ -82,7 +82,19 @@
                 </tr>
     
     
-              </tbody>              
+              </tbody>  
+            </ng-container>     
+            <ng-container *ngIf="this.voitureListActif.length===0">
+              <tbody >
+                <tr style="text-align: center;">
+                <td colspan="6">
+                  Pas de voiture actifs!
+                </td>
+                </tr>
+    
+    
+              </tbody>  
+            </ng-container>          
             </table>
           </div>
         </div>
@@ -113,6 +125,7 @@
                  
                 </tr>
               </thead>
+              <ng-container *ngIf="this.voitureListInactif.length>0">
 
               <tbody *ngFor="let voiture of this.voitureListInactif">
                 <tr (dblclick)="showVoiture(voiture.id_voiture,false)" style="text-align: center;">
@@ -130,7 +143,19 @@
                 </tr>
     
     
-              </tbody>              
+              </tbody>  
+              </ng-container> 
+              <ng-container *ngIf="this.voitureListInactif.length===0">
+                <tbody >
+                  <tr style="text-align: center;">
+                  <td colspan="6">
+                    Pas de voiture inactifs!
+                  </td>
+                  </tr>
+      
+      
+                </tbody>  
+              </ng-container>              
             </table>
           </div>
         </div>

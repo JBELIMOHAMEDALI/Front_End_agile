@@ -45,20 +45,7 @@ export class UserService {
   }
 
 
-  // getOneChauffeurNotActivebyId(payload) {
 
-  //   return new Promise((resolve, reject) => {
-  //     const body = { params: { id: payload.id.toString(), tabname: payload.tabname, nomId: payload.nomId } };
-
-  //     this.httpC.get('http://127.0.0.1/pfe_api/Generale/get_One_Not_Act_By_Id', body)
-  //       .forEach(data =>
-  //         resolve(data)
-  //       ).catch((err) => {
-  //         reject(err);
-  //       });
-  //   });
-
-  // }
 
 
   UpdateUser(userData) {

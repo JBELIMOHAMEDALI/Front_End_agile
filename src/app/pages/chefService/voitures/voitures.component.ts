@@ -24,13 +24,11 @@ export class VoituresComponent implements OnInit {
   async ngOnInit() {
     this.getVoitures(res => {
       this.voitureListActif = res;
-      this.getVoitures(result => {
-        this.voitureListInactif = result;
-
-      }, false);
-
     }, true);
+    this.getVoitures(result => {
+      this.voitureListInactif = result;
 
+    }, false);
 
   }
 

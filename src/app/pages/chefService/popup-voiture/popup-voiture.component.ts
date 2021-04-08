@@ -81,8 +81,8 @@ export class PopupVoitureComponent implements OnInit {
     const { matricule, type, dmc, puissance, service } = form.value;
 
     try {
-      const chauffeur = new Voiture(matricule, puissance, service, type, dmc);
-      const { msg, erorer } = await this.voitureService.addVoiture(chauffeur) as any || [];
+      const voiture = new Voiture(matricule, puissance, service, type, dmc);
+      const { msg, erorer } = await this.voitureService.addVoiture(voiture) as any || [];
       if (erorer) {
         const modelServ = this.modalService.open(LoginErrorComponent);
         modelServ.componentInstance.message = "Ajout non effectué !";

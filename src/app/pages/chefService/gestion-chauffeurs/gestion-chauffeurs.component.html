@@ -63,7 +63,7 @@
                
               </tr>
             </thead>
-            <!-- <ng-container *ngIf="this.chauffeursActif.length>0"> -->
+            <ng-container *ngIf="this.chauffeursActif.length>0">
             <tbody *ngFor="let chauffeur of this.chauffeursActif">
               <tr (dblclick)="showChauffeur(chauffeur.id_chauffeur,true)" style="text-align: center;">
                 <th scope="row">{{chauffeur.matricule}}</th>            
@@ -73,7 +73,7 @@
                 <td>
                   <button class="btn hor-grd btn-grd-info" id="{{chauffeur.id_chauffeur}}" (click)="update(chauffeur.id_chauffeur)"><i
                       class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
-                  <button class="btn hor-grd btn-grd-danger" id="{{chauffeur.id_chauffeur}}" (click)="desactiver(chauffeur.id_chauffeur)"><i
+                  <button class="btn hor-grd btn-grd-danger" id="{{chauffeur.id_chauffeur}}" (click)="activerDesactiver(chauffeur.id_chauffeur,true)"><i
                       class="icofont icofont-hand-up"></i>Désactiver</button>&nbsp;
                 
                 </td>
@@ -81,7 +81,19 @@
   
   
             </tbody>
-            <!-- </ng-container> -->
+            </ng-container>
+            <ng-container *ngIf="this.chauffeursActif.length===0">
+              <tbody >
+                <tr style="text-align: center;">
+                    <td colspan="5">
+                      Pas de chauffeurs actifs!
+                    </td>
+                 
+                </tr>
+    
+    
+              </tbody>
+              </ng-container>
          
           </table>
         </div>
@@ -114,7 +126,7 @@
   
               </tr>
             </thead>
-            <!-- <ng-container *ngIf="this.chauffeursInactif.length>0"> -->
+            <ng-container *ngIf="this.chauffeursInactif.length>0">
             <tbody *ngFor="let chauffeur of this.chauffeursInactif">
               <tr (dblclick)="showChauffeur(chauffeur.id_chauffeur,false)" style="text-align: center;">
                 <th scope="row">{{chauffeur.matricule}}</th>            
@@ -122,14 +134,27 @@
                 <td>{{chauffeur.tel}}</td>
                 <td>{{chauffeur.email}}</td>
                 <td>                 
-                      <button class="btn hor-grd btn-grd-success" id="{{chauffeur.id_chauffeur}}" (click)="activer(chauffeur.id_chauffeur)"><i
+                      <button class="btn hor-grd btn-grd-success" id="{{chauffeur.id_chauffeur}}" (click)="activerDesactiver(chauffeur.id_chauffeur,false)"><i
                         class="icofont icofont-verification-check"></i>Activer</button>
                 </td>
               </tr>
   
   
             </tbody>
-            <!-- </ng-container> -->
+            </ng-container>
+
+            <ng-container *ngIf="this.chauffeursInactif.length===0">
+              <tbody >
+                <tr style="text-align: center;">
+                    <td colspan="5">
+                      Pas de chauffeurs inactifs!
+                    </td>
+                 
+                </tr>
+    
+    
+              </tbody>
+              </ng-container>
          
           </table>
         </div>

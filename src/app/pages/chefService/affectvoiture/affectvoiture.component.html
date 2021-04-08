@@ -46,7 +46,7 @@
             <div class="table-responsive">
       
             <div style="margin: 60px;overflow-x:auto;">
-              <table class="table" >
+              <table class="table table-hover" >
                 <thead>
                   <ng-container matColumnDef="actions">
                     <mat-header-cell  *matHeaderCellDef > Actions </mat-header-cell>
@@ -63,22 +63,89 @@
 
                   </tr>
                 </thead>
-  
-                <tbody *ngFor="let affectation of this.voituresAffectes">
+                <ng-container *ngIf="this.voituresAffectes.length===0">
+
+                  <tbody>
+                    <tr style="text-align: center;">
+                     
+                     <td colspan="6">
+                       Pas d'affectations !
+                     </td>
+                    </tr>      
+                  </tbody>              
+                </ng-container>
+                <ng-container *ngIf="this.voituresAffectes.length>0">
+
+                  <tbody *ngFor="let affectation of this.voituresAffectes">
+                    <tr style="text-align: center;">
+                      <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>    
+                      <th>{{affectation.matricule}}</th>                    
+                      <td>{{affectation.type}}</td>
+                      <td>{{affectation.nomPrenom}}</td>
+                     <td>
+                        <button class="btn hor-grd btn-grd-info" id="{{affectation.id_affecter_v_chauffeur}}" (click)="updateAffectation({'id_affectation':affectation.id_affecter_v_chauffeur,'id_chauffeur':affectation.id_chauffeur,'id_voiture':affectation.id_voiture})"><i
+                            class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
+                        <button class="btn hor-grd btn-grd-danger" id="{{affectation.id_affecter_v_chauffeur}}" (click)="activerDesactiverAffectation(affectation.id_affecter_v_chauffeur)"><i
+                            class="icofont icofont-trash"></i>Supprimer</button>&nbsp;
+                      
+                      </td>
+                    </tr>      
+                  </tbody>              
+                </ng-container>
+              </table>
+            </div>
+          </div>
+
+
+
+          </app-card>
+        </div>
+
+
+        <div class="col-sm-12" >
+          <app-card [title]="'Historique Des Affectations Chauffeur Voiture'" [classHeader]="true" [blockClass]="'table-border-style'">
+            
+            <div class="table-responsive">
+      
+            <div style="margin: 60px;overflow-x:auto;">
+              <table class="table table-hover" >
+                <thead>
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell  *matHeaderCellDef > Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let row" >
+                         <button mat-button >Edit</button>
+                    </mat-cell>
+                  </ng-container>
                   <tr style="text-align: center;">
-                    <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>    
-                    <th>{{affectation.matricule}}</th>                    
-                    <td>{{affectation.type}}</td>
-                    <td>{{affectation.nomPrenom}}</td>
-                   <td>
-                      <button class="btn hor-grd btn-grd-info" id="{{affectation.id_affecter_v_chauffeur}}" (click)="updateAffectation(affectation.id_affecter_v_chauffeur)"><i
-                          class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
-                      <button class="btn hor-grd btn-grd-danger" id="{{affectation.id_affecter_v_chauffeur}}" (click)="supprimerAffectation(affectation.id_affecter_v_chauffeur)"><i
-                          class="icofont icofont-trash"></i>Supprimer</button>&nbsp;
-                    
-                    </td>
-                  </tr>      
-                </tbody>              
+                    <th scope="col">Numéro Affectation</th>
+                    <th scope="col">Matricule Voiture</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Chauffeur</th>
+
+                  </tr>
+                </thead>
+                <ng-container *ngIf="this.voituresNonAffectees.length===0">
+
+                  <tbody>
+                    <tr style="text-align: center;">
+                     
+                     <td colspan="6">
+                       Pas de données !
+                     </td>
+                    </tr>      
+                  </tbody>              
+                </ng-container>
+                <ng-container *ngIf="this.voituresNonAffectees.length>0">
+
+                  <tbody *ngFor="let affectation of this.voituresNonAffectees">
+                    <tr style="text-align: center;">
+                      <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>    
+                      <th>{{affectation.matricule}}</th>                    
+                      <td>{{affectation.type}}</td>
+                      <td>{{affectation.nomPrenom}}</td>                     
+                    </tr>      
+                  </tbody>              
+                </ng-container>
               </table>
             </div>
           </div>

@@ -22,13 +22,10 @@ export class GestionChauffeursComponent implements OnInit {
   ngOnInit() {
     this.getUsers(res => {
       this.chauffeursActif = res;
-
-      this.getUsers(result => {
-        this.chauffeursInactif = result;
-        // this.chauffeurs = [...this.chauffeurs].concat(result || []);
-      }, false);
-
     }, true);
+    this.getUsers(result => {
+      this.chauffeursInactif = result;
+    }, false);
   }
 
   async getUsers(callback, actif: boolean) {
@@ -56,10 +53,10 @@ export class GestionChauffeursComponent implements OnInit {
     modalRef.componentInstance.id = Number(id);
 
   }
-  async desactiver(id: string) {
+  async activerDesactiver(id: string, actif: boolean) {
 
     try {
-      const { erorer, msg } = await this.chefServ.disableChauffeurAccount(id) as any;
+      const { erorer, msg } = await this.chefServ.activeDesactiveChauffeurAccount(id, actif) as any;
 
       if (!erorer) {
         this.reloadComponent();
@@ -104,23 +101,6 @@ export class GestionChauffeursComponent implements OnInit {
     // modalRef.componentInstance.id = -1;
   }
 
-  async activer(id: string) {
-
-    try {
-      const { erorer, msg } = await this.chefServ.activeChauffeurAccount(id) as any;
-
-      if (!erorer) {
-        this.reloadComponent();
-      }
-      // const modelServ = this.modalService.open(LoginErrorComponent);
-      // modelServ.componentInstance.message = "Activation avec succés";
-
-    } catch (error) {
-      const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = error.message;
-    }
-
-  }
 
   showChauffeur(id: string, actif: boolean) {
     const modalRef = this.modalService.open(UpdateUserComponent);
