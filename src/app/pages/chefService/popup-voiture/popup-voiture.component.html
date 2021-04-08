@@ -27,7 +27,7 @@
         </div>
         <div class="form-group">
             <label for="exampleInputDMC">DMC</label>
-            <input type="text" class="form-control" id="exampleInputDMC" placeholder="DMC" name="dmc"
+            <input type="date" class="form-control" id="exampleInputDMC" placeholder="DMC" name="dmc"
                 [(ngModel)]="this.voiture.dmc" #dmc="ngModel" [ngClass]="{ 'is-invalid': ( dmc.invalid) && dmc.touched }"
                 required />
             <div *ngIf="(dmc.invalid) && dmc.touched" class="invalid-feedback">
@@ -83,8 +83,8 @@
         </div>
         <div class="form-group">
             <label for="exampleInputDMC">DMC</label>
-            <input type="text" class="form-control" id="exampleInputDMC" 
-            placeholder="DMC" name="dmc"
+            <input type="date" class="form-control" id="exampleInputDMC" 
+            placeholder="DMC" name="dmc" 
             required ngModel #dmc="ngModel"
 
                />
@@ -126,26 +126,26 @@
        
     </div>
     <div class="form-group">
-        <label for="exampleInputNP">Type</label>
+        <label for="exampleInputType">Type</label>
         <p>
             {{this.voiture.type}}
         </p>
     </div>
     <div class="form-group">
-        <label for="exampleInputTel">DMC</label>
+        <label for="exampleInputDMC">DMC</label>
         <p>
             {{this.voiture.dmc}}
         </p>
     </div>
     <div class="form-group">
-        <label for="exampleInputEmail1">Puissance</label>
+        <label for="exampleInputPuissance">Puissance</label>
         <p>
             {{this.voiture.puissance}}
         </p>
     </div>
     
     <div class="form-group">
-        <label for="exampleInputDNS">Service</label>
+        <label for="exampleInputService">Service</label>
         <p>
             {{this.voiture.service}}
         </p>
