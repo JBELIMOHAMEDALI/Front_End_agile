@@ -1,0 +1,120 @@
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>page de connexion</title>
+    <!--Made with love by Mutiullah Samim -->
+
+    <!--Bootsrap 4 CDN-->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+
+    <!--Fontawesome CDN-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+
+    <!--Custom styles-->
+  </head>
+  <body>
+    <app-loginavbar></app-loginavbar>
+    <div class="container">
+      <div class="d-flex justify-content-center h-100">
+        <div class="card">
+          <span><img src="" class="ico" for="g" /></span>
+          <div class="card-header" id="g">
+            <h3>Réinitialiser le mot de passe</h3>
+            <div class="d-flex justify-content-end social_icon"></div>
+          </div>
+          <div class="card-body">
+            <form class="form" [formGroup]="loginForm">
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="fas fa-key"></i
+                  ></span>
+                </div>
+                <input
+                  type="password"
+                  class="form-control"
+                  required
+                  placeholder="Mot de Passe"
+                  name="password"
+                  #password
+                  formControlName="password"
+                />
+              </div>
+              <small
+                *ngIf="
+                  loginForm.controls.password.invalid &&
+                  loginForm.controls.password.touched
+                "
+                class="text-danger"
+              >
+                6 caractéres minimum !
+              </small>
+              <!-- <small *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched " class="text-danger" >Champ obligatoire format *****@mail.com</small> -->
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="fas fa-key"></i
+                  ></span>
+                </div>
+                <input
+                  type="password"
+                  class="form-control"
+                  required
+                  placeholder="Retaper le mot de passe"
+                  name="confirmPass"
+                  #confirmPass
+                  formControlName="confirmPass"
+                />
+              </div>
+              <small
+                *ngIf="
+                  (loginForm.controls.confirmPass.invalid &&
+                  loginForm.controls.confirmPass.touched)&&
+                  this.verifPass(password,confirmPass)===false
+                "
+                class="text-danger"
+              >
+                Mot de passe non compatible ! 
+              </small>
+             
+              <div class="form-group">
+                <button
+                  class="btn float-right login_btn btn-sm"
+                  [disabled]="loginForm.invalid||this.verifPass(password,confirmPass)==false"
+                  type="submit"
+                  (click)="this.connect()"
+                >Connexion</button>
+              </div>
+            </form>
+          </div>
+          <!-- <div class="card-footer">
+            <div class="d-flex justify-content-center">
+              <a  *ngIf="this.verifUser()!='administrateur'" style="color: white; font-weight: bold" [routerLink]="['/forgotPass',this.getUserid()]"
+                >Mot de passe oublié?
+              </a>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
