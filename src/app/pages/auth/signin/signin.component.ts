@@ -172,6 +172,7 @@ export class SigninComponent implements OnInit {
   }
 
 //this is msg from dali
+//sbe7 nour 
 
   //localstorage=type,id
   //khouloud@gmail.com
