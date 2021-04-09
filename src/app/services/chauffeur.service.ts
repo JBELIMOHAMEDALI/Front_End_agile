@@ -7,7 +7,7 @@ import { Chauffeur } from "../models/chauffeur";
 })
 export class ChauffeurService {
 
-  constructor(private httpC: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   addChauffeur(chauffeur: Chauffeur) {
     const { matricule, nomPrenom, email, tel, dns, region } = chauffeur;
@@ -22,7 +22,7 @@ export class ChauffeurService {
 
     return new Promise((resolve, reject) => {
 
-      this.httpC.post('http://127.0.0.1/pfe_api/chauffeur/add_chauffeur', param1)
+      this.httpClient.post('http://127.0.0.1/pfe_api/chauffeur/add_chauffeur', param1)
         .forEach(data =>
           resolve(data)
         ).catch((err) => {
@@ -49,7 +49,7 @@ export class ChauffeurService {
 
     return new Promise((resolve, reject) => {
 
-      this.httpC.post('http://127.0.0.1/pfe_api/chauffeur/update_chauffeur', param1)
+      this.httpClient.post('http://127.0.0.1/pfe_api/chauffeur/update_chauffeur', param1)
         .forEach(data =>
           resolve(data)
         ).catch((err) => {

@@ -21,11 +21,9 @@ export class PopupAffectationComponent implements OnInit {
 
   voitureList = new Array<Voiture>();
   chauffeurList = new Array<Chauffeur>();
-  newid_chauffeur:string;
-  newid_voiture:string;
+
 
   constructor(public activeModal: NgbActiveModal,
-    private voitureService: VoitureService,
     private modalService: NgbModal,
     private router: Router,
     private affectVoitureService: AffectVoitureService) { }
@@ -33,11 +31,10 @@ export class PopupAffectationComponent implements OnInit {
   async ngOnInit() {
 
     if (this.id != -1) {
-      
+
       this.voiture = await this.voiture;
       this.chauffeur = await this.chauffeur;
-      this.newid_chauffeur=this.chauffeur.id_chauffeur;
-      this.newid_voiture=this.voiture.id_voiture;
+
 
     }
 
@@ -48,9 +45,9 @@ export class PopupAffectationComponent implements OnInit {
     this.loadVoituresNonAffectees(voitures => {
       this.voitureList = voitures;
     });
-
-
   }
+
+
   async getOneAffectationbyid(id: string, callback) {
     try {
 
@@ -93,10 +90,10 @@ export class PopupAffectationComponent implements OnInit {
 
 
   async addAffectation(form: NgForm) {
-    try {
-      const payload={id_voiture: this.newid_voiture,id_chauffeur: this.newid_chauffeur}
 
-      const { msg, erorer } = await this.affectVoitureService.addAffectaion(payload) as any || [];
+    try {
+
+      const { msg, erorer } = await this.affectVoitureService.addAffectaion(form.value) as any || [];
       if (erorer) {
         const modelServ = this.modalService.open(LoginErrorComponent);
         modelServ.componentInstance.message = "Affectation non effectué !";
@@ -110,8 +107,11 @@ export class PopupAffectationComponent implements OnInit {
 
 
   async updateAffectation(form: NgForm) {
+
+    const { voitureopt, chauffeuropt } = form.value;
+
     try {
-      const payload={id_voiture: this.newid_voiture,id_chauffeur: this.newid_chauffeur,id_affectation:this.id}
+      const payload = { id_voiture: voitureopt, id_chauffeur: chauffeuropt, id_affectation: this.id }
       const { msg, erorer } = await this.affectVoitureService.updateAffectaion(payload) as any || [];
       if (erorer) {
         const modelServ = this.modalService.open(LoginErrorComponent);
@@ -156,16 +156,7 @@ export class PopupAffectationComponent implements OnInit {
 
   }
 
-onChangeChauffeur(id_chauffeur:string){
-  this.newid_chauffeur=id_chauffeur;
- 
-} 
 
-onChangeVoiture(id_voiture:string){
-    this.newid_voiture=id_voiture;
-
-  
-} 
 
 
 }

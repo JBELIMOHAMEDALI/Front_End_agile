@@ -14,7 +14,8 @@ import { Router } from "@angular/router";
   styleUrls: ['./gestion-chauffeurs.component.scss']
 })
 export class GestionChauffeursComponent implements OnInit {
-  constructor(private userServ: UserService, private chefServ: ChefService, private modalService: NgbModal, private router: Router) { }
+  constructor(private userServ: UserService, private chefServ: ChefService,
+    private modalService: NgbModal, private router: Router) { }
   chauffeurs: Chauffeur[] = [];
   chauffeursActif: Chauffeur[] = [];
   chauffeursInactif: Chauffeur[] = [];

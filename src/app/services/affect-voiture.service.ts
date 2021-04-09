@@ -9,11 +9,11 @@ export class AffectVoitureService {
   constructor(private httpClient: HttpClient) { }
 
   addAffectaion(affectation) {
-    const { id_voiture, id_chauffeur } = affectation;
+    const { voitureopt, chauffeuropt } = affectation;
 
     let param1 = new HttpParams;
-    param1 = param1.set('id_voiture', id_voiture);
-    param1 = param1.set('id_chauffeur', id_chauffeur);
+    param1 = param1.set('id_voiture', voitureopt);
+    param1 = param1.set('id_chauffeur', chauffeuropt);
 
 
     return new Promise((resolve, reject) => {
@@ -31,7 +31,7 @@ export class AffectVoitureService {
 
   updateAffectaion(affectation) {
 
-    const { id_voiture, id_chauffeur,id_affectation } = affectation;
+    const { id_voiture, id_chauffeur, id_affectation } = affectation;
 
     let param1 = new HttpParams;
     param1 = param1.set('id_voiture', id_voiture);

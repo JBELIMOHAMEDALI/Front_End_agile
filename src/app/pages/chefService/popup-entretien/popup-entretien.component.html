@@ -1,0 +1,120 @@
+<ng-container>
+<div class="modal-header">
+    <h4 class="modal-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form *ngIf="this.id>0&&this.entretien&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate> 
+<div  class="modal-body" >
+        <div class="form-group">
+            <label for="exampleInputDate">Date</label>
+            <input type="date" class="form-control" id="exampleInputDate" name="date"
+                [(ngModel)]="this.entretien.date" #date="ngModel"
+                [ngClass]="{ 'is-invalid': ( date.invalid) && date.touched }" required />
+            <div *ngIf="(date.invalid) && date.touched" class="invalid-feedback">
+                <div *ngIf="date.errors.required">date Obligatoire !!</div>
+            </div>
+        </div>      
+        
+        <div class="form-group">
+            <label for="exampleInputDesc">Description</label>
+            <textarea type="text" class="form-control" id="exampleInputDesc" name="desc"
+                [(ngModel)]="this.entretien.description" #desc="ngModel"
+                [ngClass]="{ 'is-invalid': ( desc.invalid) && desc.touched }" required>
+            </textarea>
+            <div *ngIf="(desc.invalid) && desc.touched" class="invalid-feedback">
+                <div *ngIf="desc.errors.required">Description Obligatoire !!</div>
+            </div>
+        </div>  
+
+        <select [(ngModel)]="entretien.id_voiture" name="voitureopt" #voitureopt="ngModel" class="form-control" required>
+            <option disabled [value]="null">Séléctionner une voiture</option>
+            <ng-container *ngFor="let voiture of this.voitureList;let i=index;">
+
+                <option [value]="voiture.id_voiture">
+                    {{voiture.matricule+' ** '+voiture.type}} 
+                </option>
+            </ng-container>
+
+        </select>   
+        
+
+        <div class="modal-footer">
+
+            <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Modifier</button>
+            <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+        </div>
+    </div>
+</form> 
+<form *ngIf="this.id===-1&&!this.entretien" name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
+
+    <div  class="modal-body" >
+        
+        
+        <div class="form-group">
+            <label for="exampleInputDate">Date</label>
+            <input type="date" class="form-control" 
+            id="exampleInputDate" name="date"
+            required ngModel #date="ngModel"/>
+           
+        </div>
+
+        <select  ngModel={{-1}} #voitureopt="ngModel" name="voitureopt" class="form-control" required>
+            <option disabled [value]="-1">Séléctionner une voiture</option>
+            <ng-container *ngFor="let voiture of this.voitureList;let i=index;">
+
+                <option [value]="voiture.id_voiture">
+                    {{voiture.matricule+' ** '+voiture.type}} 
+                </option>
+            </ng-container>
+
+        </select>  
+
+
+        <div class="form-group">
+            <label for="exampleInputDesc">Description</label>
+            <textarea class="form-control" id="exampleInputDesc" 
+            placeholder="Description" name="desc" 
+            required ngModel #desc="ngModel">
+        </textarea>
+            
+        </div>
+       
+        
+       
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" >Confirmer</button>
+            <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+        </div>
+    </div>
+</form>
+
+<div class="modal-body" *ngIf="this.show&&this.entretien">
+    <div class="form-group">
+        <label for="exampleInputMat">Matricule</label>
+        <p>
+            {{this.entretien.matricule}}
+        </p>
+       
+    </div>
+    <div class="form-group">
+        <label for="exampleInputDate">Date</label>
+        <p>
+            {{this.entretien.date}}
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputDesc">Description</label>
+        <p>
+            {{this.entretien.description}}
+        </p>
+    </div>
+    
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+    </div>
+</div>
+</ng-container>
+

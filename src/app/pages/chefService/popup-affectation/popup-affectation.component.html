@@ -13,8 +13,8 @@
 
         <label for="job" class="label-radio">Chauffeurs :</label>
 
-        <select [value]="null" name="chauffeuropt" class="form-control" required (change)="onChangeChauffeur($event.target.value)">
-            <option disabled [value]="null">Séléctionner un chauffeur</option>
+        <select ngModel={{-1}} name="chauffeuropt" #chauffeuropt="ngModel" class="form-control" required >
+            <option disabled [value]="-1">Séléctionner un chauffeur</option>
 
             <option *ngFor="let chauffeur of this.chauffeurList;let i=index;" [value]="chauffeur.id_chauffeur">
                 {{chauffeur.nomPrenom}} 
@@ -28,8 +28,8 @@
     </div> -->
     <label for="job" class="label-radio">Voitures :</label>
 
-        <select [value]="null" name="voitureopt"  class="form-control" required (change)="onChangeVoiture($event.target.value)">
-            <option disabled [value]="null">Séléctionner une voiture</option>
+        <select name="voitureopt" ngModel={{-1}} name="voitureopt" #voitureopt="ngModel" class="form-control" required>
+            <option disabled [value]="-1">Séléctionner une voiture</option>
             <ng-container *ngFor="let voiture of this.voitureList;let i=index;">
 
                 <option [value]="voiture.id_voiture">
@@ -44,16 +44,13 @@
           Séléctionner une voiture !      
           
         </div> -->
-      
-
-
 </ng-container>
 
 
 <ng-container *ngIf="this.voiture&&this.chauffeur">
 
     <label for="job" class="label-radio">Chauffeurs :</label>
-<select [value]="this.chauffeur.id_chauffeur" name="id_chauffeur" class="form-control" required (change)="onChangeChauffeur($event.target.value)" >
+<select [(ngModel)]="this.chauffeur.id_chauffeur" name="chauffeuropt" #chauffeuropt="ngModel" class="form-control" required >
     <option disabled [value]="this.chauffeur.id_chauffeur">{{this.chauffeur.nomPrenom}}</option>
 
     <ng-container *ngFor="let chauffeur of this.chauffeurList;let i=index;">
@@ -75,7 +72,7 @@
 
 
 <label for="job" class="label-radio">Voitures :</label>
-<select [value]="this.voiture.id_voiture" name="id_voiture" class="form-control" required (change)="onChangeVoiture($event.target.value)">
+<select [(ngModel)]="this.voiture.id_voiture" name="voitureopt" #voitureopt="ngModel" class="form-control" required>
     <option disabled [value]="this.voiture.id_voiture">{{this.voiture.matricule}}</option>
 
     <ng-container *ngFor="let voiture of this.voitureList;let i=index;"> 

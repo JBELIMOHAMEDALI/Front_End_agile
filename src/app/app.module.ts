@@ -36,6 +36,7 @@ import { AffectvoitureComponent } from './pages/chefService/affectvoiture/affect
 import { AffectmissionComponent } from './pages/chefService/affectmission/affectmission.component';
 import { PopupVoitureComponent } from './pages/chefService/popup-voiture/popup-voiture.component';
 import { PopupAffectationComponent } from './pages/chefService/popup-affectation/popup-affectation.component';
+import { PopupEntretienComponent } from './pages/chefService/popup-entretien/popup-entretien.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { PopupAffectationComponent } from './pages/chefService/popup-affectation
     AffectmissionComponent,
     PopupVoitureComponent,
     PopupAffectationComponent,
+    PopupEntretienComponent,
 
 
   ],
@@ -85,7 +87,8 @@ import { PopupAffectationComponent } from './pages/chefService/popup-affectation
     //SigninComponent,
     //BasicLoginComponent,
   ],
-  entryComponents: [PopupComponent, UpdateUserComponent, LoginErrorComponent, PopupVoitureComponent, PopupAffectationComponent],
+  entryComponents: [PopupComponent, UpdateUserComponent, LoginErrorComponent,
+    PopupVoitureComponent, PopupAffectationComponent, PopupEntretienComponent],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent]

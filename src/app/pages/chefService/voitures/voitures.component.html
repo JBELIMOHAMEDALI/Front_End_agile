@@ -37,12 +37,15 @@
     </div>
   </div>
     <!-- Page-header end -->
-    <button class="btn hor-grd btn-grd-primary" (click)="Ajouter()"><i
-      class="icofont icofont-ui-add"></i>Ajouter</button>
+   
+    
     <div class="row">
       <div class="col-sm-12" >
-        <app-card [title]="'Gestion Des Voitures activées'" [classHeader]="true" [blockClass]="'table-border-style'">
-          
+        <app-card [title]="'Gestion Des Voitures actives'" [classHeader]="true" [blockClass]="'table-border-style'">
+          <div style="float: right ;margin-right: 30px;">
+            <button class="btn hor-grd btn-grd-primary"  (click)="Ajouter()"><i
+            class="icofont icofont-ui-add"></i>Ajouter</button>
+          </div>
           <div class="table-responsive">
     
           <div style="margin: 60px;overflow-x:auto;">
@@ -102,7 +105,7 @@
       </div>
 
       <div class="col-sm-12" >
-        <app-card [title]="'Gestion Des Voitures Désactivées'" [classHeader]="true" [blockClass]="'table-border-style'">
+        <app-card [title]="'Gestion Des Voitures Désactives'" [classHeader]="true" [blockClass]="'table-border-style'">
           
           <div class="table-responsive">
     

@@ -30,7 +30,7 @@ export class PopupVoitureComponent implements OnInit {
 
 
   ngOnInit() {
-    if (this.id != -1 || this.show)
+    if (this.id != -1)
       this.getOneVoiture(this.actif);
 
 
