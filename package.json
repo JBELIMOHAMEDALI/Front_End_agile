@@ -40,6 +40,7 @@
     "ng2-google-charts": "^3.4.0",
     "ng2-toasty": "^4.0.3",
     "ngx-perfect-scrollbar": "^5.3.5",
+    "ngx-print": "^1.2.0-beta.5",
     "ngx-toastr": "^11.3.3",
     "rxjs": "^6.5.2",
     "rxjs-compat": "^6.0.0-rc.0",

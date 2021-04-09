@@ -37,7 +37,7 @@ import { AffectmissionComponent } from './pages/chefService/affectmission/affect
 import { PopupVoitureComponent } from './pages/chefService/popup-voiture/popup-voiture.component';
 import { PopupAffectationComponent } from './pages/chefService/popup-affectation/popup-affectation.component';
 import { PopupEntretienComponent } from './pages/chefService/popup-entretien/popup-entretien.component';
-
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
@@ -86,6 +86,7 @@ import { PopupEntretienComponent } from './pages/chefService/popup-entretien/pop
     //BreadcrumbsComponent
     //SigninComponent,
     //BasicLoginComponent,
+    NgxPrintModule
   ],
   entryComponents: [PopupComponent, UpdateUserComponent, LoginErrorComponent,
     PopupVoitureComponent, PopupAffectationComponent, PopupEntretienComponent],
