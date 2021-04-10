@@ -12,7 +12,6 @@ import { PopupAffectationComponent } from '../popup-affectation/popup-affectatio
 })
 export class AffectvoitureComponent implements OnInit {
   voituresAffectes: [] = [];
-  voituresNonAffectees: [] = [];
 
   constructor(private affectService: AffectVoitureService,
     private modalService: NgbModal,
@@ -22,10 +21,8 @@ export class AffectvoitureComponent implements OnInit {
   ngOnInit() {
     this.getAllAffectations(res => {
       this.voituresAffectes = res;
-    }, '1');
-    this.getAllAffectations(result => {
-      this.voituresNonAffectees = result;
-    }, '0');
+    });
+    
   }
 
   Affecter() {
@@ -34,9 +31,9 @@ export class AffectvoitureComponent implements OnInit {
   }
 
 
-  async getAllAffectations(callback, affect: string) {
+  async getAllAffectations(callback) {
     try {
-      const { msg, erorer } = await this.affectService.getAllAffectations(affect) as any || [];
+      const { msg, erorer } = await this.affectService.getAllAffectations('1') as any || [];
       if (erorer)
         // this.voituresAffectes = [];
         callback([]);

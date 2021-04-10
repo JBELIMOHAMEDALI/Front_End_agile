@@ -9,27 +9,28 @@ import { ChefService } from "../../../services/chef-service.service";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-gestion-chauffeurs',
-  templateUrl: './gestion-chauffeurs.component.html',
-  styleUrls: ['./gestion-chauffeurs.component.scss']
+  selector: 'app-chauffeursinactives',
+  templateUrl: './chauffeursinactives.component.html',
+  styleUrls: ['./chauffeursinactives.component.scss']
 })
-export class GestionChauffeursComponent implements OnInit {
+export class ChauffeursinactivesComponent implements OnInit {
   constructor(private userServ: UserService, private chefServ: ChefService,
     private modalService: NgbModal, private router: Router) { }
 
-  chauffeursActif: Chauffeur[] = [];
+  chauffeursInactif: Chauffeur[] = [];
 
   ngOnInit() {
-    this.getUsers(res => {
-      this.chauffeursActif = res;
+    
+    
+    this.getUsers(result => {
+      this.chauffeursInactif = result;
     });
-   
   }
 
   async getUsers(callback) {
 
     try {
-      const { msg, erorer } = await this.userServ.getAllUsers(true) as any || [];
+      const { msg, erorer } = await this.userServ.getAllUsers(false) as any || [];
       if (erorer) {
 
         callback([]);
@@ -45,16 +46,11 @@ export class GestionChauffeursComponent implements OnInit {
 
   }
 
-  async update(id: string) {
-    const modalRef = this.modalService.open(UpdateUserComponent);
-    modalRef.componentInstance.title = 'Modifier Un Chauffeur';
-    modalRef.componentInstance.id = Number(id);
-
-  }
+ 
   async activerDesactiver(id: string) {
 
     try {
-      const { erorer, msg } = await this.chefServ.activeDesactiveChauffeurAccount(id, true) as any;
+      const { erorer, msg } = await this.chefServ.activeDesactiveChauffeurAccount(id, false) as any;
 
       if (!erorer) {
         this.reloadComponent();
@@ -76,6 +72,9 @@ export class GestionChauffeursComponent implements OnInit {
     });
   }
 
+
+
+
   decryptData(data) {
 
     try {
@@ -89,22 +88,15 @@ export class GestionChauffeursComponent implements OnInit {
     }
   }
 
-
-  Ajouter() {
-    const modalRef = this.modalService.open(UpdateUserComponent);
-    modalRef.componentInstance.title = 'Ajouter Un Chauffeur';
-    // modalRef.componentInstance.id = -1;
-  }
-
-
-  showChauffeur(id: string, actif: boolean) {
+  showChauffeur(id: string) {
     const modalRef = this.modalService.open(UpdateUserComponent);
     modalRef.componentInstance.title = 'Affichage Chauffeur';
     modalRef.componentInstance.id = Number(id);
     modalRef.componentInstance.show = true;
-    modalRef.componentInstance.actif = actif;
+    modalRef.componentInstance.actif = false;
 
   }
 
 }
+
 

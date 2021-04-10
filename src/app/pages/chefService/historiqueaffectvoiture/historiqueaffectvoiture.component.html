@@ -1,4 +1,4 @@
-<ng-container *ngIf="this.voituresAffectes">
+<ng-container *ngIf="this.voituresNonAffectees">
     <div class="">
       
       <!-- Page-header start -->
@@ -11,10 +11,10 @@
               </span>
               <div class="d-inline">
                 <span class="d-block">
-                  <h4>Affectations Chauffeur Voiture</h4>
+                  <h4>Historique Affectations Chauffeur Voiture</h4>
                 </span>
                 <span>                
-                  Dans cette page le chef service a l'accés total pour gérer et controler toutes les affectations des chauffeurs aux voitures !
+                  Dans cette page le chef service peut consulter l'historique des affectations des chauffeurs aux voitures !
                 </span>
               </div>
             </div>
@@ -28,7 +28,7 @@
                   </a>
                 </li>
                 <li class="breadcrumb-item">
-                  <a>Affectations Chauffeur Voiture</a>
+                  <a>Historique Affectations Chauffeur Voiture</a>
                 </li>
               </ul>
             </div>
@@ -40,12 +40,11 @@
 
       
       <div class="row">
+       
+
         <div class="col-sm-12" >
-          <app-card [title]="'Affectations Chauffeur Voiture'" [classHeader]="true" [blockClass]="'table-border-style'">
-            <div style="float: right ;margin-right: 30px;">
-              <button class="btn hor-grd btn-grd-primary" (click)="Affecter()"><i
-              class="icofont icofont-ui-add"></i>Affectation</button>
-            </div>
+          <app-card [title]="'Historique Des Affectations Chauffeur Voiture'" [classHeader]="true" [blockClass]="'table-border-style'">
+            
             <div class="table-responsive">
       
             <div style="margin: 60px;overflow-x:auto;">
@@ -62,36 +61,28 @@
                     <th scope="col">Matricule Voiture</th>
                     <th scope="col">Type</th>
                     <th scope="col">Chauffeur</th>
-                    <th scope="col">Actions</th>
 
                   </tr>
                 </thead>
-                <ng-container *ngIf="this.voituresAffectes.length===0">
+                <ng-container *ngIf="this.voituresNonAffectees.length===0">
 
                   <tbody>
                     <tr style="text-align: center;">
                      
                      <td colspan="6">
-                       Pas d'affectations !
+                       Pas de données !
                      </td>
                     </tr>      
                   </tbody>              
                 </ng-container>
-                <ng-container *ngIf="this.voituresAffectes.length>0">
+                <ng-container *ngIf="this.voituresNonAffectees.length>0">
 
-                  <tbody *ngFor="let affectation of this.voituresAffectes">
+                  <tbody *ngFor="let affectation of this.voituresNonAffectees">
                     <tr style="text-align: center;">
                       <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>    
                       <th>{{affectation.matricule}}</th>                    
                       <td>{{affectation.type}}</td>
-                      <td>{{affectation.nomPrenom}}</td>
-                     <td>
-                        <button class="btn hor-grd btn-grd-info" id="{{affectation.id_affecter_v_chauffeur}}" (click)="updateAffectation({'id_affectation':affectation.id_affecter_v_chauffeur,'id_chauffeur':affectation.id_chauffeur,'id_voiture':affectation.id_voiture})"><i
-                            class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
-                        <button class="btn hor-grd btn-grd-danger" id="{{affectation.id_affecter_v_chauffeur}}" (click)="activerDesactiverAffectation(affectation.id_affecter_v_chauffeur)"><i
-                            class="icofont icofont-trash"></i>Supprimer</button>&nbsp;
-                      
-                      </td>
+                      <td>{{affectation.nomPrenom}}</td>                     
                     </tr>      
                   </tbody>              
                 </ng-container>
@@ -103,6 +94,11 @@
 
           </app-card>
         </div>
-
-      </div>
+  
+      
+  
+        
+    
+       
+        </div>
       </ng-container>

@@ -1,0 +1,110 @@
+<ng-container *ngIf="this.voitureListInactif">
+    <div class="">
+      
+      <!-- Page-header start -->
+      <div class="page-header card">
+        <div class="row align-items-end">
+          <div class="col-lg-8">
+            <div class="page-header-title">
+              <span>
+                <i class="icofont icofont-car-alt-1 bg-c-green card1-icon"></i>
+              </span>
+              <div class="d-inline">
+                <span class="d-block">
+                  <h4>Voitures inactives</h4>
+                </span>
+                <span>                
+                  Dans cette page le chef service peut accéder et controler toutes les voitures inactives !
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a [routerLink]="'/'">
+                    <i class="icofont icofont-car-alt-1"></i>
+                  </a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a>Voitures Inactives</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- Page-header end -->
+     
+      
+      <div class="row">
+        
+  
+        <div class="col-sm-12" >
+          <app-card [title]="'Voitures inactives'" [classHeader]="true" [blockClass]="'table-border-style'">
+            
+            <div class="table-responsive">
+      
+            <div style="margin: 60px;overflow-x:auto;">
+              <table class="table table-hover" >
+                <thead>
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell  *matHeaderCellDef > Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let row" >
+                         <button mat-button >Edit</button>
+                    </mat-cell>
+                  </ng-container>
+                  <tr style="text-align: center;">
+                    <th scope="col">Matricule</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">DMC</th>
+                    <th scope="col">Puissance</th>
+                    <th scope="col">Service</th>
+                    <th scope="col">Actions</th>
+                   
+                  </tr>
+                </thead>
+                <ng-container *ngIf="this.voitureListInactif.length>0">
+  
+                <tbody *ngFor="let voiture of this.voitureListInactif">
+                  <tr (dblclick)="showVoiture(voiture.id_voiture)" style="text-align: center;">
+                    <th scope="row">{{voiture.matricule}}</th>            
+                    <td>{{voiture.type}}</td>
+                    <td>{{voiture.dmc}}</td>
+                    <td>{{voiture.puissance}}</td>
+                    <td>{{voiture.service}}</td>
+                    <td>
+                     
+                      <button class="btn hor-grd btn-grd-success" id="{{voiture.id_voiture}}" (click)="activerDesactiver(voiture.id_voiture)"><i
+                          class="icofont icofont-hand-up"></i>Activer</button>&nbsp;
+                    
+                    </td>
+                  </tr>
+      
+      
+                </tbody>  
+                </ng-container> 
+                <ng-container *ngIf="this.voitureListInactif.length===0">
+                  <tbody >
+                    <tr style="text-align: center;">
+                    <td colspan="6">
+                      Pas de voitures inactives!
+                    </td>
+                    </tr>
+        
+        
+                  </tbody>  
+                </ng-container>              
+              </table>
+            </div>
+          </div>
+          </app-card>
+        </div>
+  
+        
+    
+       
+        </div>
+      </ng-container>

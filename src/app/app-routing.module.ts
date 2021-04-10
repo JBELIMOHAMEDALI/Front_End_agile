@@ -21,7 +21,9 @@ import { MissionsComponent } from "./pages/chauffeur/missions/missions.component
 import * as CryptoJS from 'crypto-js';
 import { AffectvoitureComponent } from "./pages/chefService/affectvoiture/affectvoiture.component";
 import { AffectmissionComponent } from "./pages/chefService/affectmission/affectmission.component";
-
+import { HistoriqueaffectvoitureComponent } from './pages/chefService/historiqueaffectvoiture/historiqueaffectvoiture.component';
+import { VoituresinactifsComponent } from './pages/chefService/voituresinactifs/voituresinactifs.component';
+import { ChauffeursinactivesComponent } from './pages/chefService/chauffeursinactives/chauffeursinactives.component';
 
 
 
@@ -85,8 +87,11 @@ const routes: Routes = [
         children: [
           { path: '', component: DashboardChefServiceComponent },
           { path: 'voitures', component: VoituresComponent },
+          { path: 'voituresInactives', component: VoituresinactifsComponent },
           { path: 'chauffeur', component: GestionChauffeursComponent },
+          { path: 'chauffeursInactifs', component: ChauffeursinactivesComponent },
           { path: 'affectV', component: AffectvoitureComponent },
+          { path: 'historiqueAffectV', component: HistoriqueaffectvoitureComponent },
           { path: 'affectM', component: AffectmissionComponent },
           { path: 'entretien', component: GestionentretiensComponent },
           { path: 'profil', component: ProfileComponent },

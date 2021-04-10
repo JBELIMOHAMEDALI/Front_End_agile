@@ -38,6 +38,9 @@ import { PopupVoitureComponent } from './pages/chefService/popup-voiture/popup-v
 import { PopupAffectationComponent } from './pages/chefService/popup-affectation/popup-affectation.component';
 import { PopupEntretienComponent } from './pages/chefService/popup-entretien/popup-entretien.component';
 import { NgxPrintModule } from 'ngx-print';
+import { HistoriqueaffectvoitureComponent } from './pages/chefService/historiqueaffectvoiture/historiqueaffectvoiture.component';
+import { VoituresinactifsComponent } from './pages/chefService/voituresinactifs/voituresinactifs.component';
+import { ChauffeursinactivesComponent } from './pages/chefService/chauffeursinactives/chauffeursinactives.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +73,9 @@ import { NgxPrintModule } from 'ngx-print';
     PopupVoitureComponent,
     PopupAffectationComponent,
     PopupEntretienComponent,
+    HistoriqueaffectvoitureComponent,
+    VoituresinactifsComponent,
+    ChauffeursinactivesComponent,
 
 
   ],

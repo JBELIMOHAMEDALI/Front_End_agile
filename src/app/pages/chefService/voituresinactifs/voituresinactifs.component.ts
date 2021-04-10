@@ -11,38 +11,29 @@ import { Router } from "@angular/router";
 import { PopupVoitureComponent } from "../popup-voiture/popup-voiture.component";
 
 @Component({
-  selector: 'app-voitures',
-  templateUrl: './voitures.component.html',
-  styleUrls: ['./voitures.component.scss']
+  selector: 'app-voituresinactifs',
+  templateUrl: './voituresinactifs.component.html',
+  styleUrls: ['./voituresinactifs.component.scss']
 })
-export class VoituresComponent implements OnInit {
+export class VoituresinactifsComponent implements OnInit {
   constructor(private voitureService: VoitureService, private userServ: UserService, private chefServ: ChefService,
     private modalService: NgbModal, private router: Router) { }
-  voitureListActif: Voiture[] = [];
-
+  voitureListInactif: Voiture[] = [];
 
   async ngOnInit() {
-    this.getVoitures(res => {
-      this.voitureListActif = res;
+   
+    this.getVoitures(result => {
+      this.voitureListInactif = result;
+
     });
-    
-    
 
   }
 
-
-
-  update(id: string) {
-    const modalRef = this.modalService.open(PopupVoitureComponent);
-    modalRef.componentInstance.titel = 'Modifier Une Voiture';
-    modalRef.componentInstance.id = Number(id);
-
-  }
 
   async activerDesactiver(id: string) {
 
     try {
-      const { erorer, msg } = await this.voitureService.activeDisactiveVoiture(id, false) as any;
+      const { erorer, msg } = await this.voitureService.activeDisactiveVoiture(id, true) as any;
 
       if (!erorer) {
         this.reloadComponent();
@@ -81,25 +72,20 @@ export class VoituresComponent implements OnInit {
   }
 
 
-  Ajouter() {
-    const modalRef = this.modalService.open(PopupVoitureComponent);
-    modalRef.componentInstance.title = 'Ajouter une voiture';
-    modalRef.componentInstance.id = -1;
-  }
-
+  
 
   showVoiture(id: string) {
     const modalRef = this.modalService.open(PopupVoitureComponent);
     modalRef.componentInstance.title = 'Affichage Voiture';
     modalRef.componentInstance.id = Number(id);
     modalRef.componentInstance.show = true;
-    modalRef.componentInstance.actif = true;
+    modalRef.componentInstance.actif = false;
 
   }
 
   async getVoitures(callback) {
     try {
-      const { msg, erorer } = await this.voitureService.getAllVoitures(true) as any || [];
+      const { msg, erorer } = await this.voitureService.getAllVoitures(false) as any || [];
       if (erorer) {
 
         callback([]);
@@ -117,5 +103,6 @@ export class VoituresComponent implements OnInit {
 
 
 }
+
 
 

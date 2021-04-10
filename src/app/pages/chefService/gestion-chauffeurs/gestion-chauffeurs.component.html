@@ -1,4 +1,4 @@
-<ng-container *ngIf="this.chauffeurs">
+<ng-container *ngIf="this.chauffeursActif">
 <div class="">
   
   <!-- Page-header start -->
@@ -19,11 +19,13 @@
           </div>
         </div>
       </div>
+
+      
       <div class="col-lg-4">
         <div class="page-header-breadcrumb">
           <ul class="breadcrumb">
             <li class="breadcrumb-item">
-              <a [routerLink]="['/dashboard/chefService/affectM']">
+              <a [routerLink]="['/dashboard/chefService/chauffeur']">
                 <i class="icofont icofont-home"></i>
               </a>
             </li>
@@ -33,6 +35,8 @@
           </ul>
         </div>
       </div>
+
+
     </div>
   </div>
 </div>
@@ -43,7 +47,7 @@
       <app-card [title]="'Gestion Des Chauffeurs'" [classHeader]="true" [blockClass]="'table-border-style'">
         <div style="float: right ;margin-right: 30px;">
           <button class="btn hor-grd btn-grd-primary"  (click)="Ajouter()"><i
-          class="icofont icofont-ui-add"></i>Ajouter</button>
+          class="icofont icofont-ui-add"></i>Nouveau Chauffeur</button>
         </div>
         <div class="table-responsive">
   
@@ -52,7 +56,7 @@
           <table class="table table-hover" >
             <thead>
               <ng-container matColumnDef="actions">
-                <mat-header-cell  *matHeaderCellDef > Actions </mat-header-cell>
+                <mat-header-cell  *matHeaderCellDef>Actions</mat-header-cell>
                 <mat-cell *matCellDef="let row" >
                      <button mat-button >Edit</button>
                 </mat-cell>
@@ -100,69 +104,14 @@
          
           </table>
         </div>
+
+
+
         </div>
       </app-card>
     </div>
 
 
-    <div class="col-sm-12" *ngIf="this.chauffeursInactif.length>0">
-      <app-card  [classHeader]="true" [blockClass]="'table-border-style'">
-        
-        <div class="table-responsive">
-  
-        <div style="margin: 60px;overflow-x:auto;">
-          <table class="table table-hover" >
-            <thead>
-              <ng-container matColumnDef="actions">
-                <mat-header-cell  *matHeaderCellDef > Actions </mat-header-cell>
-                <mat-cell *matCellDef="let row" >
-                     <button mat-button >Edit</button>
-                </mat-cell>
-              </ng-container>
-              <tr style="text-align: center;">
-                <th scope="col">Matricule</th>
-                <th scope="col">Nom et Prénom</th>
-                <th scope="col">Numéro de Télephone</th>
-                <th scope="col">Email</th>
-                <th scope="col">Actions</th>
-               
-  
-              </tr>
-            </thead>
-            <ng-container *ngIf="this.chauffeursInactif.length>0">
-            <tbody *ngFor="let chauffeur of this.chauffeursInactif">
-              <tr (dblclick)="showChauffeur(chauffeur.id_chauffeur,false)" style="text-align: center;">
-                <th scope="row">{{chauffeur.matricule}}</th>            
-                <td>{{chauffeur.nomPrenom}}</td>
-                <td>{{chauffeur.tel}}</td>
-                <td>{{chauffeur.email}}</td>
-                <td>                 
-                      <button class="btn hor-grd btn-grd-success" id="{{chauffeur.id_chauffeur}}" (click)="activerDesactiver(chauffeur.id_chauffeur,false)"><i
-                        class="icofont icofont-verification-check"></i>Activer</button>
-                </td>
-              </tr>
-  
-  
-            </tbody>
-            </ng-container>
-
-            <ng-container *ngIf="this.chauffeursInactif.length===0">
-              <tbody >
-                <tr style="text-align: center;">
-                    <td colspan="5">
-                      Pas de chauffeurs inactifs!
-                    </td>
-                 
-                </tr>
     
-    
-              </tbody>
-              </ng-container>
-         
-          </table>
-        </div>
-      </div>
-      </app-card>
-    </div>
     </div>
   </ng-container>
