@@ -2,11 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Chauffeur } from "../../../models/chauffeur";
 import { UserService } from "../../../services/user.service";
-import { LoginErrorComponent } from "../../auth/login-error/login-error.component";
-import { UpdateUserComponent } from "../update-user/update-user.component";
+
 import * as CryptoJS from 'crypto-js';
 import { ChefService } from "../../../services/chef-service.service";
 import { Router } from "@angular/router";
+import { PopupChauffeurComponent } from "../../chefService/popup-chauffeur/popup-chauffeur.component";
 
 @Component({
   selector: "app-list-users",
@@ -42,7 +42,7 @@ export class ListUsersComponent implements OnInit {
   // }
 
   async update(id: string) {
-    const modalRef = this.modalService.open(UpdateUserComponent);
+    const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.titel = 'Modifier Un Utilisateur';
     modalRef.componentInstance.id = id;
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { VoitureService } from '../../../services/voiture.service';
+import { ControlsService } from '../../../services/controls.service';
 import { Voiture } from '../../../models/voiture';
 import { Chauffeur } from '../../../models/chauffeur';
 import { NgForm } from '@angular/forms';
@@ -25,8 +25,8 @@ export class PopupAffectationComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
     private modalService: NgbModal,
-    private router: Router,
-    private affectVoitureService: AffectVoitureService) { }
+    private affectVoitureService: AffectVoitureService,
+    private controls: ControlsService) { }
 
   async ngOnInit() {
 
@@ -76,19 +76,6 @@ export class PopupAffectationComponent implements OnInit {
 
   }
 
-
-
-  closeReload() {
-    const currentRoute = this.router.url;
-
-    this.activeModal.dismiss();
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentRoute]); // navigate to same route
-    });
-  }
-
-
-
   async addAffectation(form: NgForm) {
 
     try {
@@ -102,7 +89,8 @@ export class PopupAffectationComponent implements OnInit {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Affectation non effectué !";
     }
-    this.closeReload();
+    this.activeModal.dismiss();
+    this.controls.reloadComponent();
   }
 
 
@@ -121,8 +109,8 @@ export class PopupAffectationComponent implements OnInit {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Modification non effectué !";
     }
-    this.closeReload();
-
+    this.activeModal.dismiss();
+    this.controls.reloadComponent();
   }
 
   async loadChauffeursNonAffectes(callback) {

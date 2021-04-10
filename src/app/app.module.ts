@@ -19,7 +19,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ListUsersComponent } from './pages/gestion-users/list-users/list-users.component';
-import { UpdateUserComponent } from './pages/gestion-users/update-user/update-user.component';
 import { LoginErrorComponent } from './pages/auth/login-error/login-error.component';
 import { AccueilComponent } from './pages/accueil/accueil.component';
 import { LoginavbarComponent } from './pages/loginavbar/loginavbar.component';
@@ -41,6 +40,7 @@ import { NgxPrintModule } from 'ngx-print';
 import { HistoriqueaffectvoitureComponent } from './pages/chefService/historiqueaffectvoiture/historiqueaffectvoiture.component';
 import { VoituresinactifsComponent } from './pages/chefService/voituresinactifs/voituresinactifs.component';
 import { ChauffeursinactivesComponent } from './pages/chefService/chauffeursinactives/chauffeursinactives.component';
+import { PopupChauffeurComponent } from './pages/chefService/popup-chauffeur/popup-chauffeur.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,6 @@ import { ChauffeursinactivesComponent } from './pages/chefService/chauffeursinac
     RegisterComponent,
     ForgotPasswordComponent,
     ListUsersComponent,
-    UpdateUserComponent,
     LoginErrorComponent,
     AccueilComponent,
     LoginavbarComponent,
@@ -76,6 +75,7 @@ import { ChauffeursinactivesComponent } from './pages/chefService/chauffeursinac
     HistoriqueaffectvoitureComponent,
     VoituresinactifsComponent,
     ChauffeursinactivesComponent,
+    PopupChauffeurComponent,
 
 
   ],
@@ -94,7 +94,7 @@ import { ChauffeursinactivesComponent } from './pages/chefService/chauffeursinac
     //BasicLoginComponent,
     NgxPrintModule
   ],
-  entryComponents: [PopupComponent, UpdateUserComponent, LoginErrorComponent,
+  entryComponents: [PopupComponent, PopupChauffeurComponent, LoginErrorComponent,
     PopupVoitureComponent, PopupAffectationComponent, PopupEntretienComponent],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [],

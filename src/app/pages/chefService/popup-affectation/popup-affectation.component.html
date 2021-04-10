@@ -11,7 +11,7 @@
     <form (ngSubmit)="onSubmit(f)" #f="ngForm" >
         <ng-container *ngIf="!this.voiture&&!this.chauffeur">
 
-        <label for="job" class="label-radio">Chauffeurs :</label>
+        <!-- <label for="job" class="label-radio">Chauffeurs :</label> -->
 
         <select ngModel={{-1}} name="chauffeuropt" #chauffeuropt="ngModel" class="form-control" required >
             <option disabled [value]="-1">Séléctionner un chauffeur</option>
@@ -26,7 +26,7 @@
       Séléctionner un chauffeur !         
       
     </div> -->
-    <label for="job" class="label-radio">Voitures :</label>
+    <!-- <label for="job" class="label-radio">Voitures :</label> -->
 
         <select name="voitureopt" ngModel={{-1}} name="voitureopt" #voitureopt="ngModel" class="form-control" required>
             <option disabled [value]="-1">Séléctionner une voiture</option>

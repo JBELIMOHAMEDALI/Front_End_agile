@@ -121,9 +121,5 @@ export class VoitureService {
 
   }
 
-
-
-
-
 }
 //npm i ngx-print//icones/les controles de saisie

@@ -7,7 +7,7 @@
           <div class="col-lg-8">
             <div class="page-header-title">
               <span>
-                <i class="icofont icofont-car-alt-1 bg-c-green card1-icon"></i>
+                <i class="icofont icofont-car-alt-1 bg-c-blue card1-icon"></i>
               </span>
               <div class="d-inline">
                 <span class="d-block">
@@ -23,12 +23,12 @@
             <div class="page-header-breadcrumb">
               <ul class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a [routerLink]="'/'">
+                  <a [routerLink]="['/dashboard/chefService/affectV']">
                     <i class="icofont icofont-car-alt-1"></i>
                   </a>
                 </li>
                 <li class="breadcrumb-item">
-                  <a>Affectations Chauffeur Voiture</a>
+                  <a [routerLink]="['/dashboard/chefService/affectV']">Affectations Chauffeur Voiture</a>
                 </li>
               </ul>
             </div>
@@ -44,7 +44,7 @@
           <app-card [title]="'Affectations Chauffeur Voiture'" [classHeader]="true" [blockClass]="'table-border-style'">
             <div style="float: right ;margin-right: 30px;">
               <button class="btn hor-grd btn-grd-primary" (click)="Affecter()"><i
-              class="icofont icofont-ui-add"></i>Affectation</button>
+              class="icofont icofont-ui-add"></i>Nouvelle Affectation</button>
             </div>
             <div class="table-responsive">
       

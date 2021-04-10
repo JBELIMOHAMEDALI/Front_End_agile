@@ -7,6 +7,7 @@ import { Entretien } from '../../../models/entretien';
 import { EntretienService } from '../../../services/entretien.service';
 import { VoitureService } from '../../../services/voiture.service';
 import { LoginErrorComponent } from '../../auth/login-error/login-error.component';
+import { ControlsService } from '../../../services/controls.service';
 
 @Component({
   selector: 'app-popup-entretien',
@@ -25,13 +26,13 @@ export class PopupEntretienComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private entretienService: EntretienService,
     private modalService: NgbModal,
-    private voitureService: VoitureService,) {
+    private voitureService: VoitureService,
+    private controls: ControlsService) {
 
   }
 
   ngOnInit() {
 
-    console.log(this.show)
     if (!this.show) {
       this.getActifAllvoitures(voitures => {
         this.voitureList = voitures;
@@ -52,17 +53,6 @@ export class PopupEntretienComponent implements OnInit {
   }
 
 
-  closeReload() {
-    const currentRoute = this.router.url;
-
-    this.activeModal.dismiss();
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentRoute]); // navigate to same route
-    });
-  }
-
-
-
   async addEntretien(form: NgForm) {
     const { date, desc, voitureopt } = form.value;
 
@@ -77,7 +67,9 @@ export class PopupEntretienComponent implements OnInit {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Ajout non effectué !";
     }
-    this.closeReload();
+    this.activeModal.dismiss();
+    this.controls.reloadComponent();
+
   }
 
 
@@ -94,8 +86,8 @@ export class PopupEntretienComponent implements OnInit {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Modification non effectué !";
     }
-    this.closeReload();
-
+    this.activeModal.dismiss();
+    this.controls.reloadComponent();
   }
 
 

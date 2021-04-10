@@ -2,13 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { LoginErrorComponent } from "../../auth/login-error/login-error.component";
 import * as CryptoJS from 'crypto-js';
-import { ChefService } from "../../../services/chef-service.service";
 import { VoitureService } from "../../../services/voiture.service";
-import { UserService } from "../../../services/user.service";
 import { Voiture } from "../../../models/voiture";
-
-import { Router } from "@angular/router";
 import { PopupVoitureComponent } from "../popup-voiture/popup-voiture.component";
+import { ControlsService } from "../../../services/controls.service";
 
 @Component({
   selector: 'app-voituresinactifs',
@@ -16,12 +13,13 @@ import { PopupVoitureComponent } from "../popup-voiture/popup-voiture.component"
   styleUrls: ['./voituresinactifs.component.scss']
 })
 export class VoituresinactifsComponent implements OnInit {
-  constructor(private voitureService: VoitureService, private userServ: UserService, private chefServ: ChefService,
-    private modalService: NgbModal, private router: Router) { }
+  constructor(private voitureService: VoitureService,
+    private modalService: NgbModal,
+    private controls: ControlsService) { }
   voitureListInactif: Voiture[] = [];
 
   async ngOnInit() {
-   
+
     this.getVoitures(result => {
       this.voitureListInactif = result;
 
@@ -36,7 +34,7 @@ export class VoituresinactifsComponent implements OnInit {
       const { erorer, msg } = await this.voitureService.activeDisactiveVoiture(id, true) as any;
 
       if (!erorer) {
-        this.reloadComponent();
+        this.controls.reloadComponent();
       }
 
 
@@ -46,17 +44,6 @@ export class VoituresinactifsComponent implements OnInit {
     }
 
   }
-
-  reloadComponent() {
-    const currentRoute = this.router.url;
-
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentRoute]); // navigate to same route
-    });
-  }
-
-
-
 
   decryptData(data) {
 
@@ -72,7 +59,7 @@ export class VoituresinactifsComponent implements OnInit {
   }
 
 
-  
+
 
   showVoiture(id: string) {
     const modalRef = this.modalService.open(PopupVoitureComponent);

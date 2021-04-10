@@ -7,7 +7,7 @@
         <div class="col-lg-8">
           <div class="page-header-title">
             <span>
-              <i class="icofont icofont-car-alt-1 bg-c-green card1-icon"></i>
+              <i class="icofont icofont-car-alt-1 bg-c-blue card1-icon"></i>
             </span>
             <div class="d-inline">
               <span class="d-block">
@@ -23,12 +23,12 @@
           <div class="page-header-breadcrumb">
             <ul class="breadcrumb">
               <li class="breadcrumb-item">
-                <a [routerLink]="'/'">
+                <a [routerLink]="['/dashboard/chefService/voitures']">
                   <i class="icofont icofont-car-alt-1"></i>
                 </a>
               </li>
               <li class="breadcrumb-item">
-                <a>Gestion Des Voitures</a>
+                <a [routerLink]="['/dashboard/chefService/voitures']">Gestion Des Voitures</a>
               </li>
             </ul>
           </div>
@@ -41,7 +41,7 @@
     
     <div class="row">
       <div class="col-sm-12" >
-        <app-card [title]="'Gestion Des Voitures actives'" [classHeader]="true" [blockClass]="'table-border-style'">
+        <app-card [title]="'Gestion Des Voitures'" [classHeader]="true" [blockClass]="'table-border-style'">
           <div style="float: right ;margin-right: 30px;">
             <button class="btn hor-grd btn-grd-primary"  (click)="Ajouter()"><i
             class="icofont icofont-ui-add"></i>Nouvelle Voiture</button>

@@ -9,6 +9,7 @@ import { Voiture } from "../../../models/voiture";
 
 import { Router } from "@angular/router";
 import { PopupVoitureComponent } from "../popup-voiture/popup-voiture.component";
+import { ControlsService } from "../../../services/controls.service";
 
 @Component({
   selector: 'app-voitures',
@@ -16,8 +17,11 @@ import { PopupVoitureComponent } from "../popup-voiture/popup-voiture.component"
   styleUrls: ['./voitures.component.scss']
 })
 export class VoituresComponent implements OnInit {
-  constructor(private voitureService: VoitureService, private userServ: UserService, private chefServ: ChefService,
-    private modalService: NgbModal, private router: Router) { }
+  constructor(private voitureService: VoitureService,
+    private modalService: NgbModal,
+    private controls: ControlsService) { }
+
+
   voitureListActif: Voiture[] = [];
 
 
@@ -25,8 +29,8 @@ export class VoituresComponent implements OnInit {
     this.getVoitures(res => {
       this.voitureListActif = res;
     });
-    
-    
+
+
 
   }
 
@@ -45,7 +49,7 @@ export class VoituresComponent implements OnInit {
       const { erorer, msg } = await this.voitureService.activeDisactiveVoiture(id, false) as any;
 
       if (!erorer) {
-        this.reloadComponent();
+        this.controls.reloadComponent();
       }
 
 
@@ -55,17 +59,6 @@ export class VoituresComponent implements OnInit {
     }
 
   }
-
-  reloadComponent() {
-    const currentRoute = this.router.url;
-
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentRoute]); // navigate to same route
-    });
-  }
-
-
-
 
   decryptData(data) {
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ControlsService } from '../../../services/controls.service';
 import { AffectVoitureService } from '../../../services/affect-voiture.service';
 import { LoginErrorComponent } from '../../auth/login-error/login-error.component';
 import { PopupAffectationComponent } from '../popup-affectation/popup-affectation.component';
@@ -15,14 +15,14 @@ export class AffectvoitureComponent implements OnInit {
 
   constructor(private affectService: AffectVoitureService,
     private modalService: NgbModal,
-    private router: Router,
-    private affectVoitureService: AffectVoitureService) { }
+    private affectVoitureService: AffectVoitureService,
+    private controls: ControlsService) { }
 
   ngOnInit() {
     this.getAllAffectations(res => {
       this.voituresAffectes = res;
     });
-    
+
   }
 
   Affecter() {
@@ -56,7 +56,7 @@ export class AffectvoitureComponent implements OnInit {
       const { erorer, msg } = await this.affectService.activerDesactiverAffectation(idAffectation) as any || [];
 
       if (!erorer) {
-        this.reloadComponent();
+        this.controls.reloadComponent();
       }
 
 
@@ -65,16 +65,6 @@ export class AffectvoitureComponent implements OnInit {
       modelServ.componentInstance.message = error.message;
     }
   }
-
-
-  reloadComponent() {
-    const currentRoute = this.router.url;
-
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentRoute]); // navigate to same route
-    });
-  }
-
 
   updateAffectation(payload) {
     const modalRef = this.modalService.open(PopupAffectationComponent);

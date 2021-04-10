@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EntretienService } from '../../../services/entretien.service';
-import { Entretien } from '../../../models/entretien';
+import { ControlsService } from '../../../services/controls.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginErrorComponent } from '../../auth/login-error/login-error.component';
 import { PopupEntretienComponent } from '../popup-entretien/popup-entretien.component';
-import { Router } from '@angular/router';
 import { VoitureService } from '../../../services/voiture.service';
 import { Voiture } from '../../../models/voiture';
 
@@ -21,7 +20,7 @@ export class GestionentretiensComponent implements OnInit {
   constructor(private entretienService: EntretienService,
     private voitureService: VoitureService,
     private modalService: NgbModal,
-    private router: Router) {
+    private controls: ControlsService) {
   }
 
   ngOnInit() {
@@ -65,7 +64,7 @@ export class GestionentretiensComponent implements OnInit {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = error.message;
     }
-    this.reloadComponent();
+    this.controls.reloadComponent();
   }
 
 
@@ -89,13 +88,13 @@ export class GestionentretiensComponent implements OnInit {
 
 
 
-  reloadComponent() {
-    const currentRoute = this.router.url;
+  // reloadComponent() {
+  //   const currentRoute = this.router.url;
 
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentRoute]); // navigate to same route
-    });
-  }
+  //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+  //     this.router.navigate([currentRoute]); // navigate to same route
+  //   });
+  // }
 
   showEntretien(id_entretien: string) {
     const modalRef = this.modalService.open(PopupEntretienComponent);

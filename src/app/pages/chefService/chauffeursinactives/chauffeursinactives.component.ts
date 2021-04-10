@@ -3,10 +3,11 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Chauffeur } from "../../../models/chauffeur";
 import { UserService } from "../../../services/user.service";
 import { LoginErrorComponent } from "../../auth/login-error/login-error.component";
-import { UpdateUserComponent } from "../../gestion-users/update-user/update-user.component";
 import * as CryptoJS from 'crypto-js';
 import { ChefService } from "../../../services/chef-service.service";
 import { Router } from "@angular/router";
+import { ControlsService } from '../../../services/controls.service';
+import { PopupChauffeurComponent } from "../popup-chauffeur/popup-chauffeur.component";
 
 @Component({
   selector: 'app-chauffeursinactives',
@@ -15,13 +16,14 @@ import { Router } from "@angular/router";
 })
 export class ChauffeursinactivesComponent implements OnInit {
   constructor(private userServ: UserService, private chefServ: ChefService,
-    private modalService: NgbModal, private router: Router) { }
+    private modalService: NgbModal, private router: Router,
+    private controls: ControlsService) { }
 
   chauffeursInactif: Chauffeur[] = [];
 
   ngOnInit() {
-    
-    
+
+
     this.getUsers(result => {
       this.chauffeursInactif = result;
     });
@@ -46,14 +48,14 @@ export class ChauffeursinactivesComponent implements OnInit {
 
   }
 
- 
+
   async activerDesactiver(id: string) {
 
     try {
       const { erorer, msg } = await this.chefServ.activeDesactiveChauffeurAccount(id, false) as any;
 
       if (!erorer) {
-        this.reloadComponent();
+        this.controls.reloadComponent();
       }
 
 
@@ -63,16 +65,6 @@ export class ChauffeursinactivesComponent implements OnInit {
     }
 
   }
-
-  reloadComponent() {
-    const currentRoute = this.router.url;
-
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentRoute]); // navigate to same route
-    });
-  }
-
-
 
 
   decryptData(data) {
@@ -89,7 +81,7 @@ export class ChauffeursinactivesComponent implements OnInit {
   }
 
   showChauffeur(id: string) {
-    const modalRef = this.modalService.open(UpdateUserComponent);
+    const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = 'Affichage Chauffeur';
     modalRef.componentInstance.id = Number(id);
     modalRef.componentInstance.show = true;

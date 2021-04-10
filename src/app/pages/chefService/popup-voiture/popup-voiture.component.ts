@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Voiture } from "../../../models/voiture";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { VoitureService } from "../../../services/voiture.service";
 import { LoginErrorComponent } from '../../auth/login-error/login-error.component';
+import { ControlsService } from '../../../services/controls.service';
 
 
 
@@ -26,7 +26,7 @@ export class PopupVoitureComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,
     private voitureService: VoitureService,
     private modalService: NgbModal,
-    private router: Router) { }
+    private controls: ControlsService) { }
 
 
   ngOnInit() {
@@ -66,17 +66,6 @@ export class PopupVoitureComponent implements OnInit {
   }
 
 
-  closeReload() {
-    const currentRoute = this.router.url;
-
-    this.activeModal.dismiss();
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentRoute]); // navigate to same route
-    });
-  }
-
-
-
   async addVoiture(form: NgForm) {
     const { matricule, type, dmc, puissance, service } = form.value;
 
@@ -91,7 +80,8 @@ export class PopupVoitureComponent implements OnInit {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Ajout non effectué !";
     }
-    this.closeReload();
+    this.activeModal.dismiss();
+    this.controls.reloadComponent();
   }
 
 
@@ -109,8 +99,8 @@ export class PopupVoitureComponent implements OnInit {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Modification non effectué !";
     }
-    this.closeReload();
-
+    this.activeModal.dismiss();
+    this.controls.reloadComponent();
   }
 
 
