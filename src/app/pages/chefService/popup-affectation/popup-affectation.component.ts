@@ -26,7 +26,7 @@ export class PopupAffectationComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,
     private modalService: NgbModal,
     private affectVoitureService: AffectVoitureService,
-    private controls: ControlsService) { }
+    public controls: ControlsService) { }
 
   async ngOnInit() {
 
@@ -51,9 +51,9 @@ export class PopupAffectationComponent implements OnInit {
   async getOneAffectationbyid(id: string, callback) {
     try {
 
-      const { msg } = await this.affectVoitureService.getOneAffectationbyId(id) as any || [];
+      const { msg, erorer } = await this.affectVoitureService.getOneAffectationbyId(id) as any || [];
 
-      if (msg.length > 0) {
+      if (!erorer) {
         callback(msg[0]);
       } else {
         callback(null);
@@ -97,7 +97,6 @@ export class PopupAffectationComponent implements OnInit {
   async updateAffectation(form: NgForm) {
 
     const { voitureopt, chauffeuropt } = form.value;
-
     try {
       const payload = { id_voiture: voitureopt, id_chauffeur: chauffeuropt, id_affectation: this.id }
       const { msg, erorer } = await this.affectVoitureService.updateAffectaion(payload) as any || [];

@@ -4,7 +4,6 @@ import { ControlsService } from '../../../services/controls.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginErrorComponent } from '../../auth/login-error/login-error.component';
 import { PopupEntretienComponent } from '../popup-entretien/popup-entretien.component';
-import { VoitureService } from '../../../services/voiture.service';
 import { Voiture } from '../../../models/voiture';
 
 @Component({
@@ -18,7 +17,6 @@ export class GestionentretiensComponent implements OnInit {
 
 
   constructor(private entretienService: EntretienService,
-    private voitureService: VoitureService,
     private modalService: NgbModal,
     private controls: ControlsService) {
   }
@@ -36,7 +34,7 @@ export class GestionentretiensComponent implements OnInit {
 
   AddEntretien() {
     const modalRef = this.modalService.open(PopupEntretienComponent);
-    modalRef.componentInstance.title = 'Ajouter Un entretien';
+    modalRef.componentInstance.title = 'NOUVEL ENTRETIEN';
     modalRef.componentInstance.id = -1;
     // modalRef.componentInstance.show = true;
 
@@ -44,7 +42,7 @@ export class GestionentretiensComponent implements OnInit {
 
   updateEntretien(id_entretien: string) {
     const modalRef = this.modalService.open(PopupEntretienComponent);
-    modalRef.componentInstance.title = 'Modifier Un entretien';
+    modalRef.componentInstance.title = 'MODIFICATION ENTRETIEN';
     modalRef.componentInstance.id = Number(id_entretien);
     this.getOneEntretien(id_entretien, valuEntretien => {
       modalRef.componentInstance.entretien = valuEntretien;
@@ -57,7 +55,7 @@ export class GestionentretiensComponent implements OnInit {
       const { msg, erorer } = await this.entretienService.deleteEntretien(id_entetien) as any || [];
       if (erorer) {
         const modelServ = this.modalService.open(LoginErrorComponent);
-        modelServ.componentInstance.message = "Suppression échouée";
+        modelServ.componentInstance.message = "SUPPRESSION ECHOUEE";
       }
 
     } catch (error) {
@@ -86,19 +84,9 @@ export class GestionentretiensComponent implements OnInit {
     }
   }
 
-
-
-  // reloadComponent() {
-  //   const currentRoute = this.router.url;
-
-  //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-  //     this.router.navigate([currentRoute]); // navigate to same route
-  //   });
-  // }
-
   showEntretien(id_entretien: string) {
     const modalRef = this.modalService.open(PopupEntretienComponent);
-    modalRef.componentInstance.title = `Affichage d'un entretien`;
+    modalRef.componentInstance.title = `DONNEES ENTRETIEN`;
     modalRef.componentInstance.id = Number(id_entretien);
     modalRef.componentInstance.show = true;
 

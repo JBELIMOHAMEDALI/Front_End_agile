@@ -58,12 +58,9 @@ export class VoituresinactifsComponent implements OnInit {
     }
   }
 
-
-
-
   showVoiture(id: string) {
     const modalRef = this.modalService.open(PopupVoitureComponent);
-    modalRef.componentInstance.title = 'Affichage Voiture';
+    modalRef.componentInstance.title = 'DONNEES VOITURE';
     modalRef.componentInstance.id = Number(id);
     modalRef.componentInstance.show = true;
     modalRef.componentInstance.actif = false;

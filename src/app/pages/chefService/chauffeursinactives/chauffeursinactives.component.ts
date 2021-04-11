@@ -82,7 +82,7 @@ export class ChauffeursinactivesComponent implements OnInit {
 
   showChauffeur(id: string) {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
-    modalRef.componentInstance.title = 'Affichage Chauffeur';
+    modalRef.componentInstance.title = 'DONNEES CHAUFFEUR';
     modalRef.componentInstance.id = Number(id);
     modalRef.componentInstance.show = true;
     modalRef.componentInstance.actif = false;

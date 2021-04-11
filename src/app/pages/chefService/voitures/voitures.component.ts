@@ -2,12 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { LoginErrorComponent } from "../../auth/login-error/login-error.component";
 import * as CryptoJS from 'crypto-js';
-import { ChefService } from "../../../services/chef-service.service";
 import { VoitureService } from "../../../services/voiture.service";
-import { UserService } from "../../../services/user.service";
 import { Voiture } from "../../../models/voiture";
-
-import { Router } from "@angular/router";
 import { PopupVoitureComponent } from "../popup-voiture/popup-voiture.component";
 import { ControlsService } from "../../../services/controls.service";
 
@@ -17,19 +13,24 @@ import { ControlsService } from "../../../services/controls.service";
   styleUrls: ['./voitures.component.scss']
 })
 export class VoituresComponent implements OnInit {
+  voitureListActif: Voiture[] = [];
+  voitureListAll: Voiture[] = [];
+
+
   constructor(private voitureService: VoitureService,
     private modalService: NgbModal,
     private controls: ControlsService) { }
 
 
-  voitureListActif: Voiture[] = [];
 
 
   async ngOnInit() {
     this.getVoitures(res => {
       this.voitureListActif = res;
-    });
-
+    }, true);
+    this.getVoitures(res => {
+      this.voitureListAll = [...this.voitureListActif.concat(res)];
+    }, false);
 
 
   }
@@ -38,9 +39,11 @@ export class VoituresComponent implements OnInit {
 
   update(id: string) {
     const modalRef = this.modalService.open(PopupVoitureComponent);
-    modalRef.componentInstance.titel = 'Modifier Une Voiture';
+    modalRef.componentInstance.title = 'MODIFICATION VOITURE';
     modalRef.componentInstance.id = Number(id);
-
+    if (this.voitureListAll.length > 0) {
+      modalRef.componentInstance.matList = this.getAllMatricule(this.voitureListAll);
+    }
   }
 
   async activerDesactiver(id: string) {
@@ -51,7 +54,6 @@ export class VoituresComponent implements OnInit {
       if (!erorer) {
         this.controls.reloadComponent();
       }
-
 
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
@@ -76,23 +78,26 @@ export class VoituresComponent implements OnInit {
 
   Ajouter() {
     const modalRef = this.modalService.open(PopupVoitureComponent);
-    modalRef.componentInstance.title = 'Ajouter une voiture';
+    modalRef.componentInstance.title = 'NOUVELLE VOITURE';
     modalRef.componentInstance.id = -1;
+    if (this.voitureListAll.length > 0) {
+      modalRef.componentInstance.matList = this.getAllMatricule(this.voitureListAll);
+    }
   }
 
 
   showVoiture(id: string) {
     const modalRef = this.modalService.open(PopupVoitureComponent);
-    modalRef.componentInstance.title = 'Affichage Voiture';
+    modalRef.componentInstance.title = 'DONNEES VOITURE';
     modalRef.componentInstance.id = Number(id);
     modalRef.componentInstance.show = true;
     modalRef.componentInstance.actif = true;
 
   }
 
-  async getVoitures(callback) {
+  async getVoitures(callback, actif: boolean) {
     try {
-      const { msg, erorer } = await this.voitureService.getAllVoitures(true) as any || [];
+      const { msg, erorer } = await this.voitureService.getAllVoitures(actif) as any || [];
       if (erorer) {
 
         callback([]);
@@ -107,7 +112,16 @@ export class VoituresComponent implements OnInit {
     }
   }
 
+  getAllMatricule(array: Voiture[]): string[] {
 
+    const matList = new Array<string>();
+    for (let index = 0; index < array.length; index++) {
+      const matricule = array[index].matricule;
+      matList.push(matricule)
+
+    }
+    return matList;
+  }
 
 }
 

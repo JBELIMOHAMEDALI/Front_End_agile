@@ -7,7 +7,9 @@
 </div>
 <form *ngIf="this.id>0&&this.chauffeur&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate> 
 <div  class="modal-body" >
-        <div class="form-group">
+
+
+        <!-- <div class="form-group">
             <label for="exampleInputMat">Matricule</label>
             <input type="text" class="form-control" id="exampleInputMat" placeholder="Matricule" name="matricule"
                 [(ngModel)]="this.chauffeur.matricule" #matricule="ngModel"
@@ -15,166 +17,273 @@
             <div *ngIf="(matricule.invalid) && matricule.touched" class="invalid-feedback">
                 <div *ngIf="matricule.errors.required">Matricule Obligatoire !!</div>
             </div>
+        </div> -->
+
+
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-listing-number"></i></label></span>
+            <input  type="text" class="form-control" id="exampleInputMat" 
+            name="matricule" required [(ngModel)]="this.chauffeur.matricule" #matricule="ngModel" 
+            placeholder="Matricule"/>
+          </div>
+
+          
+          <div *ngIf="(matricule.invalid && matricule.touched)||(this.controls.validateEmailregex(matricule) && matricule.touched)
+          ||(this.controls.validateLength(matricule) && matricule.touched)" 
+          class="alert alert-danger" role="alert">
+            La matricule est invalide
+          </div>
+          <div *ngIf="(this.controls.verifMatriculeExiste(matricule,this.matList) && matricule.touched)" class="alert alert-danger" role="alert">
+            La matricule existe déjà
+          </div>
+
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-user"></i></label></span>
+                  
+            <input type="text" name="nomPrenom" class="form-control" 
+            placeholder="Nom complet" required [(ngModel)]="this.chauffeur.nomPrenom"
+            #nomPrenom="ngModel" >
+            
         </div>
-        <div class="form-group">
-            <label for="exampleInputNP">Nom et prénom</label>
-            <input type="text" class="form-control" id="exampleInputNP" placeholder="Nom et prénom" name="nomPrenom"
-                [(ngModel)]="this.chauffeur.nomPrenom" #nomPrenom="ngModel"
-                [ngClass]="{ 'is-invalid': ( nomPrenom.invalid) && nomPrenom.touched }" required />
-            <div *ngIf="(nomPrenom.invalid) && nomPrenom.touched" class="invalid-feedback">
-                <div *ngIf="nomPrenom.errors.required">Nom et prénom Obligatoire !!</div>
-            </div>
+          <!-- <div *ngIf="nomPrenom.value&&nomPrenom.value.length>0"> -->
+
+          <div *ngIf="(nomPrenom.invalid && nomPrenom.touched)||(this.controls.validateEmailregex(nomPrenom) && nomPrenom.touched)||
+          (this.controls.validateLength(nomPrenom) && nomPrenom.touched)||(this.controls.containsAt(nomPrenom)&& nomPrenom.touched)" 
+          class="alert alert-danger" role="alert">
+            NomComplet est invalide 
+          </div>
+
+
+       
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-ui-email"></i></label></span>
+            <input name="email" type="email"  class="form-control" 
+             required  [(ngModel)]="this.chauffeur.email" #email="ngModel" placeholder="Email">
         </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email"
-                [(ngModel)]="this.chauffeur.email" #email="ngModel"
-                [ngClass]="{ 'is-invalid': ( email.invalid) && email.touched }" required  />
-            <div *ngIf="( email.invalid) && email.touched" class="invalid-feedback">
-                <div *ngIf="email.errors.email">Email non valide </div>
-                <div *ngIf="email.errors.required">Email Obligatoire !!</div>
-            </div>
+        <!-- <div *ngIf="email.value&&email.value.length>0"> -->
+
+        <div *ngIf="(email.invalid && email.touched)||(!this.controls.validateEmailregex(email) && email.touched)" 
+        class="alert alert-danger" role="alert">
+            Email est invalide
         </div>
-        <div class="form-group">
-            <label for="exampleInputTel">Numéro de Télephone</label>
-            <input type="tel" class="form-control" id="exampleInputTel" placeholder="+216 Numéro de Télephone" name="tel"
-                [(ngModel)]="this.chauffeur.tel" #tel="ngModel" [ngClass]="{ 'is-invalid': ( tel.invalid) && tel.touched }"
-                required />
-            <div *ngIf="(tel.invalid) && tel.touched" class="invalid-feedback">
-                <div *ngIf="tel.errors.required && this.verifTel(tel)">Télephone Obligatoire !!</div>
-            </div>
+        <div *ngIf="(this.controls.verifEmailExist(email,this.emailList) && email.touched)" class="alert alert-danger" role="alert">
+            Email existe déjà
         </div>
-        <div class="form-group">
-            <label for="exampleInputDNS">Date de naissance</label>
-            <input type="date" class="form-control" id="exampleInputDNS" placeholder="Date de naissance" name="dns"
-                [(ngModel)]="this.chauffeur.dns" #dns="ngModel" [ngClass]="{ 'is-invalid': ( dns.invalid) && dns.touched }"
-                required />
-            <div *ngIf="(dns.invalid) && dns.touched" class="invalid-feedback">
-                <div *ngIf="dns.errors.required ">Date de naissance Obligatoire !!</div>
-            </div>
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-mobile-phone"></i></label></span>
+            <input  type="number" class="form-control" [(ngModel)]="this.chauffeur.tel"
+            name="tel" required  #tel="ngModel" placeholder="+216 Numéro de téléphone">
         </div>
-        <div class="form-group">
-            <label for="exampleInputRegion">Région</label>
-            <input type="text" class="form-control" id="exampleInputRegion" placeholder="Région" name="region"
-                [(ngModel)]="this.chauffeur.region" #region="ngModel" [ngClass]="{ 'is-invalid': ( region.invalid) && region.touched }"
-                required />
-            <div *ngIf="region.invalid && region.touched" class="invalid-feedback">
-                <div *ngIf="region.errors.required">Région Obligatoire !!</div>
-            </div>
+        <!-- <div *ngIf="tel.value&&tel.value.length>0"> -->
+
+        <div *ngIf="(tel.invalid && tel.touched)||(this.controls.verifTel(tel) && tel.touched)" 
+        class="alert alert-danger" role="alert">
+            Numéro de téléphone est invalide
         </div>
 
+        <div class="input-group">
+
+            <span class="input-group-prepend"><label class="input-group-text"><i
+              class="icofont icofont-calendar"></i></label></span>
+            <input class="form-control" type="date" name="dns" [(ngModel)]="this.chauffeur.dns"
+            required #dns="ngModel"  />
+        </div>
+        <!-- <div *ngIf="dns.value&&dns.value.length>0"> -->
+        <div *ngIf="(dns.invalid && dns.touched)" class="alert alert-danger" role="alert">
+            Saisir la date de Naissance
+        </div>
+
+       
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-location-pin"></i></label></span>
+            <input type="text" class="form-control" placeholder="Région"
+            name="region" required [(ngModel)]="this.chauffeur.region" #region="ngModel" />
+          </div>
+
         <div class="modal-footer">
-            <!-- <input type="submit" class="btn btn-primary" value="add" (click)="closeReload()"> -->
-            <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Modifier</button>
+
+            <input type="submit" value="Modifier" class="btn btn-outline-primary" 
+            [disabled]="f.invalid||this.controls.verifTel(tel)||this.controls.verifEmailExist(email,this.emailList)
+            ||!this.controls.validateEmailregex(email)||this.controls.validateEmailregex(nomPrenom)||this.controls.validateLength(nomPrenom)||this.controls.containsAt(nomPrenom)
+            ||this.controls.verifMatriculeExiste(matricule,this.matList)||this.controls.validateEmailregex(matricule)||this.controls.validateLength(matricule)"/>
             <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
         </div>
     </div>
 </form> 
+
+
+
+
+
 <form *ngIf="this.id===-1&&!this.chauffeur" name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
 
     <div  class="modal-body" >
-        <div class="form-group">
-            <label for="exampleInputMat">Matricule</label>
-            <input type="text" class="form-control" id="exampleInputMat" 
-            placeholder="Matricule" name="matricule"
-            required ngModel #matricule="ngModel"
-                 />
+       
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-listing-number"></i></label></span>
+            <input  type="text" class="form-control" id="exampleInputMat" 
+            name="matricule" required ngModel #matricule="ngModel" placeholder="Matricule"/>
+          </div>
+          <!-- <div *ngIf="matricule.value&&matricule.value.length>0"> -->
+
+          <div *ngIf="(matricule.invalid && matricule.touched)||(this.controls.validateEmailregex(matricule) && matricule.touched)
+          ||(this.controls.validateLength(matricule) && matricule.touched)" 
+          class="alert alert-danger" role="alert">
+            La matricule est invalide
+          </div>
+          <div *ngIf="(this.controls.verifMatriculeExiste(matricule,this.matList) && matricule.touched)" class="alert alert-danger" role="alert">
+            La matricule existe déjà
+          </div>
+        <!-- </div> -->
+       
+
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-user"></i></label></span>
+                  
+            <input type="text" name="nomPrenom" class="form-control" 
+            placeholder="Nom complet" required ngModel
+            #nomPrenom="ngModel" >
             
         </div>
-        <div class="form-group">
-            <label for="exampleInputNP">Nom et prénom</label>
-            <input type="text"  
-            class="form-control" id="exampleInputNP" 
-            placeholder="Nom et prénom" name="nomPrenom"
-            required ngModel #nomPrenom="ngModel"
-              />
-            
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="email" class="form-control" 
-            id="exampleInputEmail1" placeholder="Email" name="email"
-            required ngModel #email="ngModel"
+          <!-- <div *ngIf="nomPrenom.value&&nomPrenom.value.length>0"> -->
 
-                />
-           
-        </div>
-        <div class="form-group">
-            <label for="exampleInputTel">Numéro de Télephone</label>
-            <input type="tel" class="form-control" id="exampleInputTel" 
-            placeholder="+216 Numéro de Télephone" name="tel"
-            required ngModel #tel="ngModel"
+          <div *ngIf="(nomPrenom.invalid && nomPrenom.touched)||(this.controls.validateEmailregex(nomPrenom) && nomPrenom.touched)||
+          (this.controls.validateLength(nomPrenom) && nomPrenom.touched)||(this.controls.containsAt(nomPrenom)&& nomPrenom.touched)" 
+          class="alert alert-danger" role="alert">
+            NomComplet est invalide 
+          </div>
+        <!-- </div> -->
+       
 
-               />
-            
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-ui-email"></i></label></span>
+            <input name="email" type="email"  class="form-control" 
+             required  ngModel #email="ngModel" placeholder="Email">
         </div>
-        <div class="form-group">
-            <label for="exampleInputDNS">Date de naissance</label>
-            <input type="date" class="form-control" id="exampleInputDNS" 
-            placeholder="Date de naissance" name="dns"
-            required ngModel #dns="ngModel"
+        <!-- <div *ngIf="email.value&&email.value.length>0"> -->
 
-                />
-           
+        <div *ngIf="(email.invalid && email.touched)||(!this.controls.validateEmailregex(email) && email.touched)" 
+        class="alert alert-danger" role="alert">
+            Email est invalide
         </div>
-        <div class="form-group">
-            <label for="exampleInputRegion">Région</label>
-            <input type="text" class="form-control" id="exampleInputRegion" 
-            placeholder="Région" name="region"
-            required ngModel #region="ngModel"
+        <div *ngIf="(this.controls.verifEmailExist(email,this.emailList) && email.touched)" class="alert alert-danger" role="alert">
+            Email existe déjà
+        </div>
+    <!-- </div> -->
+        
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-mobile-phone"></i></label></span>
+            <input  type="number" class="form-control" ngModel
+            name="tel" required  #tel="ngModel" placeholder="+216 Numéro de téléphone">
+        </div>
+        <!-- <div *ngIf="tel.value&&tel.value.length>0"> -->
 
-                 />
-          
+        <div *ngIf="(tel.invalid && tel.touched)||(this.controls.verifTel(tel) && tel.touched)" 
+        class="alert alert-danger" role="alert">
+            Numéro de téléphone est invalide
         </div>
+        <!-- </div> -->
 
        
+
+        <div class="input-group">
+
+            <span class="input-group-prepend"><label class="input-group-text"><i
+              class="icofont icofont-calendar"></i></label></span>
+            <input class="form-control" type="date" name="dns" ngModel
+            required #dns="ngModel"  />
+        </div>
+        <!-- <div *ngIf="dns.value&&dns.value.length>0"> -->
+        <div *ngIf="(dns.invalid && dns.touched)" class="alert alert-danger" role="alert">
+            Saisir la date de Naissance
+        </div>
+    <!-- </div> -->
+        
+
+            <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-location-pin"></i></label></span>
+            <input type="text" class="form-control" placeholder="Région"
+            name="region" required ngModel #region="ngModel" />
+          </div>
+
+         
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" >Confirmer</button>
+            <input type="submit" value="Confirmer" class="btn btn-outline-primary" [disabled]="fadd.invalid||this.controls.verifTel(tel)||this.controls.verifEmailExist(email,this.emailList)
+            ||!this.controls.validateEmailregex(email)||this.controls.validateEmailregex(nomPrenom)||this.controls.validateLength(nomPrenom)||this.controls.containsAt(nomPrenom)
+            ||this.controls.verifMatriculeExiste(matricule,this.matList)||this.controls.validateEmailregex(matricule)||this.controls.validateLength(matricule)"
+             />
             <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
         </div>
     </div>
 </form>
 
 <div class="modal-body" *ngIf="this.show&&this.chauffeur">
-    <div class="form-group">
-        <label for="exampleInputMat">Matricule</label>
-        <p>
-            {{this.chauffeur.matricule}}
-        </p>
-       
-    </div>
-    <div class="form-group">
-        <label for="exampleInputNP">Nom et prénom</label>
-        <p>
-            {{this.chauffeur.nomPrenom}}
-        </p>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputTel">Numéro de Téléphone</label>
-        <p>
-            {{this.chauffeur.tel}}
-        </p>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Email</label>
-        <p>
-            {{this.chauffeur.email}}
-        </p>
-    </div>
     
-    <div class="form-group">
-        <label for="exampleInputDNS">Date de naissance</label>
-        <p>
-            {{this.chauffeur.dns}}
-        </p>
-       
-    </div>
-    <div class="form-group">
-        <label for="exampleInputRegion">Région</label>
-        <p>
-            {{this.chauffeur.region}}
-        </p>
-    </div>
+    <div class="view-info">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="general-info">
+              <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                  <div class="table-responsive">
+                    <table class="table m-0">
+                      <tbody>
+                        <tr>
+                          <th scope="row">Matricule</th>
+                          <td > {{ this.chauffeur.matricule }}</td>
+                        </tr>
+                        
+                        <tr>
+                          <th scope="row">Nom et Prénom</th>
+                          <td>{{ this.chauffeur.nomPrenom }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Numéro de Téléphone</th>
+                            <td >{{ this.chauffeur.tel }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td><a href="javascript:;">{{ this.chauffeur.email }}</a></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Date de Naissance</th>
+                            <td> {{ this.chauffeur.dns }}</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Région</th>
+                              <td> {{ this.chauffeur.region }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Statut</th>
+                            <td *ngIf="this.chauffeur.statut==='1'"> {{ "ACTIF" }}</td>
+                            <td *ngIf="this.chauffeur.statut==='0'"> {{ "INACTIF" }}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- end of table col-lg-6 -->
+               
+                <!-- end of table col-lg-6 -->
+              </div>
+              <!-- end of row -->
+            </div>
+            <!-- end of general info -->
+          </div>
+          <!-- end of col-lg-12 -->
+        </div>
+        <!-- end of row -->
+      </div>
 
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>

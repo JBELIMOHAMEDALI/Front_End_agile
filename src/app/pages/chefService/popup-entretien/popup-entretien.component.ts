@@ -27,7 +27,7 @@ export class PopupEntretienComponent implements OnInit {
     private entretienService: EntretienService,
     private modalService: NgbModal,
     private voitureService: VoitureService,
-    private controls: ControlsService) {
+    public controls: ControlsService) {
 
   }
 
@@ -74,9 +74,9 @@ export class PopupEntretienComponent implements OnInit {
 
 
   async updateEntrtien(form: NgForm) {
-    const { date, desc, voitureopt } = form.value;
+    const { date, desc } = form.value;
     try {
-      const entretien = new Entretien(voitureopt, date, desc, this.entretien.id_entretien);
+      const entretien = new Entretien(this.entretien.id_voiture, date, desc, this.entretien.id_entretien);
       const { msg, erorer } = await this.entretienService.updateEntretien(entretien) as any || [];
       if (erorer) {
         const modelServ = this.modalService.open(LoginErrorComponent);

@@ -7,150 +7,229 @@
 </div>
 <form *ngIf="this.id>0&&this.voiture&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate> 
 <div  class="modal-body" >
-        <div class="form-group">
-            <label for="exampleInputMat">Matricule</label>
-            <input type="text" class="form-control" id="exampleInputMat" placeholder="Matricule" name="matricule"
-                [(ngModel)]="this.voiture.matricule" #matricule="ngModel"
-                [ngClass]="{ 'is-invalid': ( matricule.invalid) && matricule.touched }" required />
-            <div *ngIf="(matricule.invalid) && matricule.touched" class="invalid-feedback">
-                <div *ngIf="matricule.errors.required">Matricule Obligatoire !!</div>
-            </div>
-        </div>        
-        <div class="form-group">
-            <label for="exampleInputType">Type</label>
-            <input type="text" class="form-control" id="exampleInputType" placeholder="Type" name="type"
-                [(ngModel)]="this.voiture.type" #type="ngModel"
-                [ngClass]="{ 'is-invalid': ( type.invalid) && type.touched }" required  />
-            <div *ngIf="( type.invalid) && type.touched" class="invalid-feedback">
-                <div *ngIf="type.errors.required">Type Obligatoire !!</div>
-            </div>
+
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-listing-number"></i></label></span>
+            <input  type="text" class="form-control" id="exampleInputMat" 
+            name="matricule" required [(ngModel)]="this.voiture.matricule" #matricule="ngModel" 
+            placeholder="Matricule"/>
         </div>
-        <div class="form-group">
-            <label for="exampleInputDMC">DMC</label>
-            <input type="date" class="form-control" id="exampleInputDMC" placeholder="DMC" name="dmc"
-                [(ngModel)]="this.voiture.dmc" #dmc="ngModel" [ngClass]="{ 'is-invalid': ( dmc.invalid) && dmc.touched }"
-                required />
-            <div *ngIf="(dmc.invalid) && dmc.touched" class="invalid-feedback">
-                <div *ngIf="dmc.errors.required">DMC Obligatoire !!</div>
-            </div>
+          <div *ngIf="(matricule.invalid && matricule.touched)||(this.controls.validateEmailregex(matricule) && matricule.touched)
+          ||(this.controls.validateLength(matricule) && matricule.touched)" 
+          class="alert alert-danger" role="alert">
+            La matricule est invalide
+          </div>
+          <div *ngIf="(this.controls.verifMatriculeExiste(matricule,this.matList) && matricule.touched)" class="alert alert-danger" role="alert">
+            La matricule existe déjà
+          </div>
+    
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-car-alt-1"></i></label></span>
+            <input  type="text" class="form-control" id="exampleInputType" 
+            name="type" required [(ngModel)]="this.voiture.type" #type="ngModel" 
+            placeholder="Type Voiture"/>
+          </div>
+          <div *ngIf="(type.invalid && type.touched)" 
+          class="alert alert-danger" role="alert">
+            Le type voiture est invalide
+          </div>
+
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+              class="icofont icofont-calendar"></i></label></span>
+            <input class="form-control" type="date" name="dmc" [(ngModel)]="this.voiture.dmc"
+            required #dmc="ngModel"  />
         </div>
-        <div class="form-group">
-            <label for="exampleInputPuissance">Puissance</label>
-            <input type="text" class="form-control" id="exampleInputPuissance" placeholder="Puissance" name="puissance"
-                [(ngModel)]="this.voiture.puissance" #puissance="ngModel" [ngClass]="{ 'is-invalid': ( puissance.invalid) && puissance.touched }"
-                required />
-            <div *ngIf="(puissance.invalid) && puissance.touched" class="invalid-feedback">
-                <div *ngIf="puissance.errors.required ">Puissance Obligatoire !!</div>
-            </div>
+        <div *ngIf="(dmc.invalid && dmc.touched)" class="alert alert-danger" role="alert">
+            Saisir la date 
         </div>
-        <div class="form-group">
-            <label for="exampleInputService">Service</label>
-            <input type="text" class="form-control" id="exampleInputRegion" placeholder="Service" name="service"
-                [(ngModel)]="this.voiture.service" #service="ngModel" [ngClass]="{ 'is-invalid': ( service.invalid) && service.touched }"
-                required />
-            <div *ngIf="service.invalid && service.touched" class="invalid-feedback">
-                <div *ngIf="service.errors.required">Service Obligatoire !!</div>
-            </div>
+
+       
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-energy-oil"></i></label></span>
+            <input type="number" class="form-control" [(ngModel)]="this.voiture.puissance"
+            name="puissance" required  #puissance="ngModel" placeholder="Puissance">
+        </div>
+        
+        <div *ngIf="(puissance.invalid && puissance.touched)" class="alert alert-danger" role="alert">
+            Puissance est invalide
+        </div>
+
+        
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-speed-meter"></i></label></span>
+            <input type="text" class="form-control" [(ngModel)]="this.voiture.service"
+            name="service" required  #service="ngModel" placeholder="Service">
+        </div>
+
+        
+        <div *ngIf="(service.invalid && service.touched)" class="alert alert-danger" role="alert">
+            Service est invalide
         </div>
 
         <div class="modal-footer">
-            <!-- <input type="submit" class="btn btn-primary" value="add" (click)="closeReload()"> -->
-            <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Modifier</button>
+
+            <input type="submit" class="btn btn-outline-primary" value="Modifier" 
+            [disabled]="f.invalid||this.controls.verifMatriculeExiste(matricule,this.matList)
+            ||this.controls.validateLength(matricule)||this.controls.validateEmailregex(matricule)"/>
             <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
         </div>
     </div>
 </form> 
+
+
+
+
 <form *ngIf="this.id===-1&&!this.voiture" name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
 
     <div  class="modal-body" >
-        <div class="form-group">
-            <label for="exampleInputMat">Matricule</label>
-            <input type="text" class="form-control" id="exampleInputMat" 
-            placeholder="Matricule" name="matricule"
-            required ngModel #matricule="ngModel"
-                 />
-            
+    
+
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-listing-number"></i></label></span>
+            <input  type="text" class="form-control" id="exampleInputMat" 
+            name="matricule" required ngModel #matricule="ngModel" 
+            placeholder="Matricule"/>
+          </div>
+          <div *ngIf="(matricule.invalid && matricule.touched)||(this.controls.validateEmailregex(matricule) && matricule.touched)
+          ||(this.controls.validateLength(matricule) && matricule.touched)" 
+          class="alert alert-danger" role="alert">
+            La matricule est invalide
+          </div>
+          <div *ngIf="(this.controls.verifMatriculeExiste(matricule,this.matList) && matricule.touched)" class="alert alert-danger" role="alert">
+            La matricule existe déjà
+          </div>
+       
+
+        
+
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-car-alt-1"></i></label></span>
+            <input  type="text" class="form-control" id="exampleInputType" 
+            name="type" required ngModel #type="ngModel" 
+            placeholder="Type Voiture"/>
+          </div>
+          <div *ngIf="(type.invalid && type.touched)" 
+          class="alert alert-danger" role="alert">
+            Le type voiture est invalide
+          </div>
+          
+
+
+     
+
+        <div class="input-group">
+
+            <span class="input-group-prepend"><label class="input-group-text"><i
+              class="icofont icofont-calendar"></i></label></span>
+            <input class="form-control" type="date" name="dmc" ngModel
+            required #dmc="ngModel"  />
+        </div>
+        <div *ngIf="(dmc.invalid && dmc.touched)" class="alert alert-danger" role="alert">
+            Saisir la date 
+        </div>
+
+
+        
+
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-energy-oil"></i></label></span>
+            <input type="number" class="form-control" ngModel
+            name="puissance" required  #puissance="ngModel" placeholder="Puissance">
         </div>
         
-        <div class="form-group">
-            <label for="exampleInputType">Type</label>
-            <input type="email" class="form-control" 
-            id="exampleInputType" placeholder="Type" name="type"
-            required ngModel #type="ngModel"
-
-                />
-           
+        <div *ngIf="(puissance.invalid && puissance.touched)" class="alert alert-danger" role="alert">
+            Puissance est invalide
         </div>
-        <div class="form-group">
-            <label for="exampleInputDMC">DMC</label>
-            <input type="date" class="form-control" id="exampleInputDMC" 
-            placeholder="DMC" name="dmc" 
-            required ngModel #dmc="ngModel"
 
-               />
-            
+
+       
+
+        <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                  class="icofont icofont-speed-meter"></i></label></span>
+            <input type="text" class="form-control" ngModel
+            name="service" required  #service="ngModel" placeholder="Service">
         </div>
-        <div class="form-group">
-            <label for="exampleInputPuissance">Puissance</label>
-            <input type="text" class="form-control" id="exampleInputPuissance" 
-            placeholder="Puissance" name="puissance"
-            required ngModel #puissance="ngModel"
 
-                />
-           
-        </div>
-        <div class="form-group">
-            <label for="exampleInputService">Service</label>
-            <input type="text" class="form-control" id="exampleInputService" 
-            placeholder="Service" name="service"
-            required ngModel #service="ngModel"
-
-                 />
-          
+        
+        <div *ngIf="(service.invalid && service.touched)" class="alert alert-danger" role="alert">
+            Service est invalide
         </div>
 
        
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" >Confirmer</button>
+            <input type="submit" class="btn btn-outline-primary" 
+            [disabled]="fadd.invalid||this.controls.verifMatriculeExiste(matricule,this.matList)
+            ||this.controls.validateLength(matricule)||this.controls.validateEmailregex(matricule)" 
+            value="Confirmer" />
             <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
         </div>
     </div>
 </form>
 
 <div class="modal-body" *ngIf="this.show&&this.voiture">
-    <div class="form-group">
-        <label for="exampleInputMat">Matricule</label>
-        <p>
-            {{this.voiture.matricule}}
-        </p>
-       
-    </div>
-    <div class="form-group">
-        <label for="exampleInputType">Type</label>
-        <p>
-            {{this.voiture.type}}
-        </p>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputDMC">DMC</label>
-        <p>
-            {{this.voiture.dmc}}
-        </p>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPuissance">Puissance</label>
-        <p>
-            {{this.voiture.puissance}}
-        </p>
-    </div>
+  
     
-    <div class="form-group">
-        <label for="exampleInputService">Service</label>
-        <p>
-            {{this.voiture.service}}
-        </p>
-       
-    </div>
+    <div class="view-info">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="general-info">
+              <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                  <div class="table-responsive">
+                    <table class="table m-0">
+                      <tbody>
+                        <tr>
+                          <th scope="row">Matricule Voiture</th>
+                          <td > {{ this.voiture.matricule }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Type</th>
+                            <td >{{ this.voiture.type }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DMC</th>
+                            <td><a >{{ this.voiture.dmc }}</a></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Puissance</th>
+                            <td> {{ this.voiture.puissance }}</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Service</th>
+                              <td> {{ this.voiture.service }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Statut</th>
+                            <td *ngIf="this.voiture.statut=='1'"> {{"ACTIF"}}</td>
+                            <td *ngIf="this.voiture.statut=='0'"> {{"INACTIF"}}</td>
+
+                          </tr>   
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- end of table col-lg-6 -->
+               
+                <!-- end of table col-lg-6 -->
+              </div>
+              <!-- end of row -->
+            </div>
+            <!-- end of general info -->
+          </div>
+          <!-- end of col-lg-12 -->
+        </div>
+        <!-- end of row -->
+      </div>
    
 
     <div class="modal-footer">

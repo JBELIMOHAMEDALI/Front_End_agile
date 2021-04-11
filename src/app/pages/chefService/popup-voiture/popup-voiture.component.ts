@@ -19,6 +19,7 @@ export class PopupVoitureComponent implements OnInit {
   @Input() id: number = -1;
   @Input() show: boolean = false;
   @Input() actif: boolean = true;
+  @Input() matList: string[] = [];
 
   voiture: Voiture
   voitureList = new Array<Voiture>();
@@ -26,14 +27,12 @@ export class PopupVoitureComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,
     private voitureService: VoitureService,
     private modalService: NgbModal,
-    private controls: ControlsService) { }
+    public controls: ControlsService) { }
 
 
   ngOnInit() {
     if (this.id != -1)
       this.getOneVoiture(this.actif);
-
-
   }
 
 
@@ -52,10 +51,12 @@ export class PopupVoitureComponent implements OnInit {
 
     try {
 
-      const { msg } = await this.voitureService.getOneVoiturebyId(this.id.toString(), actif) as any || [];
+      const { msg, erorer } = await this.voitureService.getOneVoiturebyId(this.id.toString(), actif) as any || [];
 
-      if (msg.length > 0) {
+      if (!erorer) {
         this.voiture = msg[0];
+        this.matList = this.matList.filter(matricule => matricule != this.voiture.matricule);
+
       }
 
     } catch (error) {

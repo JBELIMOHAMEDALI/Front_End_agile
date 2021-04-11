@@ -172,23 +172,15 @@ export class SigninComponent implements OnInit {
   }
 
 
-  //localstorage=type,id
-  //khouloud@gmail.com
-  // 14265401
-  //create account tetnaha
-  //login =>connecter
-  //rebuild login
-  //dashboard hedhy =>chauffeur
-  //type user
-  //popup fail to login
+
   //API http://localhost/pfe_api/<ControllerName>/(<function>na7y menha post wala get)
 }
 
-export class API {
-  host: string = 'http://localhost/'
-  projectName: string = 'pfe_api/'
-  controllerName: string
-  functionName: string
-}
+// export class API {
+//   host: string = 'http://localhost/'
+//   projectName: string = 'pfe_api/'
+//   controllerName: string
+//   functionName: string
+// }
 
 
