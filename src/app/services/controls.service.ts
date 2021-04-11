@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -108,6 +109,13 @@ export class ControlsService {
 
   validateSelect(option: string): boolean {
     return option === '-1';
+  }
+
+  dateFormat(date: string): string {
+    if (date)
+      return moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY').toString();
+
+
   }
 
 

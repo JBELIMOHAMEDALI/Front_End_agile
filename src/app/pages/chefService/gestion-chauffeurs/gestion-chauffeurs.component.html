@@ -47,7 +47,7 @@
       <app-card [title]="'Gestion Des Chauffeurs'" [classHeader]="true" [blockClass]="'table-border-style'">
         <div style="float: right ;margin-right: 30px;">
           <button class="btn hor-grd btn-grd-primary"  (click)="Ajouter()"><i
-          class="icofont icofont-ui-add"></i>Nouveau Chauffeur</button>
+          class="icofont icofont-group"></i>Nouveau Chauffeur</button>
         </div>
         <div class="table-responsive">
   
@@ -81,7 +81,7 @@
                   <button class="btn hor-grd btn-grd-info" id="{{chauffeur.id_chauffeur}}" (click)="update(chauffeur.id_chauffeur)"><i
                       class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
                   <button class="btn hor-grd btn-grd-danger" id="{{chauffeur.id_chauffeur}}" (click)="activerDesactiver(chauffeur.id_chauffeur,true)"><i
-                      class="icofont icofont-hand-up"></i>Désactiver</button>&nbsp;
+                      class="icofont icofont-close"></i>Désactiver</button>&nbsp;
                 
                 </td>
               </tr>

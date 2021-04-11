@@ -6,6 +6,9 @@ import { LoginErrorComponent } from '../../auth/login-error/login-error.componen
 import { PopupEntretienComponent } from '../popup-entretien/popup-entretien.component';
 import { Voiture } from '../../../models/voiture';
 
+
+
+
 @Component({
   selector: 'app-gestionentretiens',
   templateUrl: './gestionentretiens.component.html',
@@ -18,7 +21,7 @@ export class GestionentretiensComponent implements OnInit {
 
   constructor(private entretienService: EntretienService,
     private modalService: NgbModal,
-    private controls: ControlsService) {
+    public controls: ControlsService) {
   }
 
   ngOnInit() {

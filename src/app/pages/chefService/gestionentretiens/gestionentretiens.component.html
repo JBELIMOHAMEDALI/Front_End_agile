@@ -44,7 +44,7 @@
           <app-card [title]="'Gestion Des Entretiens'" [classHeader]="true" [blockClass]="'table-border-style'">
             <div style="float: right ;margin-right: 30px;">
               <button class="btn hor-grd btn-grd-primary" (click)="AddEntretien()"><i
-              class="icofont icofont-ui-add"></i>Nouvel Entretien</button>
+              class="icofont icofont-tools-bag"></i>Nouvel Entretien</button>
             </div>
             <div class="table-responsive">
       
@@ -70,14 +70,14 @@
                 <tbody *ngFor="let entretien of this.entretienList">
                   <tr (dblclick)="this.showEntretien(entretien.id_entretien)" style="text-align: center;">
                     <th scope="row">{{entretien.id_entretien}}</th>            
-                    <td>{{entretien.date}}</td>
+                    <td>{{this.controls.dateFormat(entretien.date)}}</td>
                     <!-- <td>{{entretien.description}}</td> -->
                     <td>{{entretien.matricule}}</td>
                     <td>
                       <button class="btn hor-grd btn-grd-info" id="{{entretien.id_entretien}}" (click)="updateEntretien(entretien.id_entretien)"><i
                           class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
                       <button class="btn hor-grd btn-grd-danger" id="{{entretien.id_entretien}}" (click)="supprimerEntretien(entretien.id_entretien)"><i
-                          class="icofont icofont-hand-up"></i>Supprimer</button>&nbsp;
+                          class="icofont icofont-trash"></i>Supprimer</button>&nbsp;
                     
                     </td>
                   </tr>

@@ -72,13 +72,13 @@
                   <tr (dblclick)="showVoiture(voiture.id_voiture)" style="text-align: center;">
                     <th scope="row">{{voiture.matricule}}</th>            
                     <td>{{voiture.type}}</td>
-                    <td>{{voiture.dmc}}</td>
+                    <td>{{this.controls.dateFormat(voiture.dmc)}}</td>
                     <td>{{voiture.puissance}}</td>
                     <td>{{voiture.service}}</td>
                     <td>
                      
                       <button class="btn hor-grd btn-grd-success" id="{{voiture.id_voiture}}" (click)="activerDesactiver(voiture.id_voiture)"><i
-                          class="icofont icofont-hand-up"></i>Activer</button>&nbsp;
+                          class="icofont icofont-checked"></i>Activer</button>&nbsp;
                     
                     </td>
                   </tr>

@@ -19,7 +19,7 @@ export class VoituresComponent implements OnInit {
 
   constructor(private voitureService: VoitureService,
     private modalService: NgbModal,
-    private controls: ControlsService) { }
+    public controls: ControlsService) { }
 
 
 
