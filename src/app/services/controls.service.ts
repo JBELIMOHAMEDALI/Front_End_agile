@@ -113,14 +113,21 @@ export class ControlsService {
 
   dateFormat(date: string): string {
     if (date)
-      return moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY').toString();
-
-
+      return moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY').toString()
   }
 
 
   isEqual = (obj1, obj2) => {
     const obj1Keys = Object.keys(obj1);
+    const obj2Keys = Object.keys(obj2);
+
+    for (let index = 0; index < obj1Keys.length; index++) {
+      const obj1element = obj1Keys[index];
+      const obj2element = obj2Keys[index];
+
+      if (obj1element != obj2element)
+        return false
+    }
 
     for (let objKey of obj1Keys) {
       if (obj1[objKey] !== obj2[objKey]) {

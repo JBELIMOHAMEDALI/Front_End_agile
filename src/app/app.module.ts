@@ -41,6 +41,7 @@ import { HistoriqueaffectvoitureComponent } from './pages/chefService/historique
 import { VoituresinactifsComponent } from './pages/chefService/voituresinactifs/voituresinactifs.component';
 import { ChauffeursinactivesComponent } from './pages/chefService/chauffeursinactives/chauffeursinactives.component';
 import { PopupChauffeurComponent } from './pages/chefService/popup-chauffeur/popup-chauffeur.component';
+import { PopupMissionComponent } from './pages/chefService/popup-mission/popup-mission.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { PopupChauffeurComponent } from './pages/chefService/popup-chauffeur/pop
     VoituresinactifsComponent,
     ChauffeursinactivesComponent,
     PopupChauffeurComponent,
+    PopupMissionComponent,
 
 
   ],

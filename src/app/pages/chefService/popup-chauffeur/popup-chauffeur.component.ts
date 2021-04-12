@@ -67,6 +67,7 @@ export class PopupChauffeurComponent implements OnInit {
         this.chauffeur = msg[0];
         this.matList = this.matList.filter(matricule => matricule != this.chauffeur.matricule);
         this.emailList = this.emailList.filter(email => email != this.chauffeur.email);
+        // console.log(this.controls.isEqual(this.chauffeur, msg[0]));
 
       }
 
