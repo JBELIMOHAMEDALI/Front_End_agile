@@ -52,6 +52,7 @@ export class AffectVoitureService {
   }
 
   getAllAffectations(statut: string) {
+
     const body = { params: { statut: statut } };
     return new Promise((resolve, reject) => {
       this.httpClient.get('http://127.0.0.1/pfe_api/Affecter_v_chauffeur/get_all_affecation_info', body)
@@ -121,6 +122,8 @@ export class AffectVoitureService {
 
   }
 
+
+   
 
 
 }

@@ -1,1 +1,112 @@
-<p>affectmission works!</p>
+<ng-container *ngIf="this.missionsList">
+    <div class="">
+      
+      <!-- Page-header start -->
+      <div class="page-header card">
+        <div class="row align-items-end">
+          <div class="col-lg-8">
+            <div class="page-header-title">
+              <span>
+                <i class="icofont icofont-car-alt-1 bg-c-blue card1-icon"></i>
+              </span>
+              <div class="d-inline">
+                <span class="d-block">
+                  <h4>Affectations Des Missions</h4>
+                </span>
+                <span>                
+                  Dans cette page le chef service a l'accés total pour gérer et controler toutes les missions affectées aux chauffeurs
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a [routerLink]="['/dashboard/chefService/dashboard']">
+                    <i class="ti-home"></i>
+                  </a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a [routerLink]="['/dashboard/chefService/affectV']">Affectations Des Missions</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- Page-header end -->
+
+      
+      <div class="row">
+        <div class="col-sm-12" >
+          <app-card [title]="'Affectations Chauffeur Voiture'" [classHeader]="true" [blockClass]="'table-border-style'">
+            <div style="float: right ;margin-right: 30px;">
+              <button class="btn hor-grd btn-grd-primary" (click)="Affecter()"><i
+              class="icofont icofont-ui-add"></i>Nouvelle Mission</button>
+            </div>
+            <div class="table-responsive">
+      
+            <div style="margin: 60px;overflow-x:auto;">
+              <table class="table table-hover" >
+                <thead>
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell  *matHeaderCellDef > Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let row" >
+                         <button mat-button >Edit</button>
+                    </mat-cell>
+                  </ng-container>
+                  <tr style="text-align: center;">
+                    <th scope="col">Numéro Mission</th>
+                    <th scope="col">Date Début</th>
+                    <th scope="col">Date Fin</th>
+                    <th scope="col">Chauffeur</th>
+                    <!-- <th scope="col">Voiture</th> -->
+                    <th scope="col">Actions</th>
+
+
+                  </tr>
+                </thead>
+                <ng-container *ngIf="this.missionsList.length===0">
+
+                  <tbody>
+                    <tr style="text-align: center;">
+                     
+                     <td colspan="6">
+                       AUCUNE MISSION !
+                     </td>
+                    </tr>      
+                  </tbody>              
+                </ng-container>
+                <ng-container *ngIf="this.missionsList.length>0">
+
+                  <tbody *ngFor="let mission of this.missionsList">
+                    <tr (dblclick)="showMission(mission)" style="text-align: center;">
+                      <th scope="row">{{mission.id_mission}}</th>    
+                      <th>{{this.controls.dateFormat(mission.date_debut)}}</th>                    
+                      <th>{{this.controls.dateFormat(mission.date_fin)}}</th>                    
+                      <th>{{mission.nomPrenom}}</th>                    
+                      <!-- <th>{{mission.matricule+"**"+mission.type}}</th>                     -->
+
+                     <td>
+                        <button class="btn hor-grd btn-grd-info" id="{{mission.id_mission}}" (click)="updateMission(mission)"><i
+                            class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
+                        <button class="btn hor-grd btn-grd-danger" id="{{mission.id_mission}}" (click)="supprimerMission(mission.id_mission)"><i
+                            class="icofont icofont-trash"></i>Supprimer</button>&nbsp;
+                      
+                      </td>
+                    </tr>      
+                  </tbody>              
+                </ng-container>
+              </table>
+            </div>
+          </div>
+
+
+
+          </app-card>
+        </div>
+
+      </div>
+      </ng-container>

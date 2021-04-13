@@ -6,6 +6,7 @@ import { VoitureService } from "../../../services/voiture.service";
 import { Voiture } from "../../../models/voiture";
 import { PopupVoitureComponent } from "../popup-voiture/popup-voiture.component";
 import { ControlsService } from "../../../services/controls.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-voitures',
@@ -25,13 +26,14 @@ export class VoituresComponent implements OnInit {
 
 
   async ngOnInit() {
-    this.getVoitures(res => {
-      this.voitureListActif = res;
+    this.getVoitures(resActif => {
+      this.voitureListActif = resActif;
+      this.getVoitures(results => {
+        this.voitureListAll = [...resActif.concat(results)];
+      }, false);
     }, true);
-    this.getVoitures(res => {
-      this.voitureListAll = [...this.voitureListActif.concat(res)];
-    }, false);
-
+    // const a = new Date("2017-12-31 11:12:30");
+    // const b = new Date("2018-05-31 16:12:30");
 
   }
 
@@ -122,6 +124,11 @@ export class VoituresComponent implements OnInit {
     }
     return matList;
   }
+
+
+
+
+
 
 }
 

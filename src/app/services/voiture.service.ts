@@ -24,7 +24,6 @@ export class VoitureService {
 
       this.httpClient.post('http://127.0.0.1/pfe_api/Voiture/add_voiture', param1)
         .forEach(data => {
-          console.log(data)
           resolve(data);
         }
         ).catch((err) => {
@@ -123,3 +122,4 @@ export class VoitureService {
 
 }
 //npm i ngx-print//icones/les controles de saisie
+//missions/profile(cs,ch)/accueil/integration/sessions/test

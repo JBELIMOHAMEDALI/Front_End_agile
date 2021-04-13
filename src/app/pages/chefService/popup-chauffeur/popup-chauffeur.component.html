@@ -61,7 +61,7 @@
             <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-ui-email"></i></label></span>
             <input name="email" type="email"  class="form-control" 
-             required  [(ngModel)]="this.chauffeur.email" #email="ngModel" placeholder="Email">
+             required  [(ngModel)]="this.chauffeur.email" #email="ngModel" placeholder="utilisateur@exemple.com">
         </div>
         <!-- <div *ngIf="email.value&&email.value.length>0"> -->
 
@@ -98,12 +98,30 @@
         </div>
 
        
-        <div class="input-group">
+        <!-- <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-location-pin"></i></label></span>
             <input type="text" class="form-control" placeholder="Région"
             name="region" required [(ngModel)]="this.chauffeur.region" #region="ngModel" />
-          </div>
+          </div> -->
+
+          <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                class="icofont icofont-location-pin"></i></label></span>
+        <select  [(ngModel)]="this.chauffeur.region" #region="ngModel" name="region" class="form-control" required>
+
+          <ng-container *ngFor="let region of this.regionsList;let i=index;">
+
+                <option [value]="region">
+                    {{region}} 
+                </option>
+            </ng-container>
+
+        </select>  
+    </div>
+   
+    
+
 
         <div class="modal-footer">
 
@@ -166,7 +184,7 @@
             <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-ui-email"></i></label></span>
             <input name="email" type="email"  class="form-control" 
-             required  ngModel #email="ngModel" placeholder="Email">
+             required  ngModel #email="ngModel" placeholder="utilisateur@exemple.com">
         </div>
         <!-- <div *ngIf="email.value&&email.value.length>0"> -->
 
@@ -209,12 +227,30 @@
     <!-- </div> -->
         
 
-            <div class="input-group">
+            <!-- <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-location-pin"></i></label></span>
             <input type="text" class="form-control" placeholder="Région"
             name="region" required ngModel #region="ngModel" />
-          </div>
+          </div> -->
+
+          <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                class="icofont icofont-location-pin"></i></label></span>
+        <select  ngModel={{-1}} #region="ngModel" name="region" class="form-control" required>
+            <option disabled [value]="-1">Séléctionner une Gouvernourat</option>
+            <ng-container *ngFor="let region of this.regionsList;let i=index;">
+
+                <option [value]="region">
+                    {{region}} 
+                </option>
+            </ng-container>
+
+        </select>  
+    </div>
+    <div *ngIf="(this.controls.validateSelect(region.value)&&region.touched)" class="alert alert-danger" role="alert">
+        Séléctionner une Gouvernourat
+    </div>
 
          
         <div class="modal-footer">
@@ -260,7 +296,7 @@
                             <td> {{ this.controls.dateFormat(this.chauffeur.dns) }}</td>
                           </tr>
                           <tr>
-                              <th scope="row">Région</th>
+                              <th scope="row">Gouvernourat</th>
                               <td> {{ this.chauffeur.region }}</td>
                         </tr>
                         <tr>

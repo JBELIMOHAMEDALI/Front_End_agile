@@ -27,7 +27,7 @@ export class AffectvoitureComponent implements OnInit {
 
   Affecter() {
     const modalRef = this.modalService.open(PopupAffectationComponent);
-    modalRef.componentInstance.titel = 'Modifier Une Affectation';
+    modalRef.componentInstance.title = 'AFFECTATION';
   }
 
 
@@ -68,7 +68,7 @@ export class AffectvoitureComponent implements OnInit {
 
   updateAffectation(payload) {
     const modalRef = this.modalService.open(PopupAffectationComponent);
-    modalRef.componentInstance.titel = 'Modifier Une Affectation';
+    modalRef.componentInstance.title = 'MODIFICATION AFFECTATION';
     modalRef.componentInstance.id = Number(payload.id_affectation);
     modalRef.componentInstance.voiture = this.loadObjects('voiture', payload.id_voiture);
     modalRef.componentInstance.chauffeur = this.loadObjects('chauffeur', payload.id_chauffeur);

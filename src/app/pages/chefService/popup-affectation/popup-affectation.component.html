@@ -68,11 +68,11 @@
             <span class="input-group-prepend"><label class="input-group-text"><i
                 class="icofont icofont-user-alt-1"></i></label></span>
         <select [(ngModel)]="this.chauffeur.id_chauffeur" name="chauffeuropt" #chauffeuropt="ngModel" class="form-control" required >
-            <option disabled [value]="this.chauffeur.id_chauffeur">{{this.chauffeur.nomPrenom}}</option>
+            <option [value]="this.chauffeur.id_chauffeur">{{this.chauffeur.nomPrenom}}</option>
 
             <ng-container *ngFor="let chauffeur of this.chauffeurList;let i=index;">
                 <option [value]="this.chauffeur.id_chauffeur">
-                    {{chauffeur.nomPrenom}} 
+                    {{chauffeur.nomPrenom+" ** "+chauffeur.matricule}} 
                 </option>
             </ng-container>
 
@@ -86,7 +86,7 @@
             <span class="input-group-prepend"><label class="input-group-text"><i
                 class="icofont icofont-car-alt-1"></i></label></span>
         <select [(ngModel)]="this.voiture.id_voiture" name="voitureopt" #voitureopt="ngModel" class="form-control" required>
-            <option disabled [value]="this.voiture.id_voiture">{{this.voiture.matricule}}</option>
+            <option [value]="this.voiture.id_voiture">{{this.voiture.matricule}}</option>
 
             <ng-container *ngFor="let voiture of this.voitureList;let i=index;"> 
             <option [value]="this.voiture.id_voiture">

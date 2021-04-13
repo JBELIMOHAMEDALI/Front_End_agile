@@ -24,12 +24,12 @@ export class GestionChauffeursComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getUsers(res => {
-      this.chauffeursActif = res;
-    }, true);
-    this.getUsers(res => {
-      this.chauffeursAll = [...this.chauffeursActif.concat(res)];
+    this.getUsers(resAcitf => {
+      this.chauffeursActif = resAcitf;
+    this.getUsers(results => {
+      this.chauffeursAll = [...resAcitf.concat(results)];
     }, false);
+    }, true);
 
   }
 

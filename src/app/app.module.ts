@@ -97,7 +97,7 @@ import { PopupMissionComponent } from './pages/chefService/popup-mission/popup-m
     NgxPrintModule
   ],
   entryComponents: [PopupComponent, PopupChauffeurComponent, LoginErrorComponent,
-    PopupVoitureComponent, PopupAffectationComponent, PopupEntretienComponent],
+    PopupVoitureComponent, PopupAffectationComponent, PopupEntretienComponent, PopupMissionComponent],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent]

@@ -25,6 +25,10 @@ export class PopupChauffeurComponent implements OnInit {
 
   chauffeur: Chauffeur;
   sameChauffeur: boolean = false;
+  regionsList:string[]=["Ariana","Béja","Ben Arous","Bizerte","Gabes","Gafsa",
+  "Jendouba","Kairouan","Kasserine","Kébili","Kef","Mahdia","Manouba","Médenine"
+  ,"Monastir","Nabeul","Sfax","Sidi Bouzid","Siliana","Sousse","Tataouine","Tozeur",
+  "Tunis","Zaghouan"];
 
 
   constructor(public activeModal: NgbActiveModal,
@@ -32,6 +36,7 @@ export class PopupChauffeurComponent implements OnInit {
     private modalService: NgbModal,
     private userServ: UserService,
     public controls: ControlsService) {
+      
 
   }
 
@@ -42,6 +47,7 @@ export class PopupChauffeurComponent implements OnInit {
 
       this.getOneChauffeur(this.actif);
     }
+
   }
 
 

@@ -138,4 +138,17 @@ export class ControlsService {
 
     return true;
   }
+
+  dateDiff(a, b): boolean {
+    if (a && b) {
+
+      const dd = new Date(a) as any;
+      const df = new Date(b) as any;
+
+      return df < dd;
+    } else {
+      return false;
+    }
+  }
+
 }

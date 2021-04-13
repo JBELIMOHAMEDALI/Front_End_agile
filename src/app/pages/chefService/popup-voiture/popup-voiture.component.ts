@@ -24,7 +24,8 @@ export class PopupVoitureComponent implements OnInit {
   voiture: Voiture
   voitureList = new Array<Voiture>();
 
-  constructor(public activeModal: NgbActiveModal,
+  constructor(
+    public activeModal: NgbActiveModal,
     private voitureService: VoitureService,
     private modalService: NgbModal,
     public controls: ControlsService) { }
