@@ -42,7 +42,7 @@
             <div class="d-flex justify-content-end social_icon"></div>
           </div>
           <div class="card-body">
-            <form class="form" [formGroup]="loginForm">
+            <form class="form" name="form" #f="ngForm" (ngSubmit)="this.connect(f)">
               <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
@@ -55,20 +55,17 @@
                   required
                   placeholder="Mot de Passe"
                   name="password"
-                  #password
-                  formControlName="password"
-                />
+                  #password="ngModel" ngModel
+
+                  />
               </div>
               <small
-                *ngIf="
-                  loginForm.controls.password.invalid &&
-                  loginForm.controls.password.touched
-                "
+                *ngIf="(password.invalid &&password.touched)||(this.controls.validateLength(password)&&password.touched)"
                 class="text-danger"
               >
                 6 caractéres minimum !
               </small>
-              <!-- <small *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched " class="text-danger" >Champ obligatoire format *****@mail.com</small> -->
+
               <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
@@ -81,28 +78,24 @@
                   required
                   placeholder="Retaper le mot de passe"
                   name="confirmPass"
-                  #confirmPass
-                  formControlName="confirmPass"
+                  #confirmPass="ngModel" ngModel
                 />
               </div>
               <small
                 *ngIf="
-                  (loginForm.controls.confirmPass.invalid &&
-                  loginForm.controls.confirmPass.touched)&&
-                  this.verifPass(password,confirmPass)===false
-                "
+                  (confirmPass.invalid &&confirmPass.touched)||(this.controls.verifPass(password,confirmPass)==false&&confirmPass.touched)"
                 class="text-danger"
               >
                 Mot de passe non compatible ! 
               </small>
              
               <div class="form-group">
-                <button
+                <input
                   class="btn float-right login_btn btn-sm"
-                  [disabled]="loginForm.invalid||this.verifPass(password,confirmPass)==false"
+                  [disabled]="loginForm.invalid||!this.controls.verifPass(password,confirmPass)"
                   type="submit"
-                  (click)="this.connect()"
-                >Connexion</button>
+                  value="Connexion"
+                />
               </div>
             </form>
           </div>

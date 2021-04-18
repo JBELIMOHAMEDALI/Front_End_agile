@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Voiture } from '../../../models/voiture';
 import { Entretien } from '../../../models/entretien';
@@ -22,7 +21,7 @@ export class PopupEntretienComponent implements OnInit {
   @Input() voitureList: Voiture[] = [];
   @Input() entretien: any;
 
-  constructor(private router: Router,
+  constructor(
     public activeModal: NgbActiveModal,
     private entretienService: EntretienService,
     private modalService: NgbModal,
@@ -59,16 +58,15 @@ export class PopupEntretienComponent implements OnInit {
     try {
       const entretien = new Entretien(voitureopt, date, desc);
       const { msg, erorer } = await this.entretienService.addEntretien(entretien) as any || [];
-      if (erorer) {
-        const modelServ = this.modalService.open(LoginErrorComponent);
-        modelServ.componentInstance.message = "Ajout non effectué !";
+      if (!erorer) {
+        this.activeModal.dismiss();
+        this.controls.reloadComponent();
       }
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Ajout non effectué !";
     }
-    this.activeModal.dismiss();
-    this.controls.reloadComponent();
+
 
   }
 
@@ -78,16 +76,15 @@ export class PopupEntretienComponent implements OnInit {
     try {
       const entretien = new Entretien(this.entretien.id_voiture, date, desc, this.entretien.id_entretien);
       const { msg, erorer } = await this.entretienService.updateEntretien(entretien) as any || [];
-      if (erorer) {
-        const modelServ = this.modalService.open(LoginErrorComponent);
-        modelServ.componentInstance.message = "Modification non effectué !";
+      if (!erorer) {
+        this.activeModal.dismiss();
+        this.controls.reloadComponent();
       }
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = "Modification non effectué !";
+      modelServ.componentInstance.message = "Modification non effectuée !";
     }
-    this.activeModal.dismiss();
-    this.controls.reloadComponent();
+
   }
 
 
@@ -95,17 +92,11 @@ export class PopupEntretienComponent implements OnInit {
   async getActifAllvoitures(callback) {
     try {
       const { msg, erorer } = await this.voitureService.getAllVoitures(true) as any || [];
-      if (erorer) {
-
-        callback([]);
-
-      } else {
-
+      if (!erorer) {
         callback(msg);
       }
-
     } catch (error) {
-      callback([]);
+      return error;
     }
   }
 

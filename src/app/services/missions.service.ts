@@ -10,11 +10,10 @@ export class MissionsService {
   constructor(private httpClient: HttpClient) { }
 
   addMission(mission: Mission) {
-    const { id_chefService, id_chauffeur, id_voiture, date_debut, date_fin, description } = mission;
+    const { id_chefService, id_chauffeur, date_debut, date_fin, description } = mission;
     let param1 = new HttpParams;
     param1 = param1.set('id_chefService', id_chefService);
     param1 = param1.set('id_chauffeur', id_chauffeur);
-    param1 = param1.set('id_voiture', id_voiture);
     param1 = param1.set('date_debut', date_debut);
     param1 = param1.set('date_fin', date_fin);
     param1 = param1.set('description', description);
@@ -23,6 +22,7 @@ export class MissionsService {
 
       this.httpClient.post('http://127.0.0.1/pfe_api/Mission/add_mission', param1)
         .forEach(data => {
+
           resolve(data);
         }
         ).catch((err) => {
@@ -35,13 +35,13 @@ export class MissionsService {
 
 
   updateMission(mission: Mission) {
-    const { id_chefService, id_chauffeur, id_voiture, date_debut, date_fin, description, id_mission } = mission;
+    const { id_chefService, id_chauffeur, date_debut, date_fin, description, id_mission } = mission;
 
     let param1 = new HttpParams;
 
     param1 = param1.set('id_chefService', id_chefService);
     param1 = param1.set('id_chauffeur', id_chauffeur);
-    param1 = param1.set('id_voiture', id_voiture);
+
     param1 = param1.set('date_debut', date_debut);
     param1 = param1.set('date_fin', date_fin);
     param1 = param1.set('description', description);
@@ -66,25 +66,26 @@ export class MissionsService {
       this.httpClient.get(`http://127.0.0.1/pfe_api/Mission/get_mission_info_all`)
         .forEach(data =>
           resolve(data)
-        )
+        ).catch((err) => {
+          reject(err)
+        })
     });
   }
 
 
-  // getOneMissionbyId(id: string) {
+  getChauffeursAffectes() {
 
-  //   return new Promise((resolve, reject) => {
-  //     const body = { params: { id: id, tabname: "mission", nomId: "id_mission" } };
+    return new Promise((resolve, reject) => {
 
-  //     this.httpClient.get(`http://127.0.0.1/pfe_api/Generale/get_One_Generale_By_ID`, body)
-  //       .forEach(data =>
-  //         resolve(data)
-  //       ).catch((err) => {
-  //         reject(err);
-  //       });
-  //   });
+      this.httpClient.get(`http://127.0.0.1/pfe_api/chauffeur/get_chouffeur_for_mession`)
+        .forEach(data =>
+          resolve(data)
+        ).catch((err) => {
+          reject(err);
+        });
+    });
 
-  // }
+  }
 
 
 

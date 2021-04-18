@@ -14,7 +14,7 @@
               <h4>Gestion Des Chauffeurs</h4>
             </span>
             <span>                
-              Dans cette page le chef service a l'accées total pour gérer et controler tous les chauffeurs  !
+              Dans cette page le chef service a l'accées de gestion et controle de tous les chauffeurs . 
             </span>
           </div>
         </div>
@@ -25,8 +25,8 @@
         <div class="page-header-breadcrumb">
           <ul class="breadcrumb">
             <li class="breadcrumb-item">
-              <a [routerLink]="['/dashboard/chefService/chauffeur']">
-                <i class="icofont icofont-group"></i>
+              <a [routerLink]="['/dashboard/chefService']">
+                <i class="icofont icofont-home"></i>
               </a>
             </li>
             <li  class="breadcrumb-item">
@@ -44,9 +44,9 @@
  
   <div class="row">
     <div class="col-sm-12" *ngIf="this.chauffeursActif.length>0">
-      <app-card [title]="'Gestion Des Chauffeurs'" [classHeader]="true" [blockClass]="'table-border-style'">
+      <app-card [title]="'Liste des chauffeurs actifs :'" [classHeader]="true" [blockClass]="'table-border-style'">
         <div style="float: right ;margin-right: 30px;">
-          <button class="btn hor-grd btn-grd-primary"  (click)="Ajouter()"><i
+          <button class="btn hor-grd btn-grd-primary" (click)="Ajouter()"><i
           class="icofont icofont-group"></i>Nouveau Chauffeur</button>
         </div>
         <div class="table-responsive">
@@ -72,13 +72,13 @@
             </thead>
             <ng-container *ngIf="this.chauffeursActif.length>0">
             <tbody *ngFor="let chauffeur of this.chauffeursActif">
-              <tr (dblclick)="showChauffeur(chauffeur.id_chauffeur,true)" style="text-align: center;">
+              <tr (dblclick)="showChauffeur(chauffeur,true)" style="text-align: center;">
                 <th scope="row">{{chauffeur.matricule}}</th>            
                 <td>{{chauffeur.nomPrenom}}</td>
                 <td>{{chauffeur.tel}}</td>
                 <td>{{chauffeur.email}}</td>
                 <td>
-                  <button class="btn hor-grd btn-grd-info" id="{{chauffeur.id_chauffeur}}" (click)="update(chauffeur.id_chauffeur)"><i
+                  <button class="btn hor-grd btn-grd-info" id="{{chauffeur.id_chauffeur}}" (click)="update(chauffeur)"><i
                       class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
                   <button class="btn hor-grd btn-grd-danger" id="{{chauffeur.id_chauffeur}}" (click)="activerDesactiver(chauffeur.id_chauffeur,true)"><i
                       class="icofont icofont-close"></i>Désactiver</button>&nbsp;

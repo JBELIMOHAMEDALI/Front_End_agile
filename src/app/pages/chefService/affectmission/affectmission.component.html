@@ -7,14 +7,14 @@
           <div class="col-lg-8">
             <div class="page-header-title">
               <span>
-                <i class="icofont icofont-car-alt-1 bg-c-blue card1-icon"></i>
+                <i class="icofont icofont-delivery-time bg-c-blue card1-icon"></i>
               </span>
               <div class="d-inline">
                 <span class="d-block">
                   <h4>Affectations Des Missions</h4>
                 </span>
                 <span>                
-                  Dans cette page le chef service a l'accés total pour gérer et controler toutes les missions affectées aux chauffeurs
+                  Dans cette page le chef service a l'accés de gestion et controle à toutes les missions affectées aux chauffeurs
                 </span>
               </div>
             </div>
@@ -23,8 +23,8 @@
             <div class="page-header-breadcrumb">
               <ul class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a [routerLink]="['/dashboard/chefService/dashboard']">
-                    <i class="ti-home"></i>
+                  <a [routerLink]="['/dashboard/chefService']">
+                    <i class="icofont icofont-home"></i>
                   </a>
                 </li>
                 <li class="breadcrumb-item">
@@ -41,10 +41,10 @@
       
       <div class="row">
         <div class="col-sm-12" >
-          <app-card [title]="'Affectations Chauffeur Voiture'" [classHeader]="true" [blockClass]="'table-border-style'">
+          <app-card [title]="'Liste des affectations des missions :'" [classHeader]="true" [blockClass]="'table-border-style'">
             <div style="float: right ;margin-right: 30px;">
               <button class="btn hor-grd btn-grd-primary" (click)="Affecter()"><i
-              class="icofont icofont-ui-add"></i>Nouvelle Mission</button>
+              class="icofont icofont-delivery-time"></i>Nouvelle Mission</button>
             </div>
             <div class="table-responsive">
       

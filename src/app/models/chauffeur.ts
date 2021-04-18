@@ -1,5 +1,5 @@
 export class Chauffeur {
-    id_chauffeur?: string;
+    id_chauffeur: string;
     nomPrenom: string;
     matricule: string;
     email: string;
@@ -11,7 +11,7 @@ export class Chauffeur {
     type: string;
 
 
-    constructor(email: string, matricule: string, nomPrenom: string,tel: string,region: string, dns: string, id_chauffeur?: string,statut?: string,password?: string) {
+    constructor(email: string, matricule: string, nomPrenom: string, tel: string, region: string, dns: string, id_chauffeur?: string, statut?: string, password?: string) {
         this.id_chauffeur = id_chauffeur;
         this.matricule = matricule;
         this.nomPrenom = nomPrenom;

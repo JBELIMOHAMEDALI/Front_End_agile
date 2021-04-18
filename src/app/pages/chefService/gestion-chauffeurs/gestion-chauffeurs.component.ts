@@ -3,7 +3,6 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Chauffeur } from "../../../models/chauffeur";
 import { UserService } from "../../../services/user.service";
 import { LoginErrorComponent } from "../../auth/login-error/login-error.component";
-import * as CryptoJS from 'crypto-js';
 import { ChefService } from "../../../services/chef-service.service";
 import { ControlsService } from '../../../services/controls.service';
 import { PopupChauffeurComponent } from "../popup-chauffeur/popup-chauffeur.component";
@@ -26,9 +25,10 @@ export class GestionChauffeursComponent implements OnInit {
   ngOnInit() {
     this.getUsers(resAcitf => {
       this.chauffeursActif = resAcitf;
-    this.getUsers(results => {
-      this.chauffeursAll = [...resAcitf.concat(results)];
-    }, false);
+
+      this.getUsers(results => {
+        this.chauffeursAll = [...resAcitf.concat(results)];
+      }, false);
     }, true);
 
   }
@@ -37,30 +37,25 @@ export class GestionChauffeursComponent implements OnInit {
 
     try {
       const { msg, erorer } = await this.userServ.getAllUsers(actif) as any || [];
-      if (erorer) {
-
-        callback([]);
-
-      } else {
-
+      if (!erorer) {
         callback(msg);
       }
 
     } catch (error) {
-      callback([]);
+      return error;
     }
 
   }
 
-  async update(id: string) {
+  async update(chauffeur: Chauffeur) {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = 'MODIFICATION CHAUFFEUR';
-    modalRef.componentInstance.id = Number(id);
+    modalRef.componentInstance.chauffeur = { ...chauffeur };
 
     if (this.chauffeursAll.length > 0) {
       modalRef.componentInstance.chauffeursAll = this.chauffeursAll;
-      modalRef.componentInstance.matList = this.getAllMatricule(this.chauffeursAll);
-      modalRef.componentInstance.emailList = this.getAllEmails(this.chauffeursAll);
+      modalRef.componentInstance.matList = this.controls.getAllMatriculeOrEmails(this.chauffeursAll, 'matricule');
+      modalRef.componentInstance.emailList = this.controls.getAllMatriculeOrEmails(this.chauffeursAll, 'email');
     }
 
   }
@@ -72,72 +67,34 @@ export class GestionChauffeursComponent implements OnInit {
       if (!erorer) {
         this.controls.reloadComponent();
       }
-
-
     } catch (error) {
-      const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = error.message;
+      const modalRef = this.modalService.open(LoginErrorComponent);
+      modalRef.componentInstance.message = "Opération non effectuée !";
     }
 
   }
-
-
-  decryptData(data) {
-
-    try {
-      const bytes = CryptoJS.AES.decrypt(data, 'secretKey');
-      if (bytes.toString()) {
-        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-      }
-      return data;
-    } catch (e) {
-      return e;
-    }
-  }
-
 
   Ajouter() {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = 'NOUVEAU CHAUFFEUR';
     if (this.chauffeursAll.length > 0) {
 
-      modalRef.componentInstance.matList = this.getAllMatricule(this.chauffeursAll);
+      modalRef.componentInstance.matList = this.controls.getAllMatriculeOrEmails(this.chauffeursAll, 'matricule');
 
-      modalRef.componentInstance.emailList = this.getAllEmails(this.chauffeursAll);
+      modalRef.componentInstance.emailList = this.controls.getAllMatriculeOrEmails(this.chauffeursAll, 'email');
     }
-
-    // modalRef.componentInstance.id = -1;
   }
 
 
-  showChauffeur(id: string, actif: boolean) {
+  showChauffeur(chauffeur: Chauffeur, actif: boolean) {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = 'DONNEES CHAUFFEUR';
-    modalRef.componentInstance.id = Number(id);
     modalRef.componentInstance.show = true;
     modalRef.componentInstance.actif = actif;
+    modalRef.componentInstance.chauffeur = { ...chauffeur };
 
   }
 
-  getAllMatricule(array: Chauffeur[]): string[] {
-    const matList = new Array<string>();
-    for (let index = 0; index < array.length; index++) {
-      const matricule = array[index].matricule;
-      matList.push(matricule)
-
-    }
-    return matList;
-  }
-
-  getAllEmails(array: Chauffeur[]): string[] {
-    const emailList = new Array<string>();
-    for (let index = 0; index < array.length; index++) {
-      const email = array[index].email;
-      emailList.push(email)
-
-    }
-    return emailList;
-  }
 
 }
 

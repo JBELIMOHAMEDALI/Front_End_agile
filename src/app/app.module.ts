@@ -42,6 +42,14 @@ import { VoituresinactifsComponent } from './pages/chefService/voituresinactifs/
 import { ChauffeursinactivesComponent } from './pages/chefService/chauffeursinactives/chauffeursinactives.component';
 import { PopupChauffeurComponent } from './pages/chefService/popup-chauffeur/popup-chauffeur.component';
 import { PopupMissionComponent } from './pages/chefService/popup-mission/popup-mission.component';
+import { PopupCarnetdeboardComponent } from './pages/chauffeur/popup-carnetdeboard/popup-carnetdeboard.component';
+import { DocumentDecPanneComponent } from './pages/chauffeur/document-pep/document-dec-panne/document-dec-panne.component';
+import { DocumentOrderServiceComponent } from './pages/chauffeur/document-pep/document-order-service/document-order-service.component';
+import { DocumentPrelevementMatrComponent } from './pages/chauffeur/document-pep/document-prelevement-matr/document-prelevement-matr.component';
+import { PopupMissionChauffeurComponent } from './pages/chauffeur/popup-mission-chauffeur/popup-mission-chauffeur.component';
+import { MissionstermineesComponent } from './pages/chauffeur/missionsterminees/missionsterminees.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -78,6 +86,12 @@ import { PopupMissionComponent } from './pages/chefService/popup-mission/popup-m
     ChauffeursinactivesComponent,
     PopupChauffeurComponent,
     PopupMissionComponent,
+    PopupCarnetdeboardComponent,
+    DocumentDecPanneComponent,
+    DocumentOrderServiceComponent,
+    DocumentPrelevementMatrComponent,
+    PopupMissionChauffeurComponent,
+    MissionstermineesComponent,
 
 
   ],
@@ -94,10 +108,12 @@ import { PopupMissionComponent } from './pages/chefService/popup-mission/popup-m
     //BreadcrumbsComponent
     //SigninComponent,
     //BasicLoginComponent,
-    NgxPrintModule
+    NgxPrintModule,
+    NgxPaginationModule
   ],
   entryComponents: [PopupComponent, PopupChauffeurComponent, LoginErrorComponent,
-    PopupVoitureComponent, PopupAffectationComponent, PopupEntretienComponent, PopupMissionComponent],
+    PopupVoitureComponent, PopupAffectationComponent, PopupEntretienComponent, PopupMissionComponent,
+    PopupMissionChauffeurComponent, PopupCarnetdeboardComponent],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent]

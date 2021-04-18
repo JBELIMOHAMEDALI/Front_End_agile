@@ -1,12 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { LoginErrorComponent } from "../../auth/login-error/login-error.component";
-import * as CryptoJS from 'crypto-js';
 import { VoitureService } from "../../../services/voiture.service";
 import { Voiture } from "../../../models/voiture";
 import { PopupVoitureComponent } from "../popup-voiture/popup-voiture.component";
 import { ControlsService } from "../../../services/controls.service";
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-voitures',
@@ -32,20 +30,7 @@ export class VoituresComponent implements OnInit {
         this.voitureListAll = [...resActif.concat(results)];
       }, false);
     }, true);
-    // const a = new Date("2017-12-31 11:12:30");
-    // const b = new Date("2018-05-31 16:12:30");
 
-  }
-
-
-
-  update(id: string) {
-    const modalRef = this.modalService.open(PopupVoitureComponent);
-    modalRef.componentInstance.title = 'MODIFICATION VOITURE';
-    modalRef.componentInstance.id = Number(id);
-    if (this.voitureListAll.length > 0) {
-      modalRef.componentInstance.matList = this.getAllMatricule(this.voitureListAll);
-    }
   }
 
   async activerDesactiver(id: string) {
@@ -58,75 +43,51 @@ export class VoituresComponent implements OnInit {
       }
 
     } catch (error) {
-      const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = error.message;
+      const modalRef = this.modalService.open(LoginErrorComponent);
+      modalRef.componentInstance.message = "Opération non effectuée !";
     }
 
-  }
-
-  decryptData(data) {
-
-    try {
-      const bytes = CryptoJS.AES.decrypt(data, 'secretKey');
-      if (bytes.toString()) {
-        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-      }
-      return data;
-    } catch (e) {
-      return e;
-    }
   }
 
 
   Ajouter() {
     const modalRef = this.modalService.open(PopupVoitureComponent);
     modalRef.componentInstance.title = 'NOUVELLE VOITURE';
-    modalRef.componentInstance.id = -1;
     if (this.voitureListAll.length > 0) {
-      modalRef.componentInstance.matList = this.getAllMatricule(this.voitureListAll);
+      modalRef.componentInstance.matList = this.controls.getAllMatriculeOrEmails(this.voitureListAll, 'matricule');
+    }
+  }
+
+  update(voiture: Voiture) {
+    const modalRef = this.modalService.open(PopupVoitureComponent);
+    modalRef.componentInstance.title = 'MODIFICATION VOITURE';
+    modalRef.componentInstance.voiture = { ...voiture };
+    if (this.voitureListAll.length > 0) {
+      modalRef.componentInstance.matList = this.controls.getAllMatriculeOrEmails(this.voitureListAll, 'matricule');
     }
   }
 
 
-  showVoiture(id: string) {
+  showVoiture(voiture: Voiture) {
     const modalRef = this.modalService.open(PopupVoitureComponent);
     modalRef.componentInstance.title = 'DONNEES VOITURE';
-    modalRef.componentInstance.id = Number(id);
     modalRef.componentInstance.show = true;
     modalRef.componentInstance.actif = true;
+    modalRef.componentInstance.voiture = { ...voiture };
 
   }
 
   async getVoitures(callback, actif: boolean) {
     try {
       const { msg, erorer } = await this.voitureService.getAllVoitures(actif) as any || [];
-      if (erorer) {
-
-        callback([]);
-
-      } else {
-
+      if (!erorer) {
         callback(msg);
       }
 
     } catch (error) {
-      callback([]);
+      return error;
     }
   }
-
-  getAllMatricule(array: Voiture[]): string[] {
-
-    const matList = new Array<string>();
-    for (let index = 0; index < array.length; index++) {
-      const matricule = array[index].matricule;
-      matList.push(matricule)
-
-    }
-    return matList;
-  }
-
-
-
 
 
 

@@ -34,18 +34,12 @@ export class AffectvoitureComponent implements OnInit {
   async getAllAffectations(callback) {
     try {
       const { msg, erorer } = await this.affectService.getAllAffectations('1') as any || [];
-      if (erorer)
-        // this.voituresAffectes = [];
-        callback([]);
-      else
-        // this.voituresAffectes = msg || [];
+      if (!erorer)
+
         callback(msg);
 
     } catch (error) {
-
-      // this.voituresAffectes = [];
-      callback([]);
-
+      return error;
     }
   }
 
@@ -61,8 +55,8 @@ export class AffectvoitureComponent implements OnInit {
 
 
     } catch (error) {
-      const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = error.message;
+      const modalRef = this.modalService.open(LoginErrorComponent);
+      modalRef.componentInstance.message = "Opération non effectuée !";
     }
   }
 
@@ -79,29 +73,19 @@ export class AffectvoitureComponent implements OnInit {
   async loadObjects(option: string, id?: string) {
     try {
       const { msg, erorer } = await this.affectVoitureService.getAll(option) as any || [];
-      if (erorer) {
-
-        return null;
-
-      }
-      else {
+      if (!erorer) {
         switch (option) {
           case 'chauffeur':
             return (msg.find(element => element.id_chauffeur === id));
-
-            break;
           case 'voiture':
             return (msg.find(element => element.id_voiture === id));
-
-            break;
-
 
         }
       }
 
 
     } catch (error) {
-      return null;
+      return error;
     }
   }
 }

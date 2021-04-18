@@ -8,7 +8,7 @@
     <form *ngIf="this.id>0&&this.mission&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate> 
     <div  class="modal-body" >
     
-            
+<!--             
             <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                 class="icofont icofont-car-alt-1"></i></label></span>
@@ -23,7 +23,7 @@
             </ng-container>
 
         </select>  
-    </div>
+    </div> -->
     
         
           <div class="input-group">
@@ -41,14 +41,7 @@
 
         </select>  
     </div>
-   
-    
-            
-              
-    
-    
-         
-    
+  
             <div class="input-group">
     
                 <span class="input-group-prepend"><label class="input-group-text"><i
@@ -102,7 +95,7 @@
     
         <div  class="modal-body" >
 
-          <div class="input-group">
+          <!-- <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                 class="icofont icofont-car-alt-1"></i></label></span>
         <select  ngModel={{-1}} #id_voiture="ngModel" name="id_voiture" class="form-control" required>
@@ -118,7 +111,7 @@
     </div>
     <div *ngIf="(this.controls.validateSelect(id_voiture.value)&&id_voiture.touched)" class="alert alert-danger" role="alert">
         Séléctionner une voiture
-    </div>
+    </div> -->
         
           <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
@@ -183,7 +176,7 @@
             <div class="modal-footer">
                 <input type="submit" class="btn btn-outline-primary" 
                 [disabled]="df.invalid||dd.invalid||this.controls.validateSelect(id_chauffeur.value)
-                ||this.controls.validateSelect(id_voiture.value)||this.controls.dateDiff(dd.value,df.value)" 
+                ||this.controls.dateDiff(dd.value,df.value)" 
                 value="Confirmer" />
                 <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
             </div>
@@ -211,6 +204,10 @@
                               <td > {{ this.mission.id_chauffeur }}</td>
                             </tr>
                             <tr>
+                              <th scope="row">Matricule Chauffeur</th>
+                              <td > {{ this.mission.matriculeChauffeur }}</td>
+                            </tr>
+                            <tr>
                               <th scope="row">Chauffeur</th>
                               <td > {{ this.mission.nomPrenom }}</td>
                             </tr>
@@ -234,8 +231,8 @@
                         </tr>
                             <tr>
                               <th scope="row">Description</th>
+                              <td *ngIf="!this.mission.description">Aucune Description</td>                            
                               <td *ngIf="this.mission.description">{{this.mission.description}}</td>
-                              <td *ngIf="!this.mission.description">Aucune Description</td>
   
                             </tr>   
                            

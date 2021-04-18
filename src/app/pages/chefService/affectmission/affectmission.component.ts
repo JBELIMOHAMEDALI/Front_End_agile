@@ -38,12 +38,10 @@ export class AffectmissionComponent implements OnInit {
   async getAllMissions(callback) {
     try {
       const { msg, erorer } = await this.missionService.getAllMissions() as any || [];
-      if (erorer)
-        callback([]);
-      else
+      if (!erorer)
         callback(msg);
     } catch (error) {
-      callback([]);
+     return error;
     }
   }
 
@@ -51,25 +49,21 @@ export class AffectmissionComponent implements OnInit {
     const modalRef = this.modalService.open(PopupMissionComponent);
     modalRef.componentInstance.title = 'MODIFIER UNE MISSION';
     modalRef.componentInstance.id = Number(mission.id_mission);
-    modalRef.componentInstance.mission = mission
-
-
+    modalRef.componentInstance.mission = { ...mission }
   }
 
 
   async supprimerMission(id_mission: string) {
     try {
       const { msg, erorer } = await this.missionService.deleteMission(id_mission) as any || [];
-      if (erorer) {
-        const modelServ = this.modalService.open(LoginErrorComponent);
-        modelServ.componentInstance.message = "SUPPRESSION ECHOUEE";
+      if (!erorer) {
+        this.controls.reloadComponent();
       }
 
     } catch (error) {
-      const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = error.message;
+      const modalRef = this.modalService.open(LoginErrorComponent);
+      modalRef.componentInstance.message = "Suppression non effectuée";
     }
-    this.controls.reloadComponent();
   }
 
   showMission(mission) {
@@ -77,7 +71,7 @@ export class AffectmissionComponent implements OnInit {
     modalRef.componentInstance.title = 'DONNEES MISSION';
     modalRef.componentInstance.id = Number(mission.id_mission);
     modalRef.componentInstance.show = true;
-    modalRef.componentInstance.mission = mission
+    modalRef.componentInstance.mission = { ...mission }
 
   }
 }

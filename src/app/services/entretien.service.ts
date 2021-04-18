@@ -60,7 +60,9 @@ export class EntretienService {
       this.httpClient.get(`http://127.0.0.1/pfe_api/entretien/get_entretien_info`)
         .forEach(data =>
           resolve(data)
-        )
+        ).catch((err) => {
+          reject(err);
+        })
     });
   }
 

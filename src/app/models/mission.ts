@@ -2,15 +2,15 @@ export class Mission {
   id_mission: string;
   id_chefService: string;
   id_chauffeur: string;
-  id_voiture: string;
   description: string;
   date_debut: string;
   date_fin: string;
   etat: string;
+  date_fin_real: string
 
-  constructor(description: string, date_debut: string, date_fin: string,
-    etat?: string, id_mission?: string, idchefService?: string, id_chauffeur?: string, id_voiture?: string) {
-    this.id_voiture = id_voiture;
+  constructor(description: string, date_debut: string, date_fin: string, idchefService?: string, id_chauffeur?: string,
+    etat?: string, id_mission?: string, date_fin_real?: string) {
+
     this.description = description;
     this.date_debut = date_debut;
     this.date_fin = date_fin;
@@ -18,6 +18,7 @@ export class Mission {
     this.id_mission = id_mission;
     this.id_chauffeur = id_chauffeur;
     this.id_chefService = idchefService;
+    this.date_fin_real = date_fin_real;
 
   }
 }

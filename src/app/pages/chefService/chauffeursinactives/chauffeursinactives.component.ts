@@ -3,9 +3,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Chauffeur } from "../../../models/chauffeur";
 import { UserService } from "../../../services/user.service";
 import { LoginErrorComponent } from "../../auth/login-error/login-error.component";
-import * as CryptoJS from 'crypto-js';
 import { ChefService } from "../../../services/chef-service.service";
-import { Router } from "@angular/router";
 import { ControlsService } from '../../../services/controls.service';
 import { PopupChauffeurComponent } from "../popup-chauffeur/popup-chauffeur.component";
 
@@ -15,8 +13,9 @@ import { PopupChauffeurComponent } from "../popup-chauffeur/popup-chauffeur.comp
   styleUrls: ['./chauffeursinactives.component.scss']
 })
 export class ChauffeursinactivesComponent implements OnInit {
-  constructor(private userServ: UserService, private chefServ: ChefService,
-    private modalService: NgbModal, private router: Router,
+  constructor(private userServ: UserService,
+    private chefServ: ChefService,
+    private modalService: NgbModal,
     private controls: ControlsService) { }
 
   chauffeursInactif: Chauffeur[] = [];
@@ -33,17 +32,13 @@ export class ChauffeursinactivesComponent implements OnInit {
 
     try {
       const { msg, erorer } = await this.userServ.getAllUsers(false) as any || [];
-      if (erorer) {
-
-        callback([]);
-
-      } else {
+      if (!erorer) {
 
         callback(msg);
       }
 
     } catch (error) {
-      callback([]);
+    return error;
     }
 
   }
@@ -60,32 +55,22 @@ export class ChauffeursinactivesComponent implements OnInit {
 
 
     } catch (error) {
-      const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = error.message;
+      const modalRef = this.modalService.open(LoginErrorComponent);
+      modalRef.componentInstance.message = "Opération non effectuée !";
     }
 
   }
 
 
-  decryptData(data) {
 
-    try {
-      const bytes = CryptoJS.AES.decrypt(data, 'secretKey');
-      if (bytes.toString()) {
-        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-      }
-      return data;
-    } catch (e) {
-      return e;
-    }
-  }
 
-  showChauffeur(id: string) {
+  showChauffeur(chauffeur: Chauffeur) {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = 'DONNEES CHAUFFEUR';
-    modalRef.componentInstance.id = Number(id);
+    modalRef.componentInstance.id = Number(chauffeur.id_chauffeur);
     modalRef.componentInstance.show = true;
     modalRef.componentInstance.actif = false;
+    modalRef.componentInstance.chauffeur = { ...chauffeur };
 
   }
 

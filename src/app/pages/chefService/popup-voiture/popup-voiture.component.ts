@@ -16,12 +16,11 @@ import { ControlsService } from '../../../services/controls.service';
 })
 export class PopupVoitureComponent implements OnInit {
   @Input() title: string = "";
-  @Input() id: number = -1;
   @Input() show: boolean = false;
   @Input() actif: boolean = true;
   @Input() matList: string[] = [];
 
-  voiture: Voiture
+  @Input() voiture: Voiture
   voitureList = new Array<Voiture>();
 
   constructor(
@@ -32,8 +31,8 @@ export class PopupVoitureComponent implements OnInit {
 
 
   ngOnInit() {
-    if (this.id != -1)
-      this.getOneVoiture(this.actif);
+    if (this.voiture && !this.show)
+      this.matList = this.matList.filter(matricule => matricule != this.voiture.matricule);
   }
 
 
@@ -47,25 +46,7 @@ export class PopupVoitureComponent implements OnInit {
 
   }
 
-  async getOneVoiture(actif: boolean) {
 
-
-    try {
-
-      const { msg, erorer } = await this.voitureService.getOneVoiturebyId(this.id.toString(), actif) as any || [];
-
-      if (!erorer) {
-        this.voiture = msg[0];
-        this.matList = this.matList.filter(matricule => matricule != this.voiture.matricule);
-
-      }
-
-    } catch (error) {
-      return error;
-    }
-
-
-  }
 
 
   async addVoiture(form: NgForm) {
@@ -74,16 +55,15 @@ export class PopupVoitureComponent implements OnInit {
     try {
       const voiture = new Voiture(matricule, puissance, service, type, dmc);
       const { msg, erorer } = await this.voitureService.addVoiture(voiture) as any || [];
-      if (erorer) {
-        const modelServ = this.modalService.open(LoginErrorComponent);
-        modelServ.componentInstance.message = "Ajout non effectué !";
+      if (!erorer) {
+        this.activeModal.dismiss();
+        this.controls.reloadComponent();
       }
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Ajout non effectué !";
     }
-    this.activeModal.dismiss();
-    this.controls.reloadComponent();
+
   }
 
 
@@ -91,18 +71,17 @@ export class PopupVoitureComponent implements OnInit {
     const { matricule, dmc, puissance, service, type } = form.value;
 
     try {
-      const voiture = new Voiture(matricule, puissance, service, type, dmc, this.id.toString());
+      const voiture = new Voiture(matricule, puissance, service, type, dmc, this.voiture.id_voiture);
       const { msg, erorer } = await this.voitureService.updateVoiture(voiture) as any || [];
-      if (erorer) {
-        const modelServ = this.modalService.open(LoginErrorComponent);
-        modelServ.componentInstance.message = "Modification non effectué !";
+      if (!erorer) {
+        this.activeModal.dismiss();
+        this.controls.reloadComponent();
       }
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = "Modification non effectué !";
+      modelServ.componentInstance.message = "Modification non effectuée !";
     }
-    this.activeModal.dismiss();
-    this.controls.reloadComponent();
+
   }
 
 

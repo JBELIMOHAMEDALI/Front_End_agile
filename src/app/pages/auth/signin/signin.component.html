@@ -42,7 +42,7 @@
             <div class="d-flex justify-content-end social_icon"></div>
           </div>
           <div class="card-body">
-            <form class="form" [formGroup]="loginForm">
+            <form class="form" name="form" #f="ngForm" (ngSubmit)="this.onSignin(f)">
               <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
@@ -55,12 +55,11 @@
                   type="email"
                   #email
                   name="email"
-                  formControlName="email"
-              />
+                  #email="ngModel" ngModel
+
+                  />
               </div>
-              <!-- <small *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched " class="text-danger" >
-                Champ obligatoire format *****@mail.com
-              </small> -->
+              
               <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
@@ -72,36 +71,19 @@
                   class="form-control"
                   required
                   placeholder="Mot de Passe"
-                  name="password"
-                  #password
-                  formControlName="password"
-                />
+                  name="pass"
+                  #pass="ngModel" ngModel
+
+                  />
               </div>
-              <!-- <small
-                *ngIf="
-                  loginForm.controls.password.invalid &&
-                  loginForm.controls.password.touched
-                "
-                class="text-danger"
-              >
-                Champ obligatoire *
-              </small> -->
-              <div *ngIf="this.verifUser()==='chefService'" class="row align-items-center remember">
+              
+              <!-- <div *ngIf="this.verifUser()==='chefService'" class="row align-items-center remember">
                 <a class="nav-link text-white" [routerLink]="['/register',this.getUserid()]"
                   >Créer un compte</a
                 >
-              </div>
+              </div> -->
               <div class="form-group">
-                <button
-                  class="btn float-right login_btn btn-sm"
-
-                  (click)="
-                  onSignin(
-                    email.value,
-                    password.value
-                  )
-                "
-                >Connexion</button>
+                <input type="submit" class="btn float-right login_btn btn-sm" value="Connexion"/>
               </div>
             </form>
           </div>

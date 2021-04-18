@@ -24,6 +24,7 @@ import { AffectmissionComponent } from "./pages/chefService/affectmission/affect
 import { HistoriqueaffectvoitureComponent } from './pages/chefService/historiqueaffectvoiture/historiqueaffectvoiture.component';
 import { VoituresinactifsComponent } from './pages/chefService/voituresinactifs/voituresinactifs.component';
 import { ChauffeursinactivesComponent } from './pages/chefService/chauffeursinactives/chauffeursinactives.component';
+import { MissionstermineesComponent } from './pages/chauffeur/missionsterminees/missionsterminees.component';
 
 
 
@@ -32,7 +33,7 @@ const routes: Routes = [
 
 
 
-  { path: 'register/:id', component: RegisterComponent },
+  // { path: 'register/:id', component: RegisterComponent },
   { path: 'forgotPass/:id', component: ForgotPasswordComponent },
   { path: 'accueil', component: AccueilComponent },
   { path: 'user/:id', component: SigninComponent },
@@ -63,6 +64,7 @@ const routes: Routes = [
           },
           { path: 'carnetDeBoard', component: CarnetDeBoardComponent },
           { path: 'missions', component: MissionsComponent },
+          { path: 'missionsdon', component:MissionstermineesComponent },
           {
             path: 'documents', component: DocumentsComponent,
             children: [

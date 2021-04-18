@@ -39,7 +39,6 @@ export class GestionentretiensComponent implements OnInit {
     const modalRef = this.modalService.open(PopupEntretienComponent);
     modalRef.componentInstance.title = 'NOUVEL ENTRETIEN';
     modalRef.componentInstance.id = -1;
-    // modalRef.componentInstance.show = true;
 
   }
 
@@ -56,16 +55,15 @@ export class GestionentretiensComponent implements OnInit {
   async supprimerEntretien(id_entetien: string) {
     try {
       const { msg, erorer } = await this.entretienService.deleteEntretien(id_entetien) as any || [];
-      if (erorer) {
-        const modelServ = this.modalService.open(LoginErrorComponent);
-        modelServ.componentInstance.message = "SUPPRESSION ECHOUEE";
+      if (!erorer) {
+        this.controls.reloadComponent();
+
       }
 
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = error.message;
+      modelServ.componentInstance.message = "Suppression non effectuée";
     }
-    this.controls.reloadComponent();
   }
 
 
@@ -73,17 +71,12 @@ export class GestionentretiensComponent implements OnInit {
   async getAllEntrtiens(callback) {
     try {
       const { msg, erorer } = await this.entretienService.getAllEntrtieninfo() as any || [];
-      if (erorer) {
-
-        callback([]);
-
-      } else {
-
+      if (!erorer) {
         callback(msg);
       }
 
     } catch (error) {
-      callback([]);
+      return error;
     }
   }
 
@@ -97,22 +90,18 @@ export class GestionentretiensComponent implements OnInit {
       modalRef.componentInstance.entretien = valuEntretien;
     });
   }
+
+
   async getOneEntretien(id_entretien: string, callback) {
-
-
     try {
+      const { msg, erorer } = await this.entretienService.getOneEntretienbyId(id_entretien) as any || [];
 
-      const { msg } = await this.entretienService.getOneEntretienbyId(id_entretien) as any || [];
-
-      if (msg.length > 0) {
+      if (!erorer) {
         callback(msg[0]);
-      } else {
-        callback({})
       }
 
     } catch (error) {
-      callback({})
-      return error;
+     return error;
     }
 
 

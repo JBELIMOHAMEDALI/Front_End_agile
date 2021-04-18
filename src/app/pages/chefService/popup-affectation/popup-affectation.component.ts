@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ControlsService } from '../../../services/controls.service';
 import { Voiture } from '../../../models/voiture';
@@ -55,13 +54,10 @@ export class PopupAffectationComponent implements OnInit {
 
       if (!erorer) {
         callback(msg[0]);
-      } else {
-        callback(null);
       }
 
     } catch (error) {
-      callback(null);
-      return error;
+     return error;
     }
   }
 
@@ -81,16 +77,15 @@ export class PopupAffectationComponent implements OnInit {
     try {
 
       const { msg, erorer } = await this.affectVoitureService.addAffectaion(form.value) as any || [];
-      if (erorer) {
-        const modelServ = this.modalService.open(LoginErrorComponent);
-        modelServ.componentInstance.message = "Affectation non effectué !";
+      if (!erorer) {
+        this.activeModal.dismiss();
+        this.controls.reloadComponent();
       }
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Affectation non effectué !";
     }
-    this.activeModal.dismiss();
-    this.controls.reloadComponent();
+
   }
 
 
@@ -100,30 +95,27 @@ export class PopupAffectationComponent implements OnInit {
     try {
       const payload = { id_voiture: voitureopt, id_chauffeur: chauffeuropt, id_affectation: this.id }
       const { msg, erorer } = await this.affectVoitureService.updateAffectaion(payload) as any || [];
-      if (erorer) {
-        const modelServ = this.modalService.open(LoginErrorComponent);
-        modelServ.componentInstance.message = "Modification non effectué !";
+      if (!erorer) {
+        this.activeModal.dismiss();
+        this.controls.reloadComponent();
       }
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = "Modification non effectué !";
+      modelServ.componentInstance.message = "Modification non effectuée !";
     }
-    this.activeModal.dismiss();
-    this.controls.reloadComponent();
+
   }
 
   async loadChauffeursNonAffectes(callback) {
     try {
       const { msg, erorer } = await this.affectVoitureService.getChauffeursVoituresNonaffectesActifs('chauffeur') as any || [];
-      if (erorer) {
-        callback([]);
+      if (!erorer) {
 
-      } else {
         callback(msg);
       }
 
     } catch (error) {
-      callback([]);
+      return error;
     }
   }
 
@@ -131,14 +123,12 @@ export class PopupAffectationComponent implements OnInit {
 
     try {
       const { msg, erorer } = await this.affectVoitureService.getChauffeursVoituresNonaffectesActifs('voiture') as any || [];
-      if (erorer) {
-        callback([]);
-      } else {
+      if (!erorer) {
         callback(msg);
       }
 
     } catch (error) {
-      callback([]);
+      return error;
     }
 
   }

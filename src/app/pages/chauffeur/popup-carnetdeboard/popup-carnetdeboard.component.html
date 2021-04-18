@@ -1,0 +1,62 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{this.title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form  name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate> 
+  <div class="modal-body">
+
+    <!-- <div class="form-group">
+      <label for="klm">KLM</label>
+      <input type="number" class="form-control" id="klm" placeholder="Kilometrage" name="klm"
+      [(ngModel)]="this.model.klm" #klm="ngModel"
+      [ngClass]="{ 'is-invalid': (klm.invalid) && klm.touched }" required >
+      <div *ngIf="(klm.invalid) && klm.touched" class="invalid-feedback">
+        <div *ngIf="klm.errors.required">KLM Obligatoire !!</div>
+
+        </div>
+    </div> -->
+
+    <div class="input-group">
+      <span class="input-group-prepend"><label class="input-group-text"><i
+            class="icofont icofont-car-alt-1"></i></label></span>
+      <input type="number" class="form-control" ngModel
+      name="klm" required  #klm="ngModel" placeholder="Kilométrage">
+  </div>
+  
+  <div *ngIf="(klm.invalid && klm.touched)" class="alert alert-danger" role="alert">
+      Kilométrage est invalide
+  </div>
+
+
+    <!-- <div class="form-group">
+      <label for="con">Consommation en litre</label>
+      <input type="text" class="form-control" id="con" placeholder="Consomation" name="con"
+      [(ngModel)]="this.model.con" #con="ngModel"
+      [ngClass]="{ 'is-invalid': ( con.invalid) && con.touched }" required>
+
+      <div *ngIf="(con.invalid) && con.touched" class="invalid-feedback">
+        <div *ngIf="con.errors.required">Consommation Obligatoire !!</div>
+    </div>
+    </div> -->
+    <div class="input-group">
+      <span class="input-group-prepend"><label class="input-group-text"><i
+            class="icofont icofont-energy-oil"></i></label></span>
+      <input type="number" class="form-control" ngModel
+      name="con" required  #con="ngModel" placeholder="Consommation en litre">
+  </div>
+  
+  <div *ngIf="(con.invalid && con.touched)" class="alert alert-danger" role="alert">
+      Consommation non valide
+  </div>
+
+
+  </div>
+  <div class="modal-footer">
+
+    <input type="submit" class="btn btn-primary" [disabled]="f.invalid" value="Valider">
+    <button class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+  </div>
+</form>
+  

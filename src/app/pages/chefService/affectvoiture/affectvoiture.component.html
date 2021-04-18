@@ -14,7 +14,7 @@
                   <h4>Affectations Chauffeur Voiture</h4>
                 </span>
                 <span>                
-                  Dans cette page le chef service a l'accés total pour gérer et controler toutes les affectations des chauffeurs aux voitures !
+                  Dans cette page le chef service a l'accés de gestion et controle de toutes les affectations des chauffeurs aux voitures 
                 </span>
               </div>
             </div>
@@ -23,8 +23,8 @@
             <div class="page-header-breadcrumb">
               <ul class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a [routerLink]="['/dashboard/chefService/dashboard']">
-                    <i class="ti-home"></i>
+                  <a [routerLink]="['/dashboard/chefService']">
+                    <i class="icofont icofont-home"></i>
                   </a>
                 </li>
                 <li class="breadcrumb-item">
@@ -41,10 +41,10 @@
       
       <div class="row">
         <div class="col-sm-12" >
-          <app-card [title]="'Affectations Chauffeur Voiture'" [classHeader]="true" [blockClass]="'table-border-style'">
+          <app-card [title]="'Liste des affectations Chauffeur Voiture :'" [classHeader]="true" [blockClass]="'table-border-style'">
             <div style="float: right ;margin-right: 30px;">
               <button class="btn hor-grd btn-grd-primary" (click)="Affecter()"><i
-              class="icofont icofont-ui-add"></i>Nouvelle Affectation</button>
+              class="icofont icofont-car-alt-1"></i>Nouvelle Affectation</button>
             </div>
             <div class="table-responsive">
       

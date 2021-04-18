@@ -58,7 +58,9 @@ export class AffectVoitureService {
       this.httpClient.get('http://127.0.0.1/pfe_api/Affecter_v_chauffeur/get_all_affecation_info', body)
         .forEach(data =>
           resolve(data)
-        )
+        ).catch((err) => {
+          reject(err)
+        })
     });
   }
 
@@ -83,15 +85,17 @@ export class AffectVoitureService {
   }
 
   getChauffeursVoituresNonaffectesActifs(option: string) {
-    let req: string[] = ['chauffeur', 'get_chouffeur_non_affecte_voture'];
+    let req: string = 'get_chouffeur_non_affecte_voture';
     if (option === 'voiture') {
-      req = ['voiture', 'get_voitur_non_affecte'];
+      req = 'get_voitur_non_affecte';
     }
     return new Promise((resolve, reject) => {
-      this.httpClient.get(`http://127.0.0.1/pfe_api/${req[0]}/${req[1]}`)
+      this.httpClient.get(`http://127.0.0.1/pfe_api/${option}/${req}`)
         .forEach(data =>
           resolve(data)
-        )
+        ).catch((err) => {
+          reject(err);
+        })
     });
   }
 
@@ -102,7 +106,9 @@ export class AffectVoitureService {
       this.httpClient.get(`http://127.0.0.1/pfe_api/Generale/get_all_Act`, body)
         .forEach(data =>
           resolve(data)
-        )
+        ).catch((err) => {
+          reject(err);
+        })
     });
   }
 
@@ -123,7 +129,7 @@ export class AffectVoitureService {
   }
 
 
-   
+
 
 
 }

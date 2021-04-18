@@ -9,9 +9,10 @@ import '../../../../assets/charts/amchart/serial.js';
 import '../../../../assets/charts/amchart/light.js';
 import '../../../../assets/charts/amchart/ammap.js';
 import '../../../../assets/charts/amchart/worldLow.js';
-import { Chauffeur } from "../../../models/chauffeur";
 import { UserService } from "../../../services/user.service";
 import { VoitureService } from "../../../services/voiture.service";
+import { LoginErrorComponent } from 'app/pages/auth/login-error/login-error.component.js';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 declare const AmCharts: any;
@@ -30,13 +31,14 @@ export class DashboardChefServiceComponent implements OnInit {
   totalValueGraphData2 = buildChartJS('#fff', [10, 25, 35, 20, 10, 20, 15, 45, 15, 10], '#e55571', 'transparent');
   totalValueGraphOption = buildChartOption();
 
-  // chauffeurs: Chauffeur[] = [];
   chauffeursActif: number = 0;
   chauffeursInactif: number = 0;
   voituresActif: number = 0;
   voituresInActif: number = 0;
 
-  constructor(private userServ: UserService, private voitureService: VoitureService) { }
+  constructor(private userServ: UserService,
+    private voitureService: VoitureService,
+    private modalService: NgbModal,) { }
 
   ngOnInit() {
     this.getUsers(res => {
@@ -338,17 +340,12 @@ export class DashboardChefServiceComponent implements OnInit {
 
     try {
       const { msg, erorer } = await this.userServ.getAllUsers(actif) as any || [];
-      if (erorer) {
-
-        callback([]);
-
-      } else {
-
+      if (!erorer) {
         callback(msg);
       }
 
     } catch (error) {
-      callback([]);
+      return error;
     }
 
   }
@@ -356,17 +353,12 @@ export class DashboardChefServiceComponent implements OnInit {
   async getVoitures(callback, actif: boolean) {
     try {
       const { msg, erorer } = await this.voitureService.getAllVoitures(actif) as any || [];
-      if (erorer) {
-
-        callback([]);
-
-      } else {
-
+      if (!erorer) {
         callback(msg);
       }
 
     } catch (error) {
-      callback([]);
+      return error;
     }
   }
 

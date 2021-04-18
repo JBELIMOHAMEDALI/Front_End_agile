@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Carnetdeboard } from '../../../models/carnetdeboard';
+import { CarnetDeboardService } from '../../../services/carnet-deboard.service';
+import { PopupCarnetdeboardComponent } from '../popup-carnetdeboard/popup-carnetdeboard.component';
+import { LoginErrorComponent } from '../../auth/login-error/login-error.component';
+import { ControlsService } from "../../../services/controls.service";
+
 
 @Component({
   selector: 'app-carnet-de-board',
@@ -7,9 +14,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarnetDeBoardComponent implements OnInit {
 
-  constructor() { }
+  chauffeursActif: any;
+  mayId: string;
+  p: number;
+  carnetboardlist: Carnetdeboard[] = [];
+  constructor(private serviceCarnetBord: CarnetDeboardService,public controls:ControlsService, private modalService: NgbModal) {
+    const idUser = JSON.parse(localStorage.getItem('idConnexion')).idUser
+    this.mayId = this.controls.decryptData(idUser);
 
-  ngOnInit() {
   }
 
+  ngOnInit() {
+    this.getAllCarnetBoard(result => {
+      this.carnetboardlist = result;
+
+    });
+  }
+  
+
+  async getAllCarnetBoard(callback) {
+    try {
+      const { msg, erorer } = await this.serviceCarnetBord.getAllCarnetBored(this.mayId) as any || [];
+      if (!erorer) {
+        callback(msg);
+      }
+
+    } catch (error) {
+      const modalRef = this.modalService.open(LoginErrorComponent);
+      modalRef.componentInstance.message = "Erreur d'accées internet !";
+    }
+
+  }
+
+
+  Ajouter() {
+    const modalRef = this.modalService.open(PopupCarnetdeboardComponent);
+    modalRef.componentInstance.title = 'NOUVEAU CARNET DE BOARD';
+    modalRef.componentInstance.id_choufeur = this.mayId.toString();
+  }
+ 
+
+
 }
+
+
+

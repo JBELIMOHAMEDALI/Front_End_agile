@@ -11,7 +11,7 @@ export class LoginavbarComponent implements OnInit {
   idUser: string;
   userRole: string;
 
-  constructor(private router: Router, private actifRoute: ActivatedRoute,) {
+  constructor(private actifRoute: ActivatedRoute) {
     this.idUser = this.actifRoute.snapshot.paramMap.get('id');
   }
 
@@ -19,16 +19,14 @@ export class LoginavbarComponent implements OnInit {
   }
 
   getRoute(type: string) {
-
-
     let ch: string = "";
     let result: string = "";
 
     switch (type) {
-      case 'administrateur':
-        ch = "pqrsxy123tu";
+      // case 'administrateur':
+      //   ch = "pqrsxy123tu";
 
-        break;
+      //   break;
       case 'chefService':
         ch = "fghij789kl!";
 
@@ -37,16 +35,12 @@ export class LoginavbarComponent implements OnInit {
         ch = "abcde456nom";
 
         break;
-
-
     }
     for (let i = 0; i < ch.length; i++) {
       const index = Math.floor(this.getRandomArbitrary(0, 11));
-      const element = ch[index];
-      result += element;
+      result += ch[index];
     }
     return result;
-
   }
 
 

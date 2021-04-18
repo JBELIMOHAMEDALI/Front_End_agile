@@ -14,7 +14,7 @@
                   <h4>Voitures inactives</h4>
                 </span>
                 <span>                
-                  Dans cette page le chef service peut accéder et controler toutes les voitures inactives !
+                  Dans cette page le chef service peut accéder et controler toutes les voitures inactives 
                 </span>
               </div>
             </div>
@@ -23,8 +23,8 @@
             <div class="page-header-breadcrumb">
               <ul class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a [routerLink]="['/dashboard/chefService/voituresInactives']">
-                    <i class="icofont icofont-close"></i>
+                  <a [routerLink]="['/dashboard/chefService']">
+                    <i class="icofont icofont-home"></i>
                   </a>
                 </li>
                 <li class="breadcrumb-item">
@@ -43,7 +43,7 @@
         
   
         <div class="col-sm-12" >
-          <app-card [title]="'Voitures inactives'" [classHeader]="true" [blockClass]="'table-border-style'">
+          <app-card [title]="'Liste des voitures inactives :'" [classHeader]="true" [blockClass]="'table-border-style'">
             
             <div class="table-responsive">
       
@@ -69,7 +69,7 @@
                 <ng-container *ngIf="this.voitureListInactif.length>0">
   
                 <tbody *ngFor="let voiture of this.voitureListInactif">
-                  <tr (dblclick)="showVoiture(voiture.id_voiture)" style="text-align: center;">
+                  <tr (dblclick)="showVoiture(voiture)" style="text-align: center;">
                     <th scope="row">{{voiture.matricule}}</th>            
                     <td>{{voiture.type}}</td>
                     <td>{{this.controls.dateFormat(voiture.dmc)}}</td>
@@ -90,7 +90,7 @@
                   <tbody >
                     <tr style="text-align: center;">
                     <td colspan="6">
-                      AUCUNE VOITURE N'EST INACTIVE!
+                      AUCUNE VOITURE N'EST INACTIVE !
                     </td>
                     </tr>
         

@@ -5,8 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PopupComponent } from '../../popup/popup.component';
 import { UserService } from "../../services/user.service";
 import { Router } from "@angular/router";
-import { User } from "../../models/user";
-import * as CryptoJS from 'crypto-js';
+import { ControlsService } from '../../services/controls.service';
 
 @Component({
   selector: 'app-admin',
@@ -103,14 +102,14 @@ export class AdminComponent implements OnInit {
   isSidebarChecked: boolean;
   isHeaderChecked: boolean;
 
-  user: User
+  user: any;
 
 
   @ViewChild('searchFriends', /* TODO: add static flag */ { static: false }) search_friends: ElementRef;
 
   public config: any;
 
-  constructor(public menuItems: MenuItems, private modalService: NgbModal, private route: Router, private userServ: UserService) {
+  constructor(public controls: ControlsService, public menuItems: MenuItems, private modalService: NgbModal, private route: Router, private userServ: UserService) {
     this.navType = 'st5';
     this.themeLayout = 'vertical';
     this.vNavigationView = 'view1';
@@ -173,12 +172,12 @@ export class AdminComponent implements OnInit {
     this.setBackgroundPattern('pattern2');
     const { idUser, type } = JSON.parse(localStorage.getItem('idConnexion'));
 
-    const userRole = this.decryptData(type);
+    const userRole = this.controls.decryptData(type);
     var nom_id: string = "";
     switch (userRole) {
-      case 'administrateur':
-        nom_id = "id_admin";
-        break;
+      // case 'administrateur':
+      //   nom_id = "id_admin";
+      //   break;
       case 'chefservice':
         nom_id = "id_chefService";
         break;
@@ -187,8 +186,8 @@ export class AdminComponent implements OnInit {
         break;
     }
 
-    const payload = { 'id': this.decryptData(idUser), 'tabname': userRole, 'nomId': nom_id };
-    const { erorer, msg } = await this.userServ.getOneChauffeurbyId(payload, true) as any;
+    const payload = { 'id': this.controls.decryptData(idUser), 'tabname': userRole, 'nomId': nom_id };
+    const { erorer, msg } = await this.userServ.getOneUserbyId(payload, true) as any;
 
     if (erorer) {
       this.route.navigate(['/']);
@@ -340,23 +339,9 @@ export class AdminComponent implements OnInit {
 
   }
 
-  decryptData(data) {
-
-    try {
-      const bytes = CryptoJS.AES.decrypt(data, 'secretKey');
-      if (bytes.toString()) {
-
-        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-      }
-      return data;
-    } catch (e) {
-
-      return e;
-    }
-  }
 
   getuserRole() {
-    return this.decryptData(JSON.parse(localStorage.getItem('idConnexion')).type);
+    return this.controls.decryptData(JSON.parse(localStorage.getItem('idConnexion')).type);
 
   }
 

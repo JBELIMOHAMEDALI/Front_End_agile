@@ -14,7 +14,7 @@
                   <h4>Chauffeurs Inactifs</h4>
                 </span>
                 <span>                
-                  Dans cette page le chef service peut accéder et controler tous les chauffeurs inactifs !
+                  Dans cette page le chef service à le controle de tous les chauffeurs inactifs .
                 </span>
               </div>
             </div>
@@ -23,8 +23,8 @@
             <div class="page-header-breadcrumb">
               <ul class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a [routerLink]="['/dashboard/chefService/chauffeursInactifs']">
-                    <i class="icofont icofont-close"></i>
+                  <a [routerLink]="['/dashboard/chefService']">
+                    <i class="icofont icofont-home"></i>
                   </a>
                 </li>
                 <li class="breadcrumb-item">
@@ -43,7 +43,7 @@
     
     
         <div class="col-sm-12" *ngIf="this.chauffeursInactif.length>0">
-          <app-card [title]="'Chauffeurs Inactifs'" [classHeader]="true" [blockClass]="'table-border-style'">
+          <app-card [title]="'Liste des chauffeurs inactifs :'" [classHeader]="true" [blockClass]="'table-border-style'">
             
             <div class="table-responsive">
       
@@ -68,7 +68,7 @@
                 </thead>
                 <ng-container *ngIf="this.chauffeursInactif.length>0">
                 <tbody *ngFor="let chauffeur of this.chauffeursInactif">
-                  <tr (dblclick)="showChauffeur(chauffeur.id_chauffeur)" style="text-align: center;">
+                  <tr (dblclick)="showChauffeur(chauffeur)" style="text-align: center;">
                     <th scope="row">{{chauffeur.matricule}}</th>            
                     <td>{{chauffeur.nomPrenom}}</td>
                     <td>{{chauffeur.tel}}</td>

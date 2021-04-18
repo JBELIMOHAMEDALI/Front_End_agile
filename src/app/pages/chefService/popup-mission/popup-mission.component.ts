@@ -8,7 +8,6 @@ import { LoginErrorComponent } from '../../auth/login-error/login-error.componen
 import { Voiture } from '../../../models/voiture';
 import { Chauffeur } from '../../../models/chauffeur';
 import { AffectVoitureService } from '../../../services/affect-voiture.service';
-import * as CryptoJS from 'crypto-js';
 
 
 @Component({
@@ -34,16 +33,14 @@ export class PopupMissionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // if (this.id != -1)
-    //   this.getOneMission();
-    console.log(this.mission)
-
     this.loadChauffeursNonAffectes(chauffeurs => {
       this.chauffeurList = chauffeurs;
+
     });
     this.loadVoituresNonAffectees(voitures => {
       this.voitureList = voitures;
     });
+
   }
 
 
@@ -58,58 +55,54 @@ export class PopupMissionComponent implements OnInit {
   }
 
   async addMission(form: NgForm) {
-    const idChefService = this.decryptData(JSON.parse(localStorage.getItem('idConnexion')).idUser);
+    const idChefService = this.controls.decryptData(JSON.parse(localStorage.getItem('idConnexion')).idUser);
 
-    const { id_voiture, id_chauffeur, dd, df, desc } = form.value;
+    const { id_chauffeur, dd, df, desc } = form.value;
 
     try {
-      const mission = new Mission(desc, dd.toString(), df.toString(), null, null, idChefService, id_chauffeur, id_voiture);
+      const mission = new Mission(desc, dd.toString(), df.toString(), idChefService, id_chauffeur);
+
       const { msg, erorer } = await this.missionService.addMission(mission) as any || [];
-      if (erorer) {
-        const modelServ = this.modalService.open(LoginErrorComponent);
-        modelServ.componentInstance.message = "Ajout non effectué !";
+      if (!erorer) {
+        this.activeModal.dismiss();
+        this.controls.reloadComponent();
       }
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Ajout non effectué !";
     }
-    this.activeModal.dismiss();
-    this.controls.reloadComponent();
   }
 
 
   async updateMission(form: NgForm) {
-    const idChefService = this.decryptData(JSON.parse(localStorage.getItem('idConnexion')).idUser);
-    const { dd, df, id_chauffeur, id_voiture, desc } = form.value;
+    const idChefService = this.controls.decryptData(JSON.parse(localStorage.getItem('idConnexion')).idUser);
+    const { dd, df, id_chauffeur, desc } = form.value;
 
     try {
-      const mission = new Mission(desc, dd, df, null, this.id.toString(), idChefService, id_chauffeur, id_voiture);
+      const mission = new Mission(desc, dd, df, null, this.id.toString(), idChefService, id_chauffeur, null);
       const { msg, erorer } = await this.missionService.updateMission(mission) as any || [];
-      if (erorer) {
-        const modelServ = this.modalService.open(LoginErrorComponent);
-        modelServ.componentInstance.message = "Modification non effectué !";
+      if (!erorer) {
+        this.activeModal.dismiss();
+        this.controls.reloadComponent();
       }
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = "Modification non effectué !";
+      modelServ.componentInstance.message = "Modification non effectuée !";
     }
-    this.activeModal.dismiss();
-    this.controls.reloadComponent();
+
   }
 
 
   async loadChauffeursNonAffectes(callback) {
     try {
-      const { msg, erorer } = await this.affectVoitureService.getChauffeursVoituresNonaffectesActifs('chauffeur') as any || [];
-      if (erorer) {
-        callback([]);
-
-      } else {
+      const { msg, erorer } = await this.missionService.getChauffeursAffectes() as any || [];
+      if (!erorer) {
         callback(msg);
       }
 
     } catch (error) {
-      callback([]);
+      const modelServ = this.modalService.open(LoginErrorComponent);
+      modelServ.componentInstance.message = "Erreur d'accées internet !";
     }
   }
 
@@ -117,30 +110,18 @@ export class PopupMissionComponent implements OnInit {
 
     try {
       const { msg, erorer } = await this.affectVoitureService.getChauffeursVoituresNonaffectesActifs('voiture') as any || [];
-      if (erorer) {
-        callback([]);
-      } else {
+      if (!erorer) {
         callback(msg);
       }
 
     } catch (error) {
-      callback([]);
+      const modelServ = this.modalService.open(LoginErrorComponent);
+      modelServ.componentInstance.message = "Erreur d'accées internet !";
     }
 
   }
 
 
-  decryptData(data) {
 
-    try {
-      const bytes = CryptoJS.AES.decrypt(data, 'secretKey');
-      if (bytes.toString()) {
-        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-      }
-      return data;
-    } catch (e) {
-      return e;
-    }
-  }
 
 }

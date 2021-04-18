@@ -72,7 +72,9 @@ export class VoitureService {
       this.httpClient.get(`http://127.0.0.1/pfe_api/Generale/${req}`, body)
         .forEach(data =>
           resolve(data)
-        )
+        ).catch((err) => {
+          reject(err);
+        })
     });
   }
 
@@ -122,4 +124,4 @@ export class VoitureService {
 
 }
 //npm i ngx-print//icones/les controles de saisie
-//missions/profile(cs,ch)/accueil/integration/sessions/test
+///accueil/sessions/controle de saisie,design=>profil

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +10,12 @@ export class AuthService {
   constructor(private httpC: HttpClient) { }
 
   getLogin(email: string, password: string, tabname: string) {
-   return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const body = { params: { 'email': email, 'password': password, 'tabname': tabname } };
 
       this.httpC.get('http://localhost/pfe_api/Generale/login/', body)
         .forEach(data => {
           resolve(data)
-
         }
         ).catch((err) => {
           reject(err);
@@ -25,15 +24,13 @@ export class AuthService {
   }
 
 
-  resetPassword(formGroup: FormGroup, userRole: string) {
-    const { email, newPass, matricule } = formGroup.value;
+  resetPassword(form: NgForm, userRole: string) {
+    const { email, newPass, matricule } = form.value;
     let param1 = new HttpParams;
     param1 = param1.set('matrcule', matricule);
     param1 = param1.set('nomTab', userRole);
     param1 = param1.set('email', email);
     param1 = param1.set('newpass', newPass);
-
-
 
     return new Promise((resolve, reject) => {
 

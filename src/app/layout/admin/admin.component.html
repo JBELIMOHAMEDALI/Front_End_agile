@@ -179,7 +179,7 @@
                   <!--aaaaaaaaaaaaa-->
                   <li appAccordionLink>
                     <a
-                      [routerLink]="['/dashboard',this.getuserRole()]"
+                      [routerLink]="['/dashboard/chefService']"
                       target="_self"
                       appAccordionToggle
                     >
@@ -282,6 +282,7 @@
                  
                 </ul>
              
+               
                 <ul
                 *ngIf="this.getuserRole()==='chauffeur'"
                   class="pcoded-item pcoded-left-item"
@@ -292,11 +293,11 @@
                 >
                   <li appAccordionLink>
                     <a
-                      [routerLink]="['/dashboard',this.getuserRole()]"
+                      [routerLink]="['/dashboard/chauffeur']"
                       target="_self"
                       appAccordionToggle
                     >
-                      <span class="pcoded-micon"><i class="ti-home"></i></span>
+                      <span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
                       <span class="pcoded-mtext">Tableau de board</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
@@ -307,7 +308,7 @@
                       target="_self"
                       appAccordionToggle
                     >
-                      <span class="pcoded-micon"><i class="ti-home"></i></span>
+                      <span class="pcoded-micon"><i class="icofont icofont-notebook"></i></span>
                       <span class="pcoded-mtext">Carnet de board</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
@@ -318,7 +319,7 @@
                       target="_self"
                       appAccordionToggle
                     >
-                      <span class="pcoded-micon"><i class="ti-home"></i></span>
+                      <span class="pcoded-micon"><i class="ti-printer"></i></span>
                       <span class="pcoded-mtext">Documents</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
@@ -331,8 +332,19 @@
                       target="_self"
                       appAccordionToggle
                     >
-                      <span class="pcoded-micon"><i class="ti-home"></i></span>
+                      <span class="pcoded-micon"><i class="icofont icofont-briefcase"></i></span>
                       <span class="pcoded-mtext">Missions</span>
+                      <span class="pcoded-mcaret"></span>
+                    </a>
+                  </li>
+                  <li appAccordionLink>
+                    <a
+                      [routerLink]="['/dashboard/chauffeur/missionsdon']"
+                      target="_self"
+                      appAccordionToggle
+                    >
+                      <span class="pcoded-micon"><i class="icofont icofont-delivery-time"></i></span>
+                      <span class="pcoded-mtext">Missions finies</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
                   </li>

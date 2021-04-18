@@ -1,5 +1,5 @@
 export class Voiture {
-  id_voiture?: string;
+  id_voiture: string;
   statut: string;
   matricule: string;
   type: string;

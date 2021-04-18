@@ -5,20 +5,8 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<form *ngIf="this.id>0&&this.chauffeur&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate> 
+<form *ngIf="this.chauffeur&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate> 
 <div  class="modal-body" >
-
-
-        <!-- <div class="form-group">
-            <label for="exampleInputMat">Matricule</label>
-            <input type="text" class="form-control" id="exampleInputMat" placeholder="Matricule" name="matricule"
-                [(ngModel)]="this.chauffeur.matricule" #matricule="ngModel"
-                [ngClass]="{ 'is-invalid': ( matricule.invalid) && matricule.touched }" required />
-            <div *ngIf="(matricule.invalid) && matricule.touched" class="invalid-feedback">
-                <div *ngIf="matricule.errors.required">Matricule Obligatoire !!</div>
-            </div>
-        </div> -->
-
 
         <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
@@ -97,20 +85,12 @@
             Saisir la date de Naissance
         </div>
 
-       
-        <!-- <div class="input-group">
-            <span class="input-group-prepend"><label class="input-group-text"><i
-                  class="icofont icofont-location-pin"></i></label></span>
-            <input type="text" class="form-control" placeholder="Région"
-            name="region" required [(ngModel)]="this.chauffeur.region" #region="ngModel" />
-          </div> -->
-
           <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                 class="icofont icofont-location-pin"></i></label></span>
         <select  [(ngModel)]="this.chauffeur.region" #region="ngModel" name="region" class="form-control" required>
 
-          <ng-container *ngFor="let region of this.regionsList;let i=index;">
+          <ng-container *ngFor="let region of this.controls.getRegions();let i=index;">
 
                 <option [value]="region">
                     {{region}} 
@@ -138,7 +118,7 @@
 
 
 
-<form *ngIf="this.id===-1&&!this.chauffeur" name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
+<form *ngIf="!this.chauffeur" name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
 
     <div  class="modal-body" >
        
@@ -239,7 +219,7 @@
                 class="icofont icofont-location-pin"></i></label></span>
         <select  ngModel={{-1}} #region="ngModel" name="region" class="form-control" required>
             <option disabled [value]="-1">Séléctionner une Gouvernourat</option>
-            <ng-container *ngFor="let region of this.regionsList;let i=index;">
+            <ng-container *ngFor="let region of this.controls.getRegions();let i=index;">
 
                 <option [value]="region">
                     {{region}} 

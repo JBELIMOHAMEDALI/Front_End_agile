@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginErrorComponent } from 'app/pages/auth/login-error/login-error.component';
 import { AffectVoitureService } from '../../../services/affect-voiture.service';
 
 @Component({
@@ -9,7 +11,7 @@ import { AffectVoitureService } from '../../../services/affect-voiture.service';
 export class HistoriqueaffectvoitureComponent implements OnInit {
   voituresNonAffectees: [] = [];
 
-  constructor(private affectService: AffectVoitureService) { }
+  constructor(private affectService: AffectVoitureService, private modalService: NgbModal) { }
 
   ngOnInit() {
 
@@ -21,17 +23,11 @@ export class HistoriqueaffectvoitureComponent implements OnInit {
   async getAllAffectations(callback) {
     try {
       const { msg, erorer } = await this.affectService.getAllAffectations('0') as any || [];
-      if (erorer)
-
-        callback([]);
-      else
-
+      if (!erorer)
         callback(msg);
 
     } catch (error) {
-
-      callback([]);
-
+      return error;
     }
   }
 

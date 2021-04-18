@@ -44,19 +44,18 @@ export class ChauffeurService {
     param1 = param1.set('tel', tel);
     param1 = param1.set('region', region);
     param1 = param1.set('dns', dns);
-    // param1 = param1.set('statut', statut);
     param1 = param1.set('id', id_chauffeur);
 
     return new Promise((resolve, reject) => {
 
-      this.httpClient.post('http://127.0.0.1/pfe_api/chauffeur/update_chauffeur', param1)
+      this.httpClient.post('http://127.0.0.1/pfe_api/chauffeur/update_chauffeur_data', param1)
         .forEach(data =>
           resolve(data)
         ).catch((err) => {
           reject(err);
         });
     });
-
+  console.log(chauffeur)
   }
 
 

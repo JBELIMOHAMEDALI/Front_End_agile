@@ -1,0 +1,89 @@
+<!-- Page-header start -->
+<div class="">
+    <div class="page-header card">
+      <div class="row align-items-end">
+        <div class="col-lg-8">
+          <div class="page-header-title">
+            <span><i class="icofont icofont-delivery-time bg-c-pink"></i></span>
+            <div class="d-inline">
+              <span class="d-block"><h4>Missions terminées </h4></span>
+              <span>Dans Cette Page Le Chauffeur peut consulter les missions qu'il a terminées .</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="page-header-breadcrumb">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/dashboard/chauffeur']">
+                  <i class="icofont icofont-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+  
+                <a>Missions Terminées</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page-header end -->
+  
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card [title]="'Liste Des Missions Finies :'">
+        <div class="table-responsive">
+
+            <div style="margin: 60px;overflow-x:auto;">
+              <table class="table table-hover">
+                <thead>
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <button mat-button>Edit</button>
+                    </mat-cell>
+                  </ng-container>
+                  <tr style="text-align: center;">
+                    <th scope="col">voiture</th>
+                    <th scope="col">Date Debut</th>
+                    <th scope="col">Date Fin</th>
+                    <th scope="col">Action</th>
+    
+                  </tr>
+                </thead>
+                <!-- <ng-container *ngIf="this.chauffeursActif.length>0"> -->
+                 
+                <tbody *ngFor="let mission of this.listmession  | paginate: { itemsPerPage: 3, currentPage: p } ">
+                  <tr  style="text-align: center;">
+                    <td scope="row">{{mission.voiture+" "+mission.matricule}}</td>
+                    <td>{{this.controls.dateFormat(mission.date_debut)}}</td>
+                    <td>{{this.controls.dateFormat(mission.date_fin)}}</td>
+    
+                    <td>
+                        <button class="btn hor-grd btn-secondary" id="{{mission.id_mission}}"
+                        (click)="showMission(mission)"><i
+                          class="icofont icofont-info-circle"></i>Détails</button>&nbsp;
+                     
+                     
+                    </td>
+                  </tr>
+    
+    
+                </tbody>
+                <!-- </ng-container> -->
+    
+              </table>
+    
+              <div style="text-align: center;">
+                <br>
+                <hr>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </div>
+            </div>
+          </div>
+      </app-card>
+    </div>
+  </div>
+  

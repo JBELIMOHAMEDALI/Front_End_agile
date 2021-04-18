@@ -1,5 +1,7 @@
 {
     "recommendations": [
-        "visualstudioexptteam.vscodeintellicode"
+        "visualstudioexptteam.vscodeintellicode",
+        "christian-kohler.path-intellisense",
+        "ionutvmi.path-autocomplete"
     ]
 }

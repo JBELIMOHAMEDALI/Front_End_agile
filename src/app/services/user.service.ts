@@ -7,7 +7,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 export class UserService {
 
-  constructor(private httpC: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   getAllUsers(actif: boolean) {
     var req: string = "get_all_Act";
@@ -16,16 +16,18 @@ export class UserService {
     }
     return new Promise((resolve, reject) => {
       const body = { params: { 'tabname': 'chauffeur' } };
-      this.httpC.get(`http://127.0.0.1/pfe_api/Generale/${req}`, body)
+      this.httpClient.get(`http://127.0.0.1/pfe_api/Generale/${req}`, body)
         .forEach(data =>
           resolve(data)
-        )
+        ).catch((err) => {
+          reject(err);
+        })
     });
   }
 
 
 
-  getOneChauffeurbyId(payload, actif: boolean) {
+  getOneUserbyId(payload, actif: boolean) {
     let req: string = "get_One_Act_By_ID";
     if (!actif) {
       req = "get_One_Not_Act_By_Id";
@@ -34,7 +36,7 @@ export class UserService {
     return new Promise((resolve, reject) => {
       const body = { params: { id: payload.id.toString(), tabname: payload.tabname, nomId: payload.nomId } };
 
-      this.httpC.get(`http://127.0.0.1/pfe_api/Generale/${req}`, body)
+      this.httpClient.get(`http://127.0.0.1/pfe_api/Generale/${req}`, body)
         .forEach(data =>
           resolve(data)
         ).catch((err) => {
@@ -51,9 +53,20 @@ export class UserService {
   UpdateUser(userData) {
 
     return new Promise((resolve, reject) => {
-      const body = { params: { 'id': userData.id, 'matricule': userData.mat, 'email': userData.email, 'nom_prnom': userData.nomComplet, 'tel': userData.tel, 'region': userData.region, 'DNS': userData.dns, } };
 
-      this.httpC.get('http://127.0.0.1/pfe_api/chauffeur/update_chauffeur', body)
+      let param1 = new HttpParams;
+      param1 = param1.set('id', userData.id);
+      param1 = param1.set('email', userData.email);
+      param1 = param1.set('matricule', userData.matricule);
+      param1 = param1.set('nomPrenom', userData.nomComplet);
+      param1 = param1.set('region', userData.region);
+      param1 = param1.set('dns', userData.dns);
+      param1 = param1.set('tel', userData.tel);
+      param1 = param1.set('tabName', userData.tabname);
+      param1 = param1.set('idName', userData.idname);
+
+
+      this.httpClient.post('http://127.0.0.1/pfe_api/chauffeur/update_chauffeur_chefService_profil', param1)
         .forEach(data =>
           resolve(data)
         ).catch((err) => {
@@ -65,7 +78,10 @@ export class UserService {
 
 
 
-
-
-
 }
+
+
+
+
+
+

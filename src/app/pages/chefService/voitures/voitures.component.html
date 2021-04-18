@@ -14,7 +14,7 @@
                 <h4>Gestion Des Voitures</h4>
               </span>
               <span>                
-                Dans cette page le chef service a l'accés total pour gérer et controler toutes les voitures  !
+                Dans cette page le chef service a l'accés de gestion et controle de toutes les voitures . 
               </span>
             </div>
           </div>
@@ -23,8 +23,8 @@
           <div class="page-header-breadcrumb">
             <ul class="breadcrumb">
               <li class="breadcrumb-item">
-                <a [routerLink]="['/dashboard/chefService/voitures']">
-                  <i class="icofont icofont-car-alt-1"></i>
+                <a [routerLink]="['/dashboard/chefService']">
+                  <i class="icofont icofont-home"></i>
                 </a>
               </li>
               <li class="breadcrumb-item">
@@ -41,7 +41,7 @@
     
     <div class="row">
       <div class="col-sm-12" >
-        <app-card [title]="'Gestion Des Voitures'" [classHeader]="true" [blockClass]="'table-border-style'">
+        <app-card [title]="'Liste des voitures actives :'" [classHeader]="true" [blockClass]="'table-border-style'">
           <div style="float: right ;margin-right: 30px;">
             <button class="btn hor-grd btn-grd-primary"  (click)="Ajouter()"><i
             class="icofont icofont-car-alt-1"></i>Nouvelle Voiture</button>
@@ -69,14 +69,14 @@
               </thead>
               <ng-container *ngIf="this.voitureListActif.length>0">
               <tbody *ngFor="let voiture of this.voitureListActif">
-                <tr (dblclick)="showVoiture(voiture.id_voiture)" style="text-align: center;">
+                <tr (dblclick)="showVoiture(voiture)" style="text-align: center;">
                   <th scope="row">{{voiture.matricule}}</th>            
                   <td>{{voiture.type}}</td>
                   <td>{{this.controls.dateFormat(voiture.dmc)}}</td>
                   <td>{{voiture.puissance}}</td>
                   <td>{{voiture.service}}</td>
                   <td>
-                    <button class="btn hor-grd btn-grd-info" id="{{voiture.id_voiture}}" (click)="update(voiture.id_voiture)"><i
+                    <button class="btn hor-grd btn-grd-info" id="{{voiture.id_voiture}}" (click)="update(voiture)"><i
                         class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
                     <button class="btn hor-grd btn-grd-danger" id="{{voiture.id_voiture}}" (click)="activerDesactiver(voiture.id_voiture)"><i
                         class="icofont icofont-close"></i>Désactiver</button>&nbsp;
@@ -91,7 +91,7 @@
               <tbody >
                 <tr style="text-align: center;">
                 <td colspan="6">
-                  AUCUNE VOITURE N'EST ACTIVE!
+                  AUCUNE VOITURE N'EST ACTIVE !
                 </td>
                 </tr>
     

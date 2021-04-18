@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../../../services/auth.service";
-import { User } from "../../../models/user";
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-register",
@@ -26,7 +25,7 @@ export class RegisterComponent implements OnInit {
     ),
   });
 
-  constructor(private authServ: AuthService,private actifRoute: ActivatedRoute,) { }
+  constructor(private authServ: AuthService, private actifRoute: ActivatedRoute,) { }
 
   ngOnInit() { }
 

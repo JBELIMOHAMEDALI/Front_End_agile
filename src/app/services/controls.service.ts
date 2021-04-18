@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -61,7 +62,7 @@ export class ControlsService {
 
   validateLength(input: HTMLInputElement): boolean {
     if (input.value)
-      return input.value.trim().length < 5;
+      return input.value.trim().length <= 5;
     return false
   }
 
@@ -111,13 +112,18 @@ export class ControlsService {
     return option === '-1';
   }
 
-  dateFormat(date: string): string {
-    if (date)
-      return moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY').toString()
+  dateFormat(date: string,hour?:boolean): string {
+  if (date)
+  if(hour){
+     return moment(date).format('DD/MM/YYYY HH:mm:ss').toString()
+  }
+    
+    return moment(date).format('DD/MM/YYYY').toString()
+  
   }
 
 
-  isEqual = (obj1, obj2) => {
+  isEqual = (obj1, obj2) => {//not used
     const obj1Keys = Object.keys(obj1);
     const obj2Keys = Object.keys(obj2);
 
@@ -150,5 +156,86 @@ export class ControlsService {
       return false;
     }
   }
+
+
+  encryptData(data) {
+
+    try {
+      return CryptoJS.AES.encrypt(JSON.stringify(data), 'secretKey').toString();
+    } catch (e) {
+      return e;
+    }
+  }
+
+  decryptData(data) {
+
+    try {
+      const bytes = CryptoJS.AES.decrypt(data, 'secretKey');
+      if (bytes.toString()) {
+        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+      }
+      return data;
+    } catch (e) {
+      return e;
+    }
+  }
+
+  getAllMatriculeOrEmails(array, option: string): string[] {
+    const List = new Array<string>();
+    switch (option) {
+      case 'matricule':
+        for (let index = 0; index < array.length; index++) {
+          List.push(array[index].matricule)
+
+        }
+      case 'email':
+        for (let index = 0; index < array.length; index++) {
+          List.push(array[index].email)
+        }
+
+    }
+    return List;
+
+  }
+
+
+  formatFullName(type: string): string {
+    if (type)
+      return type.replace(type.charAt(0), type.charAt(0).toLocaleUpperCase());
+    else
+      return null
+  }
+
+  getRegions(): string[] {
+    return ["Ariana", "Béja", "Ben Arous", "Bizerte", "Gabes", "Gafsa",
+      "Jendouba", "Kairouan", "Kasserine", "Kébili", "Kef", "Mahdia", "Manouba", "Médenine"
+      , "Monastir", "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse", "Tataouine", "Tozeur",
+      "Tunis", "Zaghouan"];
+  }
+
+  verifPass(password: HTMLInputElement, confirmpass: HTMLInputElement): boolean {
+
+    return password.value === confirmpass.value;
+  }
+
+
+  compare=(date_fin)=>{
+  const today = new Date() as any
+  return this.dateDiff(today,date_fin);
+  }
+
+daysDiff=(date_fin)=>{
+  if(date_fin){
+
+  const today=moment(new Date()).format('MM/DD/YYYY').toString();
+  const df=moment(date_fin).format('MM/DD/YYYY').toString();
+  const date1 = new Date(today);  
+  const date2 = new Date(df);  
+  const Difference_In_Time = date2.getTime() - date1.getTime();
+  const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+  return Difference_In_Days;
+  }
+}
 
 }

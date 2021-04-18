@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { UserService } from "../../../services/user.service";
 import { Router } from "@angular/router";
-import { User } from "../../../models/user";
+import { ChefService } from "../../../models/chef-service";
 import { NgForm } from '@angular/forms';
 import { LoginErrorComponent } from '../../auth/login-error/login-error.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import * as CryptoJS from 'crypto-js';
+import { ControlsService } from '../../../services/controls.service';
 
 @Component({
   selector: 'app-profile',
@@ -27,12 +27,8 @@ import * as CryptoJS from 'crypto-js';
 })
 export class ProfileComponent implements OnInit {
 
-  // Declaration variables
-  user: User
-  // fullname: string;
-  // matricule: string;
-  // email: string;
-  // tel: string;
+  user: any
+
 
 
   editProfile = true;
@@ -50,20 +46,22 @@ export class ProfileComponent implements OnInit {
   public sortOrder = 'desc';
   profitChartOption: any;
 
-  constructor(private userServ: UserService, private route: Router, private modalService: NgbModal) {
+  constructor(private userServ: UserService,
+    private route: Router,
+    private modalService: NgbModal,
+    public controls: ControlsService) {
   }
 
   async ngOnInit() {
 
     const user = JSON.parse(localStorage.getItem('idConnexion'));
-
     if (user) {
-      const userRole = this.decryptData(user.type);
+      const userRole = this.controls.decryptData(user.type);
       var nom_id: string = "";
       switch (userRole) {
-        case 'administrateur':
-          nom_id = "id_admin";
-          break;
+        // case 'administrateur':
+        //   nom_id = "id_admin";
+        //   break;
         case 'chefService':
           nom_id = "id_chefService";
           break;
@@ -72,15 +70,22 @@ export class ProfileComponent implements OnInit {
           break;
       }
 
-      const payload = { 'id': this.decryptData(user.idUser), 'tabname': userRole, 'nomId': nom_id };
-      const { erorer, msg } = await this.userServ.getOneChauffeurbyId(payload, true) as any;
+      const payload = { 'id': this.controls.decryptData(user.idUser), 'tabname': userRole, 'nomId': nom_id };
 
-      if (erorer) {
-        this.route.navigate(['/']);
+      try {
+        const { erorer, msg } = await this.userServ.getOneUserbyId(payload, true) as any;
+        if (erorer) {
+          this.route.navigate(['/']);
 
-      } else {
-        this.user = msg[0];
+        } else {
+          this.user = msg[0];
+
+        }
+      } catch (error) {
+        const modalRef = this.modalService.open(LoginErrorComponent);
+        modalRef.componentInstance.message = "Erreur d'accées internet !";
       }
+
     } else {
       this.route.navigate(['/accueil']);
     }
@@ -90,6 +95,7 @@ export class ProfileComponent implements OnInit {
   toggleEditProfile() {
     this.editProfileIcon = (this.editProfileIcon === 'icofont-close') ? 'icofont-edit' : 'icofont-close';
     this.editProfile = !this.editProfile;
+   
   }
 
   toggleEditAbout() {
@@ -99,38 +105,28 @@ export class ProfileComponent implements OnInit {
 
   async SaveUser(userData: NgForm) {
 
-    const data = { id: this.user.id_user, ...userData.value }
+    const idName=this.user.type==='chauffeur'?"id_chauffeur":"id_chefService";
+
+    const tabName=this.user.type==='chauffeur'?"chauffeur":"chefservice";
+
+    const idValue=this.user.type==='chauffeur'?this.user.id_chauffeur:this.user.id_chefService
+    const data = { id: idValue, ...userData.value,tabname:tabName,idname:idName };
+
     try {
-      await this.userServ.UpdateUser(data);
-      this.toggleEditProfile();
+      const { erorer, msg } = this.userServ.UpdateUser(data) as any || [];
+      if (!erorer) {
+        location.reload();
+      }
 
     } catch (error) {
       const modalRef = this.modalService.open(LoginErrorComponent);
-      modalRef.componentInstance.message = error.message;
+      modalRef.componentInstance.message = "Modification non effectuée";
     }
   };
 
-  verifNomComplet(nomComplet: HTMLInputElement): boolean {
-    return true;
-  }
 
-  decryptData(data) {
-
-    try {
-      const bytes = CryptoJS.AES.decrypt(data, 'secretKey');
-      if (bytes.toString()) {
-        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-      }
-      return data;
-    } catch (e) {
-      return e;
-    }
+  getCurrentUser(){
+    if(this.user)
+    return {...this.user};
   }
-  formatType(type: string): string {
-    if (type)
-      return type.replace(type.charAt(0), type.charAt(0).toLocaleUpperCase());
-    else
-      return null
-  }
-
 }
