@@ -1,4 +1,3 @@
-<ng-container *ngIf="this.chauffeursActif">
 <div class="">
   
   <!-- Page-header start -->
@@ -43,7 +42,7 @@
   <!-- Page-header end -->
  
   <div class="row">
-    <div class="col-sm-12" *ngIf="this.chauffeursActif.length>0">
+    <div class="col-sm-12">
       <app-card [title]="'Liste des chauffeurs actifs :'" [classHeader]="true" [blockClass]="'table-border-style'">
         <div style="float: right ;margin-right: 30px;">
           <button class="btn hor-grd btn-grd-primary" (click)="Ajouter()"><i
@@ -71,7 +70,7 @@
               </tr>
             </thead>
             <ng-container *ngIf="this.chauffeursActif.length>0">
-            <tbody *ngFor="let chauffeur of this.chauffeursActif">
+            <tbody *ngFor="let chauffeur of this.chauffeursActif| paginate: { itemsPerPage: 3, currentPage: p } ">
               <tr (dblclick)="showChauffeur(chauffeur,true)" style="text-align: center;">
                 <th scope="row">{{chauffeur.matricule}}</th>            
                 <td>{{chauffeur.nomPrenom}}</td>
@@ -93,7 +92,7 @@
               <tbody >
                 <tr style="text-align: center;">
                     <td colspan="5">
-                      Pas de chauffeurs actifs!
+                      Aucun chauffeur actif !
                     </td>
                  
                 </tr>
@@ -103,6 +102,10 @@
               </ng-container>
          
           </table>
+          <div *ngIf="this.chauffeursActif.length>0" style="text-align: center;">
+            <hr>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
         </div>
 
 
@@ -114,4 +117,3 @@
 
     
     </div>
-  </ng-container>

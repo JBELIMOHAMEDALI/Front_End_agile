@@ -13,6 +13,7 @@ import { PopupChauffeurComponent } from "../popup-chauffeur/popup-chauffeur.comp
   styleUrls: ['./gestion-chauffeurs.component.scss']
 })
 export class GestionChauffeursComponent implements OnInit {
+  p: number;
   constructor(private userServ: UserService,
     private chefServ: ChefService,
     private modalService: NgbModal,

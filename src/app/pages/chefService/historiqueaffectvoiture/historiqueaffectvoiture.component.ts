@@ -10,7 +10,7 @@ import { AffectVoitureService } from '../../../services/affect-voiture.service';
 })
 export class HistoriqueaffectvoitureComponent implements OnInit {
   voituresNonAffectees: [] = [];
-
+  p: number;
   constructor(private affectService: AffectVoitureService, private modalService: NgbModal) { }
 
   ngOnInit() {

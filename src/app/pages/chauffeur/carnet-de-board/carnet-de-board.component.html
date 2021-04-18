@@ -59,21 +59,37 @@
   
                 </tr>
               </thead>
-               <tbody *ngFor="let carnet of this.carnetboardlist  | paginate: { itemsPerPage: 3, currentPage: p } ">
-                <tr style="text-align: center;">
-                  <th scope="row">{{carnet.klm}}</th>
-                  <td>{{carnet.consomation}}</td>
-                  <td>{{this.controls.dateFormat(carnet.date,true)}}</td>
-  
-                
-                </tr>
-  
-  
-              </tbody> 
+              <ng-container *ngIf="this.carnetboardlist.length>0">
+
+                <tbody *ngFor="let carnet of this.carnetboardlist  | paginate: { itemsPerPage: 3, currentPage: p } ">
+                 <tr style="text-align: center;">
+                   <th scope="row">{{carnet.klm}}</th>
+                   <td>{{carnet.consomation}}</td>
+                   <td>{{this.controls.dateFormat(carnet.date,true)}}</td>
+   
+                 
+                 </tr>
+   
+   
+               </tbody> 
+              </ng-container>
+              <ng-container *ngIf="this.carnetboardlist.length===0">
+
+                <tbody>
+                 <tr style="text-align: center;">
+                  <td colspan="3">
+                    AUCUN CARNET DE BOARD !
+                  </td>
+                 
+                 </tr>
+   
+   
+               </tbody> 
+              </ng-container>
   
             </table>
   
-            <div style="text-align: center;">
+            <div *ngIf="this.carnetboardlist.length>3" style="text-align: center;">
               <hr>
               <pagination-controls (pageChange)="p = $event"></pagination-controls>
             </div>

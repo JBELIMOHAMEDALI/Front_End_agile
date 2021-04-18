@@ -14,6 +14,7 @@ import { MissionsService } from '../../../services/missions.service';
 
 export class AffectmissionComponent implements OnInit {
   missionsList: [] = [];
+  p: number;
 
   constructor(private missionService: MissionsService,
     private modalService: NgbModal,
@@ -41,7 +42,7 @@ export class AffectmissionComponent implements OnInit {
       if (!erorer)
         callback(msg);
     } catch (error) {
-     return error;
+      return error;
     }
   }
 

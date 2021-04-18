@@ -68,7 +68,7 @@
                 </thead>
                 <ng-container *ngIf="this.voitureListInactif.length>0">
   
-                <tbody *ngFor="let voiture of this.voitureListInactif">
+                <tbody *ngFor="let voiture of this.voitureListInactif|paginate: { itemsPerPage: 3, currentPage: p }">
                   <tr (dblclick)="showVoiture(voiture)" style="text-align: center;">
                     <th scope="row">{{voiture.matricule}}</th>            
                     <td>{{voiture.type}}</td>
@@ -98,6 +98,10 @@
                   </tbody>  
                 </ng-container>              
               </table>
+              <div style="text-align: center;">
+                <hr>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </div>
             </div>
           </div>
           </app-card>

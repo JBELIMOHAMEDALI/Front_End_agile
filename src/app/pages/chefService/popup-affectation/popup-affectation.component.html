@@ -24,11 +24,11 @@
         </select>   
         </div>
 
-        <div *ngIf="(this.controls.validateSelect(chauffeuropt.value)&&chauffeuropt.touched)" class="alert alert-danger" role="alert">
+        <div *ngIf="(this.controls.validateSelect(chauffeuropt.value)&&chauffeuropt.touched)" class="alert alert-danger p-2" role="alert">
             Séléctionner un chauffeur
         </div>
 
-    <div class="input-group mt-5">
+    <div class="input-group mt-4">
         <span class="input-group-prepend"><label class="input-group-text"><i
             class="icofont icofont-car-alt-1"></i></label></span>
         <select name="voitureopt" ngModel={{-1}} name="voitureopt" #voitureopt="ngModel" 
@@ -45,7 +45,7 @@
         </div>
 
    
-        <div *ngIf="(this.controls.validateSelect(voitureopt.value)&&voitureopt.touched)" class="alert alert-danger" role="alert">
+        <div *ngIf="(this.controls.validateSelect(voitureopt.value)&&voitureopt.touched)" class="alert alert-danger p-2" role="alert">
             Séléctionner une voiture
         </div>
 
@@ -82,7 +82,7 @@
 
 
 
-        <div class="input-group mt-5">
+        <div class="input-group mt-4">
             <span class="input-group-prepend"><label class="input-group-text"><i
                 class="icofont icofont-car-alt-1"></i></label></span>
         <select [(ngModel)]="this.voiture.id_voiture" name="voitureopt" #voitureopt="ngModel" class="form-control" required>

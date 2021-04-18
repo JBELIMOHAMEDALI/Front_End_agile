@@ -58,7 +58,6 @@ export class MissionsService {
           reject(err);
         });
     });
-
   }
 
   getAllMissions() {

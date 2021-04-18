@@ -17,7 +17,7 @@
         </div>
           <div *ngIf="(matricule.invalid && matricule.touched)||(this.controls.validateEmailregex(matricule) && matricule.touched)
           ||(this.controls.validateLength(matricule) && matricule.touched)" 
-          class="alert alert-danger" role="alert">
+          class="alert alert-danger p-2" role="alert">
             La matricule est invalide
           </div>
           <div *ngIf="(this.controls.verifMatriculeExiste(matricule,this.matList) && matricule.touched)" class="alert alert-danger" role="alert">
@@ -32,7 +32,7 @@
             placeholder="Type Voiture"/>
           </div>
           <div *ngIf="(type.invalid && type.touched)" 
-          class="alert alert-danger" role="alert">
+          class="alert alert-danger p-2" role="alert">
             Le type voiture est invalide
           </div>
 
@@ -42,7 +42,7 @@
             <input class="form-control" type="date" name="dmc" [(ngModel)]="this.voiture.dmc"
             required #dmc="ngModel"  />
         </div>
-        <div *ngIf="(dmc.invalid && dmc.touched)" class="alert alert-danger" role="alert">
+        <div *ngIf="(dmc.invalid && dmc.touched)" class="alert alert-danger p-2" role="alert">
             Saisir la date 
         </div>
 
@@ -50,11 +50,11 @@
         <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-energy-oil"></i></label></span>
-            <input type="number" class="form-control" [(ngModel)]="this.voiture.puissance"
+            <input type="number" min="1" max="10" class="form-control" [(ngModel)]="this.voiture.puissance"
             name="puissance" required  #puissance="ngModel" placeholder="Puissance">
         </div>
         
-        <div *ngIf="(puissance.invalid && puissance.touched)" class="alert alert-danger" role="alert">
+        <div *ngIf="(puissance.invalid && puissance.touched)||(puissance.touched&&puissance.value<=0)" class="alert alert-danger p-2" role="alert">
             Puissance est invalide
         </div>
 
@@ -67,7 +67,7 @@
         </div>
 
         
-        <div *ngIf="(service.invalid && service.touched)" class="alert alert-danger" role="alert">
+        <div *ngIf="(service.invalid && service.touched)" class="alert alert-danger p-2" role="alert">
             Service est invalide
         </div>
 
@@ -75,7 +75,7 @@
 
             <input type="submit" class="btn btn-outline-primary" value="Modifier" 
             [disabled]="f.invalid||this.controls.verifMatriculeExiste(matricule,this.matList)
-            ||this.controls.validateLength(matricule)||this.controls.validateEmailregex(matricule)"/>
+            ||this.controls.validateLength(matricule)||this.controls.validateEmailregex(matricule)||puissance.value<=0"/>
             <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
         </div>
     </div>
@@ -98,7 +98,7 @@
           </div>
           <div *ngIf="(matricule.invalid && matricule.touched)||(this.controls.validateEmailregex(matricule) && matricule.touched)
           ||(this.controls.validateLength(matricule) && matricule.touched)" 
-          class="alert alert-danger" role="alert">
+          class="alert alert-danger p-2" role="alert">
             La matricule est invalide
           </div>
           <div *ngIf="(this.controls.verifMatriculeExiste(matricule,this.matList) && matricule.touched)" class="alert alert-danger" role="alert">
@@ -116,7 +116,7 @@
             placeholder="Type Voiture"/>
           </div>
           <div *ngIf="(type.invalid && type.touched)" 
-          class="alert alert-danger" role="alert">
+          class="alert alert-danger p-2" role="alert">
             Le type voiture est invalide
           </div>
           
@@ -131,7 +131,7 @@
             <input class="form-control" type="date" name="dmc" ngModel
             required #dmc="ngModel"  />
         </div>
-        <div *ngIf="(dmc.invalid && dmc.touched)" class="alert alert-danger" role="alert">
+        <div *ngIf="(dmc.invalid && dmc.touched)" class="alert alert-danger p-2" role="alert">
             Saisir la date 
         </div>
 
@@ -141,11 +141,11 @@
         <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-energy-oil"></i></label></span>
-            <input type="number" class="form-control" ngModel
+            <input type="number" min="1" max="10" class="form-control" ngModel
             name="puissance" required  #puissance="ngModel" placeholder="Puissance">
         </div>
         
-        <div *ngIf="(puissance.invalid && puissance.touched)" class="alert alert-danger" role="alert">
+        <div *ngIf="(puissance.invalid && puissance.touched)||(puissance.touched&&puissance.value<=0)" class="alert alert-danger p-2" role="alert">
             Puissance est invalide
         </div>
 
@@ -160,7 +160,7 @@
         </div>
 
         
-        <div *ngIf="(service.invalid && service.touched)" class="alert alert-danger" role="alert">
+        <div *ngIf="(service.invalid && service.touched)" class="alert alert-danger p-2" role="alert">
             Service est invalide
         </div>
 
@@ -168,7 +168,7 @@
         <div class="modal-footer">
             <input type="submit" class="btn btn-outline-primary" 
             [disabled]="fadd.invalid||this.controls.verifMatriculeExiste(matricule,this.matList)
-            ||this.controls.validateLength(matricule)||this.controls.validateEmailregex(matricule)" 
+            ||this.controls.validateLength(matricule)||this.controls.validateEmailregex(matricule)||puissance.value<=0" 
             value="Confirmer" />
             <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
         </div>

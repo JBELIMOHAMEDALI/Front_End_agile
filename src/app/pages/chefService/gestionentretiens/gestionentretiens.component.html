@@ -60,18 +60,16 @@
                   <tr style="text-align: center;">
                     <th scope="col">Numéro Entretien</th>
                     <th scope="col">Date Entretien</th>
-                    <!-- <th scope="col">Description</th> -->
                     <th scope="col">Matricule Voiture</th>
                     <th scope="col">Actions</th>
 
                   </tr>
                 </thead>
                 <ng-container *ngIf="this.entretienList.length>0">
-                <tbody *ngFor="let entretien of this.entretienList">
+                <tbody *ngFor="let entretien of this.entretienList | paginate: { itemsPerPage: 3, currentPage: p } ">
                   <tr (dblclick)="this.showEntretien(entretien.id_entretien)" style="text-align: center;">
                     <th scope="row">{{entretien.id_entretien}}</th>            
                     <td>{{this.controls.dateFormat(entretien.date)}}</td>
-                    <!-- <td>{{entretien.description}}</td> -->
                     <td>{{entretien.matricule}}</td>
                     <td>
                       <button class="btn hor-grd btn-grd-info" id="{{entretien.id_entretien}}" (click)="updateEntretien(entretien.id_entretien)"><i
@@ -99,6 +97,10 @@
                   </ng-container>
              
               </table>
+              <div *ngIf="this.entretienList.length>0" style="text-align: center;">
+                <hr>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </div>
             </div>
             </div>
           </app-card>

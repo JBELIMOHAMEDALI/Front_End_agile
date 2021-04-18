@@ -53,7 +53,7 @@
     
                   </tr>
                 </thead>
-                <!-- <ng-container *ngIf="this.chauffeursActif.length>0"> -->
+                <ng-container *ngIf="this.listmession.length>0">
                  
                 <tbody *ngFor="let mission of this.listmession  | paginate: { itemsPerPage: 3, currentPage: p } ">
                   <tr  style="text-align: center;">
@@ -72,12 +72,25 @@
     
     
                 </tbody>
-                <!-- </ng-container> -->
+                </ng-container>
+                <ng-container *ngIf="this.listmession.length===0">
+
+                  <tbody>
+                    <tr style="text-align: center;">
+                     <td colspan="4">
+                       AUCUNE MISSION TERMINEE !
+                     </td>
+                    
+                    </tr>
+      
+      
+                  </tbody> 
+              </ng-container>
+  
     
               </table>
     
-              <div style="text-align: center;">
-                <br>
+              <div *ngIf="this.listmession.length>3" style="text-align: center;">
                 <hr>
                 <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>

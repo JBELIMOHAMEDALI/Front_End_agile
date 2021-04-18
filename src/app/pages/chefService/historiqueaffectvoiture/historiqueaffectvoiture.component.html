@@ -1,4 +1,3 @@
-<ng-container *ngIf="this.voituresNonAffectees">
     <div class="">
       
       <!-- Page-header start -->
@@ -70,14 +69,14 @@
                     <tr style="text-align: center;">
                      
                      <td colspan="6">
-                       Pas de données !
+                       PAS DE DONNEES !
                      </td>
                     </tr>      
                   </tbody>              
                 </ng-container>
                 <ng-container *ngIf="this.voituresNonAffectees.length>0">
 
-                  <tbody *ngFor="let affectation of this.voituresNonAffectees">
+                  <tbody *ngFor="let affectation of this.voituresNonAffectees | paginate: { itemsPerPage: 3, currentPage: p } ">
                     <tr style="text-align: center;">
                       <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>    
                       <th>{{affectation.matricule}}</th>                    
@@ -87,18 +86,15 @@
                   </tbody>              
                 </ng-container>
               </table>
+              <div *ngIf="this.voituresNonAffectees.length>0" style="text-align: center;">
+                <hr>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </div>
             </div>
           </div>
 
 
 
           </app-card>
+        </div>       
         </div>
-  
-      
-  
-        
-    
-       
-        </div>
-      </ng-container>

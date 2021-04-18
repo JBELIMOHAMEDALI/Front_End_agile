@@ -79,7 +79,7 @@ export class PopupMissionComponent implements OnInit {
     const { dd, df, id_chauffeur, desc } = form.value;
 
     try {
-      const mission = new Mission(desc, dd, df, null, this.id.toString(), idChefService, id_chauffeur, null);
+      const mission = new Mission(desc, dd, df, idChefService, id_chauffeur, this.id.toString());
       const { msg, erorer } = await this.missionService.updateMission(mission) as any || [];
       if (!erorer) {
         this.activeModal.dismiss();

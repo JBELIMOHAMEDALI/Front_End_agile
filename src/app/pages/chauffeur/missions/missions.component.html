@@ -33,7 +33,7 @@
   
   <div class="row">
     <div class="col-sm-12">
-      <app-card [title]="'Liste Des Missions :'">
+      <app-card [title]="'Liste des missions :'">
         <div class="table-responsive">
 
             <div style="margin: 60px;overflow-x:auto;">
@@ -53,7 +53,7 @@
     
                   </tr>
                 </thead>
-                <!-- <ng-container *ngIf="this.chauffeursActif.length>0"> -->
+                <ng-container *ngIf="this.listmession.length>0">
                  
                 <tbody *ngFor="let mission of this.listmession  | paginate: { itemsPerPage: 3, currentPage: p } ">
                   <tr (dblclick)="showMission(mission)" style="text-align: center;">
@@ -71,12 +71,24 @@
     
     
                 </tbody>
-                <!-- </ng-container> -->
+                </ng-container>
+              <ng-container *ngIf="this.listmession.length===0">
+
+                <tbody>
+                  <tr style="text-align: center;">
+                   <td colspan="4">
+                     AUCUNE MISSION AFFECTEE !
+                   </td>
+                  
+                  </tr>
     
+    
+                </tbody> 
+            </ng-container>
+
               </table>
     
-              <div style="text-align: center;">
-                <br>
+              <div *ngIf="this.listmession.length>3" style="text-align: center;">
                 <hr>
                 <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>

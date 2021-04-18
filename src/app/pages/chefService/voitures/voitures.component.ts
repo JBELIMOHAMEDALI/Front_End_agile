@@ -15,7 +15,7 @@ export class VoituresComponent implements OnInit {
   voitureListActif: Voiture[] = [];
   voitureListAll: Voiture[] = [];
 
-
+  p: number = 1;
   constructor(private voitureService: VoitureService,
     private modalService: NgbModal,
     public controls: ControlsService) { }

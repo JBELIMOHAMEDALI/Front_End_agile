@@ -49,7 +49,7 @@
                 <input class="form-control" type="date" name="dd" [(ngModel)]="this.mission.date_debut"
                 required #dd="ngModel"  />
             </div>
-            <div *ngIf="(dd.invalid && dd.touched)" class="alert alert-danger" role="alert">
+            <div *ngIf="(dd.invalid && dd.touched)" class="alert alert-danger p-2" role="alert">
                 Saisir la date début
             </div>
     
@@ -60,10 +60,10 @@
               <input class="form-control" type="date" name="df" [(ngModel)]="this.mission.date_fin"
               required #df="ngModel"  />
           </div>
-          <div *ngIf="(df.invalid && df.touched)" class="alert alert-danger" role="alert">
+          <div *ngIf="(df.invalid && df.touched)" class="alert alert-danger p-2" role="alert">
               Saisir la date fin
           </div>
-          <div *ngIf="(dd.valid && df.valid)&&(this.controls.dateDiff(dd.value,df.value))" class="alert alert-danger" role="alert">
+          <div *ngIf="(dd.valid && df.valid)&&(this.controls.dateDiff(dd.value,df.value))" class="alert alert-danger p-2" role="alert">
             la date début est supérieur à la date fin
         </div>
             
@@ -95,24 +95,7 @@
     
         <div  class="modal-body" >
 
-          <!-- <div class="input-group">
-            <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-car-alt-1"></i></label></span>
-        <select  ngModel={{-1}} #id_voiture="ngModel" name="id_voiture" class="form-control" required>
-            <option disabled [value]="-1">Séléctionner une voiture</option>
-            <ng-container *ngFor="let voiture of this.voitureList;let i=index;">
-
-                <option [value]="voiture.id_voiture">
-                    {{voiture.matricule+' ** '+voiture.type}} 
-                </option>
-            </ng-container>
-
-        </select>  
-    </div>
-    <div *ngIf="(this.controls.validateSelect(id_voiture.value)&&id_voiture.touched)" class="alert alert-danger" role="alert">
-        Séléctionner une voiture
-    </div> -->
-        
+         
           <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                 class="icofont icofont-car-alt-1"></i></label></span>
@@ -127,7 +110,7 @@
 
         </select>  
     </div>
-    <div *ngIf="(this.controls.validateSelect(id_chauffeur.value)&&id_chauffeur.touched)" class="alert alert-danger" role="alert">
+    <div *ngIf="(this.controls.validateSelect(id_chauffeur.value)&&id_chauffeur.touched)" class="alert alert-danger p-2" role="alert">
         Séléctionner un chauffeur
     </div>
             
@@ -143,7 +126,7 @@
                 <input class="form-control" type="date" name="dd" ngModel
                 required #dd="ngModel"  />
             </div>
-            <div *ngIf="(dd.invalid && dd.touched)" class="alert alert-danger" role="alert">
+            <div *ngIf="(dd.invalid && dd.touched)" class="alert alert-danger p-2" role="alert">
                 Saisir la date début
             </div>
     
@@ -154,10 +137,10 @@
               <input class="form-control" type="date" name="df" ngModel
               required #df="ngModel"  />
           </div>
-          <div *ngIf="(df.invalid && df.touched)" class="alert alert-danger" role="alert">
+          <div *ngIf="(df.invalid && df.touched)" class="alert alert-danger p-2" role="alert">
               Saisir la date fin
           </div>
-          <div *ngIf="(dd.valid && df.valid)&&(this.controls.dateDiff(dd.value,df.value))" class="alert alert-danger" role="alert">
+          <div *ngIf="(dd.valid && df.valid)&&(this.controls.dateDiff(dd.value,df.value))" class="alert alert-danger p-2" role="alert">
             la date début est supérieur à la date fin
         </div>
             
@@ -225,8 +208,8 @@
                         </tr>
                         <tr>
                           <th scope="row">Mission terminée?</th>
-                          <td *ngIf="this.mission.etat=='0'">Non</td>
-                          <td *ngIf="this.mission.etat=='1'"> {{"Oui,Terminée le "+this.controls.dateFormat(this.mission.date_fin_real)}}</td>
+                          <td *ngIf="this.mission.etat=='0'">Non pas encore</td>
+                          <td *ngIf="this.mission.etat=='1'"> {{"Oui, terminée le "+this.controls.dateFormat(this.mission.date_fin_real)}}</td>
 
                         </tr>
                             <tr>

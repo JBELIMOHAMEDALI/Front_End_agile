@@ -136,6 +136,9 @@
                     <div class="row">
                       <div class="col-lg-12">
                         <div class="general-info">
+
+
+
                           <div class="row">
                             <div class="col-lg-6">
                               <div class="table-responsive">
@@ -146,8 +149,7 @@
                                       
                                         <div class="input-group">
                                           <span class="input-group-prepend"><label class="input-group-text"><i
-                                                class="icofont icofont-user"></i></label></span>
-                                                
+                                                class="icofont icofont-user"></i></label></span>                                         
                                           <input type="text" name="nomComplet" class="form-control" 
                                           placeholder="Nom complet" required [(ngModel)]="this.getCurrentUser().nomPrenom" 
                                           #nomComplet="ngModel">
@@ -156,12 +158,15 @@
                                         </div>
                                       </td>
                                     </tr>
-                                    <div *ngIf="(nomComplet.invalid && nomComplet.touched)||(this.controls.validateEmailregex(nomComplet) && nomComplet.touched)||
-                                    (this.controls.validateLength(nomComplet) && nomComplet.touched)||(this.controls.containsAt(nomComplet)&& nomComplet.touched)" 
-                                    class="alert alert-danger" role="alert">
-                                      NomComplet est invalide 
-                                    </div>
                                     
+                                        <div class="col-12"> 
+
+                                          <div *ngIf="(nomComplet.invalid && nomComplet.touched)||(this.controls.validateEmailregex(nomComplet) && nomComplet.touched)||
+                                          (this.controls.validateLength(nomComplet) && nomComplet.touched)||(this.controls.containsAt(nomComplet)&& nomComplet.touched)" 
+                                          class="alert alert-danger p-2" role="alert">
+                                            NomComplet est invalide 
+                                          </div>
+                                        </div>                                     
                                     <tr>
                                       <td>
                                         <div class="input-group">
@@ -172,23 +177,15 @@
                                         [(ngModel)]="this.getCurrentUser().dns" #dns="ngModel" required />
                                           </div>
                                       </td>
-                                      <div *ngIf="(dns.invalid && dns.touched)" class="alert alert-danger" role="alert">
-                                        Saisir la date de Naissance
-                                      </div>
                                     </tr>
-                                 
-                                   
-                                    <!-- <tr>
-                                      <td>
-                                        <div class="input-group">
-                                          <span class="input-group-prepend"><label class="input-group-text"><i
-                                                class="icofont icofont-listing-number"></i></label></span>
-                                          <input type="text"  class="form-control" value={{this.chefservice.matricule}}
-                                            placeholder="Matricule">
-                                        </div>
-                                      </td>
-                                    </tr> -->
+                                    <div class="col-12"> 
 
+                                    <div *ngIf="(dns.invalid && dns.touched)" class="alert alert-danger p-2" role="alert">
+                                      Saisir la date de Naissance
+                                    </div>
+                                    </div>
+                                 
+                              
                                     <tr>
                                       <td>
                                         <div class="input-group">
@@ -196,15 +193,17 @@
                                         <span class="input-group-prepend"><label class="input-group-text"><i
                                           class="icofont icofont-calendar"></i></label></span>
                                         <input class="form-control" type="text" name="matricule" [disabled]="this.getCurrentUser().type==='chauffeur'"
-                                        [ngClass]="{ 'is-invalid': ( matricule.invalid) && matricule.touched }"
+                                        
                                         [(ngModel)]="this.getCurrentUser().matricule" #matricule="ngModel" required />
                                           </div>
                                       </td>
-                                     
                                     </tr>
-                                    <div *ngIf="(matricule.invalid && matricule.touched)||(this.controls.validateEmailregex(matricule) && matricule.touched)
-                                    ||(this.controls.validateLength(matricule) && matricule.touched)" class="invalid-feedback">
-                                      La matricule est invalide
+                                    <div class="col-12">
+
+                                      <div *ngIf="(matricule.invalid && matricule.touched)||(this.controls.validateEmailregex(matricule) && matricule.touched)
+                                      ||(this.controls.validateLength(matricule) && matricule.touched)" class="alert alert-danger p-2" role="alert">
+                                        La matricule est invalide
+                                      </div>
                                     </div>
                                   </tbody>
                                 </table>
@@ -224,12 +223,15 @@
                                           [(ngModel)]="this.getCurrentUser().tel"
                                           name="tel" required  #tel="ngModel" placeholder="Numéro de téléphone">
                                         </div>
-                                        <div *ngIf="(tel.invalid && tel.touched)||(this.controls.verifTel(tel) && tel.touched)" 
-                                        class="alert alert-danger" role="alert">
-                                            Numéro de téléphone est invalide
-                                        </div>
                                       </td>
                                     </tr>
+                                    <div class="col-12">
+
+                                    <div *ngIf="(tel.invalid && tel.touched)||(this.controls.verifTel(tel) && tel.touched)" 
+                                    class="alert alert-danger p-2" role="alert">
+                                        Numéro de téléphone est invalide
+                                    </div>
+                                    </div>
                                     <tr>
 
                                       <td>                                     
@@ -259,9 +261,12 @@
                                         </div>
                                       </td>
                                     </tr>
+                                    <div class="col-12">
+
                                     <div *ngIf="(email.invalid && email.touched)||(!this.controls.validateEmailregex(email) && email.touched)" 
-                                    class="alert alert-danger" role="alert">
+                                    class="alert alert-danger p-2" role="alert">
                                         Email est invalide
+                                    </div>
                                     </div>
                                    
                                    
@@ -370,14 +375,14 @@
                       <div class="card b-l-info business-info services">
                         <div ngbDropdown class="card-header">
                           <div class="service-header">
-                              <h5 class="card-header-text">GESTION DES VOITURES</h5>
+                              <h5 class="card-header-text">GESTION DES VOITURES ET LEURS AFFECTATIONS</h5>
                           </div>
                          
                         </div>
                         <div class="card-body">
                           <div class="row">
                             <div class="col-sm-12">
-                              <p class="task-detail">gestion et controle aux voitures ainsi que les affectations chauffeur voiture .</p>
+                              <p class="task-detail">gestion et controle des voitures ainsi que les affectations chauffeur voiture .</p>
                             </div>
                             <!-- end of col-sm-8 -->
                           </div>
@@ -446,7 +451,7 @@
                           <div class="row">
                             <div class="col-sm-12">
                               <p class="task-detail">
-                                gestion et controle de tous les carnets De boards .
+                                gestion et controle de tous les carnets De board .
                               </p>
                             </div>
                             <!-- end of col-sm-8 -->
@@ -488,7 +493,7 @@
                           <div class="row">
                             <div class="col-sm-12">
                               <p class="task-detail">
-                                finir des mission affectée par le chef service .                                
+                                finir des missions affectées par le chef service .                                
                               </p>
                             </div>
                             <!-- end of col-sm-8 -->

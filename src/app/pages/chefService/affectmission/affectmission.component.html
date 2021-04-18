@@ -1,4 +1,4 @@
-<ng-container *ngIf="this.missionsList">
+
     <div class="">
       
       <!-- Page-header start -->
@@ -62,7 +62,6 @@
                     <th scope="col">Date Début</th>
                     <th scope="col">Date Fin</th>
                     <th scope="col">Chauffeur</th>
-                    <!-- <th scope="col">Voiture</th> -->
                     <th scope="col">Actions</th>
 
 
@@ -79,7 +78,8 @@
                     </tr>      
                   </tbody>              
                 </ng-container>
-                <ng-container *ngIf="this.missionsList.length>0">
+
+                <ng-container *ngIf="this.missionsList.length>0| paginate: { itemsPerPage: 3, currentPage: this.missionsList.length } ">
 
                   <tbody *ngFor="let mission of this.missionsList">
                     <tr (dblclick)="showMission(mission)" style="text-align: center;">
@@ -87,7 +87,6 @@
                       <th>{{this.controls.dateFormat(mission.date_debut)}}</th>                    
                       <th>{{this.controls.dateFormat(mission.date_fin)}}</th>                    
                       <th>{{mission.nomPrenom}}</th>                    
-                      <!-- <th>{{mission.matricule+"**"+mission.type}}</th>                     -->
 
                      <td>
                         <button class="btn hor-grd btn-grd-info" id="{{mission.id_mission}}" (click)="updateMission(mission)"><i
@@ -100,6 +99,10 @@
                   </tbody>              
                 </ng-container>
               </table>
+              <div style="text-align: center;">
+                <hr>
+                <pagination-controls (pageChange)="this.missionsList.length = $event"></pagination-controls>
+              </div>
             </div>
           </div>
 
@@ -109,4 +112,3 @@
         </div>
 
       </div>
-      </ng-container>

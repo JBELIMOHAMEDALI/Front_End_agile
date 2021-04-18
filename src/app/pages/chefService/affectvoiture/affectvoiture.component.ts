@@ -12,7 +12,7 @@ import { PopupAffectationComponent } from '../popup-affectation/popup-affectatio
 })
 export class AffectvoitureComponent implements OnInit {
   voituresAffectes: [] = [];
-
+  p: number;
   constructor(private affectService: AffectVoitureService,
     private modalService: NgbModal,
     private affectVoitureService: AffectVoitureService,

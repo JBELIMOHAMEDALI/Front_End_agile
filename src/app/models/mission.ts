@@ -9,7 +9,7 @@ export class Mission {
   date_fin_real: string
 
   constructor(description: string, date_debut: string, date_fin: string, idchefService?: string, id_chauffeur?: string,
-    etat?: string, id_mission?: string, date_fin_real?: string) {
+    id_mission?: string, etat?: string, date_fin_real?: string) {
 
     this.description = description;
     this.date_debut = date_debut;
