@@ -122,6 +122,28 @@ export class VoitureService {
 
   }
 
+
+
+
+
+
+
+
+    getVC() {//deprecated
+  
+    const body = { params: { 'id': '1' } };
+
+    return new Promise((resolve, reject) => {
+
+      this.httpClient.get(`http://127.0.0.1/pfe_api/Voiture/get_voitur_bay_chouffeur`, body)
+        .forEach(data =>
+          resolve(data)
+        ).catch((err) => {
+          reject(err);
+        })
+    });
+  }
+
 }
 
-//dashboard/accueil/sessions/conn chngement de matricule??
+//dashboard/accueil/sessions

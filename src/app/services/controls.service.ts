@@ -112,14 +112,14 @@ export class ControlsService {
     return option === '-1';
   }
 
-  dateFormat(date: string,hour?:boolean): string {
-  if (date)
-  if(hour){
-     return moment(date).format('DD/MM/YYYY HH:mm:ss').toString()
-  }
-    
+  dateFormat(date: string, hour?: boolean): string {
+    if (date)
+      if (hour) {
+        return moment(date).format('DD/MM/YYYY HH:mm:ss').toString()
+      }
+
     return moment(date).format('DD/MM/YYYY').toString()
-  
+
   }
 
 
@@ -219,23 +219,40 @@ export class ControlsService {
   }
 
 
-  compare=(date_fin)=>{
-  const today = new Date() as any
-  return this.dateDiff(today,date_fin);
+  compare = (date_fin) => {
+    const today = new Date() as any
+    return this.dateDiff(today, date_fin);
   }
 
-daysDiff=(date_fin)=>{
-  if(date_fin){
+  daysDiff = (date_fin) => {
+    if (date_fin) {
 
-  const today=moment(new Date()).format('MM/DD/YYYY').toString();
-  const df=moment(date_fin).format('MM/DD/YYYY').toString();
-  const date1 = new Date(today);  
-  const date2 = new Date(df);  
-  const Difference_In_Time = date2.getTime() - date1.getTime();
-  const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+      const today = moment(new Date()).format('MM/DD/YYYY').toString();
+      const df = moment(date_fin).format('MM/DD/YYYY').toString();
+      const date1 = new Date(today);
+      const date2 = new Date(df);
+      const Difference_In_Time = date2.getTime() - date1.getTime();
+      const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
 
-  return Difference_In_Days;
+      return Difference_In_Days;
+    }
   }
-}
+
+
+  getMois() {
+    return [{ key: "01", value: "Janvier" }, { key: "02", value: "Février" }, { key: "03", value: "Mars" }, { key: "04", value: "Avril" }
+      , { key: "05", value: "Mai" }, { key: "06", value: "Juin" }, { key: "07", value: "Juillet" }, { key: "08", value: "Aout" }
+      , { key: "09", value: "Septembre" }, { key: "10", value: "Octobre" }, { key: "11", value: "Novembre" }, { key: "12", value: "Décembre" }];
+  }
+
+  getAnnee() {
+    const year = new Date().getFullYear();
+
+    const yearList: number[] = [];
+    for (let index = 0; index < 11; index++) {
+      yearList.push(year - index)
+    }
+    return yearList;
+  }
 
 }

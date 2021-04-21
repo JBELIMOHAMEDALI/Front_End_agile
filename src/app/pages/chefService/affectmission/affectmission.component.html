@@ -84,9 +84,9 @@
                   <tbody *ngFor="let mission of this.missionsList">
                     <tr (dblclick)="showMission(mission)" style="text-align: center;">
                       <th scope="row">{{mission.id_mission}}</th>    
-                      <th>{{this.controls.dateFormat(mission.date_debut)}}</th>                    
-                      <th>{{this.controls.dateFormat(mission.date_fin)}}</th>                    
-                      <th>{{mission.nomPrenom}}</th>                    
+                      <td>{{this.controls.dateFormat(mission.date_debut,true)}}</td>                    
+                      <td>{{this.controls.dateFormat(mission.date_fin,true)}}</td>                    
+                      <td>{{mission.nomPrenom}}</td>                    
 
                      <td>
                         <button class="btn hor-grd btn-grd-info" id="{{mission.id_mission}}" (click)="updateMission(mission)"><i
@@ -99,7 +99,7 @@
                   </tbody>              
                 </ng-container>
               </table>
-              <div style="text-align: center;">
+              <div *ngIf="this.missionsList.length>0" style="text-align: center;">
                 <hr>
                 <pagination-controls (pageChange)="this.missionsList.length = $event"></pagination-controls>
               </div>

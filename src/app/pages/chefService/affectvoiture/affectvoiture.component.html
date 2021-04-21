@@ -72,7 +72,7 @@
                     <tr style="text-align: center;">
                      
                      <td colspan="6">
-                       Pas d'affectations !
+                       PAS D'AFFECTATIONS !
                      </td>
                     </tr>      
                   </tbody>              
@@ -82,7 +82,7 @@
                   <tbody *ngFor="let affectation of this.voituresAffectes| paginate: { itemsPerPage: 3, currentPage: p }">
                     <tr style="text-align: center;">
                       <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>    
-                      <th>{{affectation.matricule}}</th>                    
+                      <td>{{affectation.matricule}}</td>                    
                       <td>{{affectation.type}}</td>
                       <td>{{affectation.nomPrenom}}</td>
                      <td>

@@ -87,6 +87,22 @@ export class MissionsService {
   }
 
 
+  getOne() {//deprecated
+
+    return new Promise((resolve, reject) => {
+      const body = { params: { 'id': '7' } }
+
+      this.httpClient.get(`http://127.0.0.1/pfe_api/chauffeur/get_One_Mission_for_one_choufeur`, body)
+        .forEach(data =>
+          resolve(data)
+        ).catch((err) => {
+          reject(err);
+        });
+    });
+
+  }
+
+
 
   deleteMission(id_mission: string) {
 

@@ -79,7 +79,7 @@
                   <tbody *ngFor="let affectation of this.voituresNonAffectees | paginate: { itemsPerPage: 3, currentPage: p } ">
                     <tr style="text-align: center;">
                       <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>    
-                      <th>{{affectation.matricule}}</th>                    
+                      <td>{{affectation.matricule}}</td>                    
                       <td>{{affectation.type}}</td>
                       <td>{{affectation.nomPrenom}}</td>                     
                     </tr>      

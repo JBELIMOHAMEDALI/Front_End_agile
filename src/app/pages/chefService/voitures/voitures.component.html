@@ -91,7 +91,7 @@
               <tbody >
                 <tr style="text-align: center;">
                 <td colspan="6">
-                  AUCUNE VOITURE N'EST ACTIVE !
+                  AUCUNE VOITURE ACTIVE !
                 </td>
                 </tr>
     
@@ -99,7 +99,7 @@
               </tbody>  
             </ng-container>          
             </table>
-            <div style="text-align: center;">
+            <div *ngIf="this.voitureListActif.length>0" style="text-align: center;">
               <hr>
               <pagination-controls (pageChange)="p = $event"></pagination-controls>
             </div>

@@ -20,6 +20,7 @@ export class AffectvoitureComponent implements OnInit {
 
   ngOnInit() {
     this.getAllAffectations(res => {
+
       this.voituresAffectes = res;
     });
 

@@ -123,19 +123,25 @@
     
                 <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-calendar"></i></label></span>
-                <input class="form-control" type="date" name="dd" ngModel
-                required #dd="ngModel"  />
+                  <input class="form-control" type="datetime-local" name="dd" required #dd="ngModel" ngModel>
+
+                <!-- <input class="form-control" type="date" name="dd" ngModel
+                required #dd="ngModel"  /> -->
             </div>
             <div *ngIf="(dd.invalid && dd.touched)" class="alert alert-danger p-2" role="alert">
                 Saisir la date début
             </div>
+
+         
     
             <div class="input-group">
     
               <span class="input-group-prepend"><label class="input-group-text"><i
                 class="icofont icofont-calendar"></i></label></span>
-              <input class="form-control" type="date" name="df" ngModel
-              required #df="ngModel"  />
+                <input class="form-control" type="datetime-local" name="df" required #df="ngModel" ngModel>
+
+              <!-- <input class="form-control" type="date" name="df" ngModel
+              required #df="ngModel"  /> -->
           </div>
           <div *ngIf="(df.invalid && df.touched)" class="alert alert-danger p-2" role="alert">
               Saisir la date fin
@@ -200,11 +206,11 @@
                             </tr>
                             <tr>
                               <th scope="row">Date début mission</th>
-                              <td >{{ this.controls.dateFormat(mission.date_debut) }}</td>
+                              <td >{{ this.controls.dateFormat(mission.date_debut,true) }}</td>
                           </tr>
                           <tr>
                             <th scope="row">Date fin mission</th>
-                            <td >{{ this.controls.dateFormat(this.mission.date_fin)}}</td>
+                            <td >{{ this.controls.dateFormat(this.mission.date_fin,true)}}</td>
                         </tr>
                         <tr>
                           <th scope="row">Mission terminée?</th>

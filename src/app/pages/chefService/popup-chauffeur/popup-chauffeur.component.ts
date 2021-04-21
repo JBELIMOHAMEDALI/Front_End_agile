@@ -36,6 +36,7 @@ export class PopupChauffeurComponent implements OnInit {
 
 
   ngOnInit() {
+
     if (!this.show) {
       this.matList = this.matList.filter(matricule => matricule != this.chauffeur.matricule);
       this.emailList = this.emailList.filter(email => email != this.chauffeur.email);

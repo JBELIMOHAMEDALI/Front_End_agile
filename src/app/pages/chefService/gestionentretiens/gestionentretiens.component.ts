@@ -29,7 +29,6 @@ export class GestionentretiensComponent implements OnInit {
 
 
     this.getAllEntrtiens(entretiens => {
-
       this.entretienList = entretiens;
 
     });
