@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Entretien } from "../models/entretien";
+import { ControlsService } from "./controls.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EntretienService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private controls:ControlsService) { }
 
   addEntretien(entretien: Entretien) {
+
+    this.controls.verifVF('chauffeur');
     const { id_voiture, date, description } = entretien;
 
     let param1 = new HttpParams;
@@ -32,6 +35,9 @@ export class EntretienService {
 
 
   updateEntretien(entretien: Entretien) {
+    this.controls.verifVF('chauffeur');
+
+    
     const { id_voiture, date, description, id_entretien } = entretien;
 
     let param1 = new HttpParams;
@@ -54,6 +60,7 @@ export class EntretienService {
 
 
   getAllEntrtieninfo() {
+    this.controls.verifVF('chauffeur');
 
     return new Promise((resolve, reject) => {
 
@@ -69,6 +76,7 @@ export class EntretienService {
 
 
   deleteEntretien(id_entretien: string) {
+    this.controls.verifVF('chauffeur');
 
 
     let param1 = new HttpParams;
@@ -90,6 +98,7 @@ export class EntretienService {
 
 
   getOneEntretienbyId(id_entretien: string) {
+    this.controls.verifVF('chauffeur');
 
     return new Promise((resolve, reject) => {
       const body = { params: { id: id_entretien } };

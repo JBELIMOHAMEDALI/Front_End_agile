@@ -4,8 +4,7 @@
     <div class="card widget-card-1">
       <div class="card-block-small">
         <i class="icofont icofont-users-social bg-c-blue card1-icon"></i>
-        <span class="text-c-blue f-w-600">Total</span>
-        <h4>{{this.chauffeursActif+this.chauffeursInactif}}</h4>
+        <h4>{{this.nbChauffeurs}}</h4>
         <div>
           <span class="f-left m-t-10 text-muted">
             <i class="text-c-blue f-16 icofont icofont-users-social m-r-10"></i>Chauffeurs
@@ -16,46 +15,17 @@
   </div>
   <!-- card2 end -->
   <!-- card3 start -->
-  <div class="col-md-6 col-xl-4">
-    <div class="card widget-card-1">
-      <div class="card-block-small">
-        <i class="icofont icofont-checked bg-c-green card1-icon"></i>
-        <span class="text-c-green f-w-600">Actifs</span>
-        <h4>{{this.chauffeursActif}}</h4>
-        <div>
-          <span class="f-left m-t-10 text-muted">
-            <i class="text-c-green f-16 icofont icofont-verification-check m-r-10"></i>Chauffeurs
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- card3 end -->
-  <!-- card4 start -->
-  <div class="col-md-6 col-xl-4">
-    <div class="card widget-card-1">
-      <div class="card-block-small">
-        <i class="icofont icofont-close bg-c-pink card1-icon"></i>
-        <span class="text-c-pink f-w-600">Inactifs</span>
-        <h4>{{this.chauffeursInactif}}</h4>
-        <div>
-          <span class="f-left m-t-10 text-muted">
-            <i class="text-c-pink f-16 icofont icofont-close m-r-10"></i>Chauffeurs
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
+ 
 
   <div class="col-md-6 col-xl-4">
     <div class="card widget-card-1">
       <div class="card-block-small">
         <i class="icofont icofont-car-alt-1 bg-c-blue card1-icon"></i>
-        <span class="text-c-blue f-w-600">Total</span>
-        <h4>{{this.voituresActif+this.voituresInActif}}</h4>
+        <!-- <span class="text-c-blue f-w-600">Total</span> -->
+        <h4>{{this.nbVoitures}}</h4>
         <div>
           <span class="f-left m-t-10 text-muted">
-            <i class="text-c-blue f-16 icofont icofont-users-social m-r-10"></i>Voitures
+            <i class="text-c-blue f-16 icofont icofont-car-alt-1 m-r-10"></i>Voitures
           </span>
         </div>
       </div>
@@ -66,12 +36,12 @@
   <div class="col-md-6 col-xl-4">
     <div class="card widget-card-1">
       <div class="card-block-small">
-        <i class="icofont icofont-checked bg-c-green card1-icon"></i>
-        <span class="text-c-green f-w-600">Actifs</span>
-        <h4>{{this.voituresActif}}</h4>
+        <i class="icofont icofont-briefcase bg-c-blue card1-icon"></i>
+        <!-- <span class="text-c-pink f-w-600">Total</span> -->
+        <h4>{{this.nbMissionsTerminees}}</h4>
         <div>
           <span class="f-left m-t-10 text-muted">
-            <i class="text-c-green f-16 icofont icofont-verification-check m-r-10"></i>Voitures
+            <i class="text-c-blue f-16 icofont icofont-verification-check m-r-10"></i>Missions terminées
           </span>
         </div>
       </div>
@@ -82,12 +52,45 @@
   <div class="col-md-6 col-xl-4">
     <div class="card widget-card-1">
       <div class="card-block-small">
-        <i class="icofont icofont-close bg-c-pink card1-icon"></i>
-        <span class="text-c-pink f-w-600">Inactifs</span>
-        <h4>{{this.voituresInActif}}</h4>
+        <i class="icofont icofont-tools-bag bg-c-green card1-icon"></i>
+        <!-- <span class="text-c-pink f-w-600">Total</span> -->
+        <h4>{{this.nbEntretiens}}</h4>
         <div>
           <span class="f-left m-t-10 text-muted">
-            <i class="text-c-pink f-16 icofont icofont-close m-r-10"></i>Voitures
+            <i class="text-c-green f-16 icofont icofont-tools-bag m-r-10"></i>Entretiens
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <div class="col-md-6 col-xl-4">
+    <div class="card widget-card-1">
+      <div class="card-block-small">
+        <i class="icofont icofont-car-alt-1 bg-c-green card1-icon"></i>
+        <!-- <span class="text-c-green f-w-600">Total</span> -->
+        <h4>{{this.nbVoituresAffectees}}</h4>
+        <div>
+          <span class="f-left m-t-10 text-muted">
+            <i class="text-c-green f-16 icofont icofont-verification-check m-r-10"></i>Voitures Affectées
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-6 col-xl-4">
+    <div class="card widget-card-1">
+      <div class="card-block-small">
+        <i class="icofont icofont-delivery-time bg-c-pink card1-icon"></i>
+        <!-- <span class="text-c-pink f-w-600">Total</span> -->
+        <h4>{{this.nbMissionsAttente}}</h4>
+        <div>
+          <span class="f-left m-t-10 text-muted">
+            <i class="text-c-pink f-16 icofont icofont-delivery-time m-r-10"></i>Missions en attente
           </span>
         </div>
       </div>
@@ -150,7 +153,7 @@
         </div>
         <div class="col-md-2 offset-md-0 col-6 offset-4">
 
-          <button type="button" (click)="submit(annee.value,chauffeur.value,mois.value)"
+          <button type="button" (click)="submit(chauffeur.value,mois.value,annee.value)"
             class="btn btn-primary">Valider</button>
         </div>
       </div>
@@ -162,7 +165,7 @@
       <ng-container>
 
 
-        <div *ngIf="this.list.length===0" id="line-example" class="line-example mt-5">
+        <div *ngIf="!this.displayCard" id="line-example" class="line-example mt-5">
               <div class="d-flex justify-content-center">
 
 

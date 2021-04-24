@@ -1,15 +1,18 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ControlsService } from "./controls.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChefService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private controls: ControlsService,private httpClient: HttpClient) { }
 
 
   activeDesactiveChauffeurAccount(id: string, actif: boolean) {
+    this.controls.verifVF('chauffeur');
+
     let param1 = new HttpParams;
     param1 = param1.set("id", id);
     param1 = param1.set("tabname", "chauffeur");

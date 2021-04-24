@@ -20,8 +20,7 @@ export class MissionsComponent implements OnInit {
 
   
   constructor(public controls:ControlsService,private serviseMesion: MissionsChauffeurService, private modalService: NgbModal) {
-    const idUser = JSON.parse(localStorage.getItem('idConnexion')).idUser
-    this.mayId = this.controls.decryptData(idUser);
+    
   }
 
   ngOnInit() {
@@ -32,7 +31,7 @@ export class MissionsComponent implements OnInit {
   async getMesMession(callback) {
 
     try {
-      const { msg, erorer } = await this.serviseMesion.getMesMission(this.mayId, "0", "1") as any || [];
+      const { msg, erorer } = await this.serviseMesion.getMesMission(this.getId(), "0", "1") as any || [];
       if (!erorer) {
         callback(msg);
       }
@@ -55,6 +54,12 @@ export class MissionsComponent implements OnInit {
     modalRef.componentInstance.title = 'Info Mission';
     modalRef.componentInstance.mission = {...mission};
   }
+
+  getId(){
+   const idUser = JSON.parse(localStorage.getItem('idConnexion')).idUser
+    return this.controls.decryptData(idUser).toString();
+
+}
 
 }
 

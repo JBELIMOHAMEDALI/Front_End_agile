@@ -39,6 +39,7 @@ export class FirstconnectionComponent implements OnInit {
 
 
   ngOnInit() {
+    this.controls.verifLogin();
     const idcnx = JSON.parse(localStorage.getItem('idConnexion'));
 
     const userRoleData = this.verifUser();

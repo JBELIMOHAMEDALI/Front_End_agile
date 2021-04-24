@@ -55,7 +55,7 @@
                 </thead>
                 <ng-container *ngIf="this.listmession.length>0">
                  
-                <tbody *ngFor="let mission of this.listmession  | paginate: { itemsPerPage: 3, currentPage: p } ">
+                <tbody *ngFor="let mission of this.listmession| paginate: { itemsPerPage: 3, currentPage: p } ">
                   <tr (dblclick)="showMission(mission)" style="text-align: center;">
                     <th scope="row">{{mission.voiture+" "+mission.matricule}}</th>
                     <td>{{this.controls.dateFormat(mission.date_debut)}}</td>
@@ -88,10 +88,15 @@
 
               </table>
     
-              <div *ngIf="this.listmession.length>3" style="text-align: center;">
+              <div *ngIf="this.listmession.length>0" style="text-align: center;">
                 <hr>
                 <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
+
+
+
+
+              
             </div>
           </div>
       </app-card>

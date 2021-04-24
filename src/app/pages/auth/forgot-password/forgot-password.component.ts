@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginErrorComponent } from '../login-error/login-error.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ControlsService } from '../../../services/controls.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -14,30 +15,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ForgotPasswordComponent implements OnInit {
 
 
-  // ForgotPassForm = new FormGroup({
-  //   email: new FormControl("", [
-  //     Validators.required,
-  //     Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
-  //   ]),
-  //   matricule: new FormControl(
-  //     "",
-  //     Validators.required
-  //   ),
-  //   newPass: new FormControl(
-  //     "",
-  //     Validators.required
-  //   ),
-  //   // confirmPass: new FormControl(
-  //   //   "",
-  //   //   Validators.required
-  //   // ),
-  // });
+ 
 
 
   constructor(private authServ: AuthService,
     private modalService: NgbModal,
     private actifRoute: ActivatedRoute,
     private route: Router,
+    private controls:ControlsService
   ) {
 
 
@@ -45,10 +30,11 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.controls.verifLogin();
     const userRole = this.verifUser()[0];
-    if (userRole === 'administrateur') {
-      this.route.navigate(['/user/' + this.verifUser()[1]]);
-    }
+    // if (userRole === 'administrateur') {
+    //   this.route.navigate(['/user/' + this.verifUser()[1]]);
+    // }
   }
 
   async resetPassword(form: NgForm) {

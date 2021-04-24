@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Voiture } from "../models/voiture";
+import { ControlsService } from "./controls.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class VoitureService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private controls: ControlsService,private httpClient: HttpClient) { }
 
 
   addVoiture(voiture: Voiture) {
+
+    this.controls.verifVF('chauffeur');
+
     const { matricule, statut, type, dmc, puissance, service } = voiture;
 
     let param1 = new HttpParams;
@@ -36,6 +40,8 @@ export class VoitureService {
 
 
   updateVoiture(voiture: Voiture) {
+
+    this.controls.verifVF('chauffeur');
     const { matricule, type, dmc, puissance, service, id_voiture } = voiture;
 
     let param1 = new HttpParams;
@@ -61,6 +67,7 @@ export class VoitureService {
   }
 
   getAllVoitures(actif: boolean) {
+    this.controls.verifVF('chauffeur');
     var req: string = "get_all_Act";
     if (!actif) {
       req = "get_all_Not_Act";
@@ -81,6 +88,8 @@ export class VoitureService {
 
 
   activeDisactiveVoiture(id: string, actif: boolean) {
+    this.controls.verifVF('chauffeur');
+
     let param1 = new HttpParams;
     param1 = param1.set("id", id);
     param1 = param1.set("tabname", "voiture");
@@ -104,6 +113,8 @@ export class VoitureService {
 
 
   getOneVoiturebyId(id: string, actif: boolean) {
+    this.controls.verifVF('chauffeur');
+
     let req: string = "get_One_Act_By_ID";
     if (!actif) {
       req = "get_One_Not_Act_By_Id";
@@ -129,20 +140,7 @@ export class VoitureService {
 
 
 
-    getVC() {//deprecated
-  
-    const body = { params: { 'id': '1' } };
-
-    return new Promise((resolve, reject) => {
-
-      this.httpClient.get(`http://127.0.0.1/pfe_api/Voiture/get_voitur_bay_chouffeur`, body)
-        .forEach(data =>
-          resolve(data)
-        ).catch((err) => {
-          reject(err);
-        })
-    });
-  }
+    
 
 }
 

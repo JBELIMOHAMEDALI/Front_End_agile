@@ -20,14 +20,9 @@ export class AffectmissionComponent implements OnInit {
     private modalService: NgbModal,
     public controls: ControlsService) { }
 
-  ngOnInit() {
-    this.getOne(res => {
-      console.log(res)
-
-    });
+  ngOnInit() {    
     this.getAllMissions(res => {
       this.missionsList = res;
-
     });
 
   }
@@ -50,15 +45,7 @@ export class AffectmissionComponent implements OnInit {
     }
   }
 
-  async getOne(callback) {
-    try {
-      const { msg, erorer } = await this.missionService.getOne() as any || [];
-      if (!erorer)
-        callback(msg);
-    } catch (error) {
-      return error;
-    }
-  }
+
 
   updateMission(mission) {
     const modalRef = this.modalService.open(PopupMissionComponent);

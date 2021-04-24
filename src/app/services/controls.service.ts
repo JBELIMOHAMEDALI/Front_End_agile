@@ -249,10 +249,69 @@ export class ControlsService {
     const year = new Date().getFullYear();
 
     const yearList: number[] = [];
-    for (let index = 0; index < 11; index++) {
+    for (let index = 0; index < year-2010; index++) {
       yearList.push(year - index)
     }
     return yearList;
   }
+
+  
+verifLocalStorage() {
+  const data = JSON.parse(localStorage.getItem('idConnexion'))
+
+  if (data) {
+
+    const role = this.decryptData(data.type);
+    switch (role) {
+      case 'chauffeur':
+        return "chauffeur";
+      case 'chefService':
+        return "chefService";
+    }
+  } else {
+    return null;
+  }
+
+}
+
+navigateAndreload(navigateto:string){
+  // this.reloadComponent();
+  this.router.navigate([navigateto]);
+}
+
+verifVF(role:string){
+switch (this.verifLocalStorage()) {
+      case role:
+          this.navigateAndreload('/dashboard');
+        break;
+    
+      case null:
+          this.navigateAndreload('/accueil');
+        break;
+    }
+}
+
+
+verifLogin(){
+ const idcnx = JSON.parse(localStorage.getItem('idConnexion'));
+ if(idcnx){
+ const { loggedin } = idcnx;
+  this.navigateAndreload('/dashboard');
+ }
+}
+
+verifProfile(){
+  switch (this.verifLocalStorage()) {
+      case 'chauffeur':
+          this.navigateAndreload('/dashboard/chauffeur/profil');
+        break;
+      case 'chefService':
+          this.navigateAndreload('/dashboard/chefService/profil');
+        break;
+      case null:
+          this.navigateAndreload('/accueil');
+        break;
+    }
+}
 
 }

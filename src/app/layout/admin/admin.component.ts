@@ -168,6 +168,12 @@ export class AdminComponent implements OnInit {
   }
 
   async ngOnInit() {
+     switch (this.controls.verifLocalStorage()) {         
+      case null:
+         return this.controls.navigateAndreload('/accueil');
+      
+
+    }
 
     this.setBackgroundPattern('pattern2');
     const { idUser, type } = JSON.parse(localStorage.getItem('idConnexion'));

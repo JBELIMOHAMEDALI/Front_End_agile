@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { ControlsService } from "./controls.service";
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +8,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 export class UserService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private controls:ControlsService) { }
 
   getAllUsers(actif: boolean) {
+    this.controls.verifVF('chauffeur');
+
     var req: string = "get_all_Act";
     if (!actif) {
       req = "get_all_Not_Act";
@@ -27,7 +30,15 @@ export class UserService {
 
 
 
-  getOneUserbyId(payload, actif: boolean) {
+  getOneUserbyId(payload, actif: boolean,from?:string) {
+    if(from){
+    this.controls.verifProfile();
+    }
+    // else{
+    // this.controls.verifVF();
+
+    // }
+
     let req: string = "get_One_Act_By_ID";
     if (!actif) {
       req = "get_One_Not_Act_By_Id";
@@ -51,6 +62,7 @@ export class UserService {
 
 
   UpdateUser(userData) {
+    this.controls.verifProfile();
 
     return new Promise((resolve, reject) => {
 

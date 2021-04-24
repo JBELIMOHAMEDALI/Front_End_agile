@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Chauffeur } from "../models/chauffeur";
+import { ControlsService } from "./controls.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChauffeurService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private controls:ControlsService) { }
 
   addChauffeur(chauffeur: Chauffeur) {
+    this.controls.verifVF('chauffeur');
     const { matricule, nomPrenom, email, tel, dns, region } = chauffeur;
 
     let param1 = new HttpParams;
@@ -35,6 +37,8 @@ export class ChauffeurService {
 
 
   updateChauffeur(chauffeur: Chauffeur) {
+        this.controls.verifVF('chauffeur');
+
     const { matricule, nomPrenom, email, tel, dns, region, statut, id_chauffeur } = chauffeur;
 
     let param1 = new HttpParams;
@@ -55,7 +59,6 @@ export class ChauffeurService {
           reject(err);
         });
     });
-  console.log(chauffeur)
   }
 
 

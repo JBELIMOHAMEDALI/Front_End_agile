@@ -18,7 +18,8 @@ export class ChauffeursinactivesComponent implements OnInit {
   constructor(private userServ: UserService,
     private chefServ: ChefService,
     private modalService: NgbModal,
-    private controls: ControlsService) { }
+    private controls: ControlsService) { 
+    }
 
   chauffeursInactif: Chauffeur[] = [];
 

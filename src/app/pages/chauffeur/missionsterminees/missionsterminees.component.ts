@@ -14,9 +14,7 @@ export class MissionstermineesComponent implements OnInit {
   listmession: Mission[] = [];
   p:number;
   mayId: string;
-  constructor(public controls:ControlsService,private serviseMesion: MissionsChauffeurService, private modalService: NgbModal) {
-    const idUser = JSON.parse(localStorage.getItem('idConnexion')).idUser
-    this.mayId = this.controls.decryptData(idUser);
+  constructor(public controls:ControlsService,private serviseMesion: MissionsChauffeurService, private modalService: NgbModal) {   
 
   }
 
@@ -34,7 +32,7 @@ export class MissionstermineesComponent implements OnInit {
   async getMesMession(callback) {
 
     try {
-      const { msg, erorer } = await this.serviseMesion.getMesMission(this.mayId, "1", "1") as any || [];
+      const { msg, erorer } = await this.serviseMesion.getMesMission(this.getId(), "1", "1") as any || [];
       if (!erorer) {
         callback(msg);
       }
@@ -44,6 +42,12 @@ export class MissionstermineesComponent implements OnInit {
     }
 
   }
+
+    getId(){
+   const idUser = JSON.parse(localStorage.getItem('idConnexion')).idUser
+    return this.controls.decryptData(idUser).toString();
+
+}
 
 }
 

@@ -14,26 +14,26 @@ import { ControlsService } from "../../../services/controls.service";
 export class CarnetDeBoardComponent implements OnInit {
 
   chauffeursActif: any;
-  mayId: string;
   p: number;
   carnetboardlist: Carnetdeboard[] = [];
   constructor(private serviceCarnetBord: CarnetDeboardService,
     public controls: ControlsService, private modalService: NgbModal) {
-    const idUser = JSON.parse(localStorage.getItem('idConnexion')).idUser
-    this.mayId = this.controls.decryptData(idUser);
-
+   
   }
 
   ngOnInit() {
+    // setTimeout(() => {
+  
     this.getAllCarnetBoard(result => {
       this.carnetboardlist = result;
     });
+    // }, 100);
   }
 
 
   async getAllCarnetBoard(callback) {
     try {
-      const { msg, erorer } = await this.serviceCarnetBord.getAllCarnetBored(this.mayId) as any || [];
+      const { msg, erorer } = await this.serviceCarnetBord.getAllCarnetBored(this.getId()) as any || [];
       if (!erorer) {
         callback(msg);
       }
@@ -48,10 +48,14 @@ export class CarnetDeBoardComponent implements OnInit {
   Ajouter() {
     const modalRef = this.modalService.open(PopupCarnetdeboardComponent);
     modalRef.componentInstance.title = 'NOUVEAU CARNET DE BOARD';
-    modalRef.componentInstance.id_choufeur = this.mayId.toString();
+    modalRef.componentInstance.id_choufeur = this.getId();
   }
 
+getId(){
+   const idUser = JSON.parse(localStorage.getItem('idConnexion')).idUser
+    return this.controls.decryptData(idUser).toString();
 
+}
 
 }
 

@@ -89,17 +89,7 @@ export class VoituresComponent implements OnInit {
       return error;
     }
   }
-  async getVC(callback) {
-    try {
-      const { msg, erorer } = await this.voitureService.getVC() as any || [];
-      if (!erorer) {
-        callback(msg);
-      }
 
-    } catch (error) {
-      return error;
-    }
-  }
 
 
 }

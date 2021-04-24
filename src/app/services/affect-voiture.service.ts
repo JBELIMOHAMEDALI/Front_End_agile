@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { ControlsService } from "./controls.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AffectVoitureService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private controls: ControlsService,private httpClient: HttpClient) { }
 
   addAffectaion(affectation) {
+    this.controls.verifVF('chauffeur');
     const { voitureopt, chauffeuropt } = affectation;
 
     let param1 = new HttpParams;
@@ -30,6 +32,7 @@ export class AffectVoitureService {
   }
 
   updateAffectaion(affectation) {
+    this.controls.verifVF('chauffeur');
 
     const { id_voiture, id_chauffeur, id_affectation } = affectation;
 
@@ -52,6 +55,7 @@ export class AffectVoitureService {
   }
 
   getAllAffectations(statut: string) {
+    this.controls.verifVF('chauffeur');
 
     const body = { params: { statut: statut } };
     return new Promise((resolve, reject) => {
@@ -65,6 +69,7 @@ export class AffectVoitureService {
   }
 
   activerDesactiverAffectation(id: string) {
+    this.controls.verifVF('chauffeur');
     let param1 = new HttpParams;
     param1 = param1.set("id", id);
     param1 = param1.set("tabname", "affecter_v_chauffeur");
@@ -85,6 +90,7 @@ export class AffectVoitureService {
   }
 
   getChauffeursVoituresNonaffectesActifs(option: string) {
+    this.controls.verifVF('chauffeur');
     let req: string = 'get_chouffeur_non_affecte_voture';
     if (option === 'voiture') {
       req = 'get_voitur_non_affecte';
@@ -100,6 +106,7 @@ export class AffectVoitureService {
   }
 
   getAll(role: string) {
+    this.controls.verifVF('chauffeur');
 
     return new Promise((resolve, reject) => {
       const body = { params: { 'tabname': role } };
@@ -114,6 +121,7 @@ export class AffectVoitureService {
 
 
   getOneAffectationbyId(id: string) {
+    this.controls.verifVF('chauffeur');
 
     return new Promise((resolve, reject) => {
       const body = { params: { id: id, tabname: 'affecter_v_chauffeur', nomId: 'id_affecter_v_chauffeur' } };

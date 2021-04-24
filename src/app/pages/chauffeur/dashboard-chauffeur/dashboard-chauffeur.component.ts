@@ -1,23 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-dashboard-chauffeur',
-//   templateUrl: './dashboard-chauffeur.component.html',
-//   styleUrls: ['./dashboard-chauffeur.component.scss']
-// })
-// export class DashboardChauffeurComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-
-
-//   }
-
-// }
-
-
-
 import { Component, OnInit } from '@angular/core';
 
 import '../../../../assets/charts/amchart/amcharts.js';
@@ -27,6 +7,8 @@ import '../../../../assets/charts/amchart/serial.js';
 import '../../../../assets/charts/amchart/light.js';
 import '../../../../assets/charts/amchart/ammap.js';
 import '../../../../assets/charts/amchart/worldLow.js';
+import { DashboardService } from "../../../services/dashboard.service";
+import { ControlsService } from '../../../services/controls.service';
 
 declare const AmCharts: any;
 declare const $: any;
@@ -40,13 +22,17 @@ declare const $: any;
   ]
 })
 export class DashboardChauffeurComponent implements OnInit {
-  totalValueGraphData1 = buildChartJS('#fff', [45, 25, 35, 20, 45, 20, 40, 10, 30, 45], '#3a73f1', 'transparent');
-  totalValueGraphData2 = buildChartJS('#fff', [10, 25, 35, 20, 10, 20, 15, 45, 15, 10], '#e55571', 'transparent');
-  totalValueGraphOption = buildChartOption();
-
-  constructor() { }
+  // totalValueGraphData1 = buildChartJS('#fff', [45, 25, 35, 20, 45, 20, 40, 10, 30, 45], '#3a73f1', 'transparent');
+  // totalValueGraphData2 = buildChartJS('#fff', [10, 25, 35, 20, 10, 20, 15, 45, 15, 10], '#e55571', 'transparent');
+  // totalValueGraphOption = buildChartOption();
+  
+  nbMissionsTerminees:number=0;
+  nbMissionsAttente:number=0;
+  nbCarnet:number=0;
+  constructor( private dashboardService:DashboardService,private controls:ControlsService) { }
 
   ngOnInit() {
+    this.controls.verifVF('chefService');
     AmCharts.makeChart('statistics-chart', {
       type: 'serial',
       marginTop: 0,
@@ -314,11 +300,64 @@ export class DashboardChauffeurComponent implements OnInit {
         }
       ]
     });
+
+   this.getNbMissionAttente(res => {
+      this.nbMissionsAttente = res;
+      
+    });
+
+    this.getNbMissionTerminees(res => {
+      this.nbMissionsTerminees = res;
+      
+    });
+
+    this.getNbCarnet(res => {
+      this.nbCarnet = res;
+    });
+
+
   }
 
   onTaskStatusChange(event) {
     const parentNode = (event.target.parentNode.parentNode);
     parentNode.classList.toggle('done-task');
+  }
+
+  async getNbMissionAttente(callback) {
+
+    try {
+      const { msg, erorer} = await this.dashboardService.getNbMissionAttenteChauffeur(this.getChauffeurId()) as any || [];       
+      callback(msg);
+    } catch (error) {
+      return error;
+    }
+  }
+
+
+  async getNbMissionTerminees(callback) {
+
+    try {
+      const { msg, erorer} = await this.dashboardService.getNbMissionTermineesChauffeur(this.getChauffeurId()) as any || [];       
+      callback(msg);
+    } catch (error) {
+      return error;
+    }
+  }
+
+
+  async getNbCarnet(callback) {
+
+    try {
+      const { msg, erorer} = await this.dashboardService.getNbCarnetDeBoardChauffeur(this.getChauffeurId()) as any || [];       
+      callback(msg);
+    } catch (error) {
+      return error;
+    }
+  }
+
+  getChauffeurId(){
+    const id = JSON.parse(localStorage.getItem('idConnexion')).idUser;
+    return this.controls.decryptData(id);
   }
 
 }

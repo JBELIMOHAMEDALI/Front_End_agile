@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit {
       const payload = { 'id': this.controls.decryptData(user.idUser), 'tabname': userRole, 'nomId': nom_id };
 
       try {
-        const { erorer, msg } = await this.userServ.getOneUserbyId(payload, true) as any;
+        const { erorer, msg } = await this.userServ.getOneUserbyId(payload, true,'profil') as any;
         if (erorer) {
           this.route.navigate(['/']);
 

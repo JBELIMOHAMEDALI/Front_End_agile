@@ -24,12 +24,13 @@ export class PopupChauffeurComponent implements OnInit {
   @Input() chauffeur: Chauffeur;
   sameChauffeur: boolean = false;
 
+  regions: string[] = [];
 
   constructor(public activeModal: NgbActiveModal,
     private chauffeurService: ChauffeurService,
     private modalService: NgbModal,
     public controls: ControlsService) {
-
+    this.regions=this.controls.getRegions();
 
   }
 

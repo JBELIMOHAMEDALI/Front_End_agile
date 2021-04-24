@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Mission } from "../models/mission";
+import { ControlsService } from "./controls.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MissionsService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private controls:ControlsService) { }
 
   addMission(mission: Mission) {
+    this.controls.verifVF('chauffeur');
     const { id_chefService, id_chauffeur, date_debut, date_fin, description } = mission;
     let param1 = new HttpParams;
     param1 = param1.set('id_chefService', id_chefService);
@@ -35,6 +37,7 @@ export class MissionsService {
 
 
   updateMission(mission: Mission) {
+    this.controls.verifVF('chauffeur');
     const { id_chefService, id_chauffeur, date_debut, date_fin, description, id_mission } = mission;
 
     let param1 = new HttpParams;
@@ -61,6 +64,7 @@ export class MissionsService {
   }
 
   getAllMissions() {
+    this.controls.verifVF('chauffeur');
     return new Promise((resolve, reject) => {
       this.httpClient.get(`http://127.0.0.1/pfe_api/Mission/get_mission_info_all`)
         .forEach(data =>
@@ -73,12 +77,14 @@ export class MissionsService {
 
 
   getChauffeursAffectes() {
+    this.controls.verifVF('chauffeur');
 
     return new Promise((resolve, reject) => {
 
       this.httpClient.get(`http://127.0.0.1/pfe_api/chauffeur/get_chouffeur_for_mession`)
-        .forEach(data =>
+        .forEach(data =>{
           resolve(data)
+        }
         ).catch((err) => {
           reject(err);
         });
@@ -87,25 +93,13 @@ export class MissionsService {
   }
 
 
-  getOne() {//deprecated
-
-    return new Promise((resolve, reject) => {
-      const body = { params: { 'id': '7' } }
-
-      this.httpClient.get(`http://127.0.0.1/pfe_api/chauffeur/get_One_Mission_for_one_choufeur`, body)
-        .forEach(data =>
-          resolve(data)
-        ).catch((err) => {
-          reject(err);
-        });
-    });
-
-  }
+ 
 
 
 
   deleteMission(id_mission: string) {
 
+    this.controls.verifVF('chauffeur');
 
     let param1 = new HttpParams;
     param1 = param1.set('tabname', 'mission');

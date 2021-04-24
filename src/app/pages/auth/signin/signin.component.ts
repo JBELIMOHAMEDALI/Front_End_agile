@@ -25,21 +25,22 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.controls.verifLogin();   
     const idcnx = JSON.parse(localStorage.getItem('idConnexion'));
     const idUser = this.getUserid();
 
-    if (idcnx != null) {
+    // if (idcnx != null) {
 
-      if (idcnx.loggedin) {
-        this.route.navigate(['/dashboard']);
+    //   if (idcnx.loggedin) {
+    //     this.route.navigate(['/dashboard']);
 
-      } else {
+    //   } else {
 
-        this.route.navigate(['/user/' + idUser]);
-        return localStorage.clear();
+    //     this.route.navigate(['/user/' + idUser]);
+    //     return localStorage.clear();
 
-      }
-    }
+    //   }
+    // }
 
     if (idUser.length != 11) {//verif idUser in actifRoute
       return this.route.navigate(['/accueil']);
@@ -100,7 +101,6 @@ export class SigninComponent implements OnInit {
 
         break;
       case "1":
-
         this.route.navigate(['/dashboard', userRole]);
         const payloadvf = { ...payload, loggedin: true };
         localStorage.setItem('idConnexion', JSON.stringify(payloadvf));

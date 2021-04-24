@@ -15,6 +15,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Chauffeur } from "../../../models/chauffeur";
 import { ControlsService } from "../../../services/controls.service";
 import { LoginErrorComponent } from '../../auth/login-error/login-error.component';
+import { DashboardService } from "../../../services/dashboard.service";
 
 
 declare const AmCharts: any;
@@ -31,70 +32,83 @@ declare const $: any;
 export class DashboardChefServiceComponent implements OnInit {
 
 
-  chauffeursActif: number = 0;
-  chauffeursInactif: number = 0;
-  voituresActif: number = 0;
-  voituresInActif: number = 0;
+  nbChauffeurs: number = 0;
+  // chauffeursInactif: number = 0;
+  nbVoitures: number = 0;
+  nbVoituresAffectees: number = 0;
+  nbMissionsTerminees:number=0;
+  nbMissionsAttente:number=0;
+  nbEntretiens:number=0;
+
   chauffeursAll: Chauffeur[] = [];
-  list: any[] = [];
   listMois: any[] = [];
   listYears: any[] = [];
+  list: any[] = [];
+  displayCard:boolean;
 
   constructor(private userServ: UserService,
     private voitureService: VoitureService,
     public controls: ControlsService,
-    private modalService: NgbModal,) {
+    private modalService: NgbModal,
+    private dashboardService:DashboardService) {
     this.listMois = this.controls.getMois();
     this.listYears = this.controls.getAnnee();
-
+    this.displayCard=false;
   }
 
   ngOnInit() {
-
-    this.getUsers(res => {
-      this.chauffeursActif = res.length;
-      // this.chauffeurs = res || [];
-
-      this.getUsers(result => {
-        this.chauffeursInactif = result.length;
-        this.chauffeursAll = [...res].concat(result);
-      }, false);
-
-    }, true);
-
-    this.getVoitures(res => {
-      this.voituresActif = res.length;
-      this.getVoitures(result => {
-        this.voituresInActif = result.length;
+    this.controls.verifVF('chauffeur');
+    this.getChauffeursAndNumbers(res => {
+      this.nbChauffeurs=res[0];
+      this.getChauffeursAndNumbers(result => {
+        this.chauffeursAll = [...res[1]].concat(result[1]);
       }, false);
     }, true);
 
+    this.getNbVoitures(res => {
+      this.nbVoitures = res;
+      this.getNbVoituresAffectees(result => {
+        this.nbVoituresAffectees = result;
+      });
+    });
+
+    this.getNbMissionAttente(res => {
+      this.nbMissionsAttente = res;
+      
+    });
+
+    this.getNbMissionTerminees(res => {
+      this.nbMissionsTerminees = res;
+      
+    });
+
+    this.getNbEntretiens(res => {
+      this.nbEntretiens = res;
+    });
 
 
     //end OnInit
   }
 
-  makeChart() {
+  getDataFromDb(results){
+    const values:any[]=[];
+    for (let index = 0; index < results.length; index++) {
+      const obj = {year:"SEMAINE "+(index+1).toString(),value:results[index].consomation};
+      values.push(obj);
+    }
+    return values
+  }
 
+  makeChart(results) {
+
+  
 
     AmCharts.makeChart('statistics-chart', {
       type: 'serial',
       marginTop: 0,
 
       marginRight: 0,
-      dataProvider: [{
-        year: 'SEMAINE 1',
-        value: 0.2
-      }, {
-        year: 'SEMAINE 2',
-        value: 15
-      }, {
-        year: 'SEMAINE 3',
-        value: 29
-      }, {
-        year: 'SEMAINE 4',
-        value: 28
-      }],
+      dataProvider: this.getDataFromDb(results),
 
       valueAxes: [{
         axisAlpha: 0,
@@ -141,13 +155,19 @@ export class DashboardChefServiceComponent implements OnInit {
     const parentNode = (event.target.parentNode.parentNode);
     parentNode.classList.toggle('done-task');
   }
-  async getUsers(callback, actif: boolean) {
 
+
+  async getChauffeursAndNumbers(callback, actif: boolean) {
+    let res:any[]=[]
     try {
+      const { nbChauffeur, err } = await this.dashboardService.getNbChauffeursChefservice() as any || [];
+        res.push(nbChauffeur);      
+      
       const { msg, erorer } = await this.userServ.getAllUsers(actif) as any || [];
       if (!erorer) {
-        callback(msg);
+        res.push(msg)
       }
+        callback(res);
 
     } catch (error) {
       return error;
@@ -155,37 +175,101 @@ export class DashboardChefServiceComponent implements OnInit {
 
   }
 
-  async getVoitures(callback, actif: boolean) {
+  async getNbVoitures(callback) {
+
     try {
-      const { msg, erorer } = await this.voitureService.getAllVoitures(actif) as any || [];
-      if (!erorer) {
-        callback(msg);
-      }
+      const { nbVoitures, err } = await this.dashboardService.getNbVoituresChefservice() as any || [];       
+      callback(nbVoitures);
+    } catch (error) {
+      return error;
+    }
+  }
 
+async getNbVoituresAffectees(callback) {
+
+    try {
+      const { msg, erorer} = await this.dashboardService.getNbVoituresAffectesChefservice() as any || [];       
+      callback(msg);
+    } catch (error) {
+      return error;
+    }
+  }
+  
+async getNbMissionAttente(callback) {
+
+    try {
+      const { msg, erorer} = await this.dashboardService.getNbMissionAttenteChefservice() as any || [];       
+      callback(msg);
     } catch (error) {
       return error;
     }
   }
 
 
+  async getNbMissionTerminees(callback) {
+
+    try {
+      const { msg, erorer} = await this.dashboardService.getNbMissionTermineesChefservice() as any || [];       
+      callback(msg);
+    } catch (error) {
+      return error;
+    }
+  }
+
+
+  async getNbEntretiens(callback) {
+
+    try {
+      const { msg, erorer} = await this.dashboardService.getNbEntretiensChefservice() as any || [];       
+      callback(msg);
+    } catch (error) {
+      return error;
+    }
+  }
+  
 
 
 
-  submit(annee: string, moi: string, chauffeur: string) {
-    const array: string[] = [annee, moi, chauffeur];
+
+
+  submit(chauffeur: string, moi: string, annee: string) {
+    const array: string[] = [chauffeur,moi, annee];
+
     if (array.includes("-1")) {
-      console.log("condd")
       const modalRef = this.modalService.open(LoginErrorComponent);
-      modalRef.componentInstance.message = "Saisir toutes les valeurs !";
-      return;
-    } else
-      if (this.list.length > 0) {
-        this.makeChart();
-      }
+      return modalRef.componentInstance.message = "Saisir toutes les valeurs !";
+      
+    } 
+
+        const payload= { 'id_chouffeur':array[0],'mois':array[1],'anne':array[2], };
+        this.getChefServiceCharet((results)=>{
+          if(results.length>0){
+          this.displayCard=true;
+          this.makeChart(results);
+          }else{
+            //  const modalRef = this.modalService.open(LoginErrorComponent);
+            //  return modalRef.componentInstance.message = "Saisir toutes les valeurs !";
+          }
+        },payload)
 
 
 
   }
+
+  async getChefServiceCharet(callback,payload) {
+
+    try {
+      const { msg, erorer} = await this.dashboardService.getChefServiceCharet(payload) as any || [];   
+      if(!erorer){
+
+      callback(msg);
+      }    
+    } catch (error) {
+      return error;
+    }
+  }
+  
+
 
 }//end class
 

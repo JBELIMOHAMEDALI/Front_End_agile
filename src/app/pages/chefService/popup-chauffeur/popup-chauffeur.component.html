@@ -89,7 +89,7 @@
                 class="icofont icofont-location-pin"></i></label></span>
         <select  [(ngModel)]="this.chauffeur.region" #region="ngModel" name="region" class="form-control" required>
 
-          <ng-container *ngFor="let region of this.controls.getRegions();let i=index;">
+          <ng-container *ngFor="let region of this.regions;let i=index;">
 
                 <option [value]="region">
                     {{region}} 
