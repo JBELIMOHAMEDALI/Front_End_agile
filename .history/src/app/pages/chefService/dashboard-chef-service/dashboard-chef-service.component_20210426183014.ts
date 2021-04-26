@@ -249,7 +249,7 @@ async getNbMissionAttente(callback) {
           this.displayCard=true;
           this.makeChart(results);
           }else{
-            alert("Données introuvables pour ce chauffeur !")
+            alert("Pas de données pour ce chauffeur !")
             //message no data
             //  const modalRef = this.modalService.open(LoginErrorComponent);
             //  return modalRef.componentInstance.message = "Saisir toutes les valeurs !";

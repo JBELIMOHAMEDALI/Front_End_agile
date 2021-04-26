@@ -26,10 +26,9 @@ export class GestionChauffeursComponent implements OnInit {
   ngOnInit() {
     this.getUsers(resAcitf => {
       this.chauffeursActif = resAcitf
-      this.chauffeursAll = [...resAcitf];
     }, true);
       this.getUsers(results => {
-        this.chauffeursAll = [...this.chauffeursAll.concat(results)];
+        this.chauffeursAll = [...this.chauffeursActif.concat(results)];
       }, false);
 
   }
@@ -78,11 +77,13 @@ export class GestionChauffeursComponent implements OnInit {
   Ajouter() {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = 'NOUVEAU CHAUFFEUR';
-    
     if (this.chauffeursAll.length > 0) {
-      modalRef.componentInstance.matList = this.controls.getAllMatriculeOrEmails(this.chauffeursAll, 'matricule');
+console.log('eyyy')
+      // modalRef.componentInstance.matList = this.controls.getAllMatriculeOrEmails(this.chauffeursAll, 'matricule');
 
-      modalRef.componentInstance.emailList = this.controls.getAllMatriculeOrEmails(this.chauffeursAll, 'email');
+      // modalRef.componentInstance.emailList = this.controls.getAllMatriculeOrEmails(this.chauffeursAll, 'email');
+    }else{
+      console.log("leee")
     }
   }
 

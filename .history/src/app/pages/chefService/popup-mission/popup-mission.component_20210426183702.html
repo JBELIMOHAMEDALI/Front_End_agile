@@ -8,7 +8,22 @@
     <form *ngIf="this.id>0&&this.mission&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate> 
     <div  class="modal-body" >
     
+<!--             
+            <div class="input-group">
+            <span class="input-group-prepend"><label class="input-group-text"><i
+                class="icofont icofont-car-alt-1"></i></label></span>
+        <select  [(ngModel)]="this.mission.id_voiture" #id_voiture="ngModel" name="id_voiture" class="form-control" required>
+          <option [value]="this.mission.id_voiture"> {{this.mission.matricule+' ** '+this.mission.type}}</option>
 
+          <ng-container *ngFor="let voiture of this.voitureList;let i=index;">
+
+                <option [value]="voiture.id_voiture">
+                    {{voiture.matricule+' ** '+voiture.type}} 
+                </option>
+            </ng-container>
+
+        </select>  
+    </div> -->
     
         
           <div class="input-group">
@@ -17,7 +32,7 @@
         <select  [(ngModel)]="this.mission.id_chauffeur" #id_chauffeur="ngModel" name="id_chauffeur" class="form-control" required>
           <option [value]="this.mission.id_chauffeur">{{this.mission.nomPrenom+' ** '+this.mission.matricule}}</option>
 
-          <ng-container *ngFor="let chauffeur of this.chauffeurtoUpdate;let i=index;">
+          <ng-container *ngFor="let chauffeur of this.chauffeurList;let i=index;">
 
                 <option [value]="chauffeur.id_chauffeur">
                     {{chauffeur.nomPrenom+' ** '+chauffeur.matricule}} 

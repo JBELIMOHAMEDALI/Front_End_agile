@@ -23,7 +23,7 @@ export class PopupMissionComponent implements OnInit {
   @Input() mission: any;
   voitureList = new Array<Voiture>();
   chauffeurList = new Array<Chauffeur>();
-  chauffeurtoUpdate=new Array<Chauffeur>();
+
   constructor(
     public activeModal: NgbActiveModal,
     private missionService: MissionsService,
@@ -34,8 +34,9 @@ export class PopupMissionComponent implements OnInit {
 
   ngOnInit() {
     this.loadChauffeursNonAffectes(chauffeurs => {
-      this.chauffeurList = chauffeurs
-      this.chauffeurtoUpdate = chauffeurs.filter(chauffeur=>chauffeur.id_chauffeur!=this.mission.id_chauffeur);
+      this.chauffeurList = chauffeurs;
+      console.log(chauffeurs)
+
     });
     this.loadVoituresNonAffectees(voitures => {
       this.voitureList = voitures;

@@ -27,12 +27,10 @@ export class VoituresComponent implements OnInit {
 
     this.getVoitures(resActif => {
       this.voitureListActif = resActif;
-      this.voitureListAll = [...resActif];
-
-    }, true);
       this.getVoitures(results => {
-        this.voitureListAll = [...this.voitureListAll.concat(results)];
+        this.voitureListAll = [...resActif.concat(results)];
       }, false);
+    }, true);
 
   }
 

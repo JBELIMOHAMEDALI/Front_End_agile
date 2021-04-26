@@ -58,10 +58,9 @@ export class DashboardChefServiceComponent implements OnInit {
 
   ngOnInit() {
     this.controls.verifVF('chauffeur');
-    
     this.getChauffeursAndNumbers(res => {
       this.nbChauffeurs=res[0];
-      this.chauffeursAll = [...res[1]];
+      this.chauffeursAll = [...res[1]]);
     }, true);
       // this.getChauffeursAndNumbers(result => {
       //   this.chauffeursAll = [...res[1]].concat(result[1]);
@@ -235,42 +234,40 @@ async getNbMissionAttente(callback) {
 
 
   submit(chauffeur: string, moi: string, annee: string) {
-    const array: string[] = [chauffeur,moi, annee];
+    // const array: string[] = [chauffeur,moi, annee];
 
-    if (array.includes("-1")) {
-      const modalRef = this.modalService.open(LoginErrorComponent);
-      return modalRef.componentInstance.message = "Saisir toutes les valeurs !";
+    // if (array.includes("-1")) {
+    //   const modalRef = this.modalService.open(LoginErrorComponent);
+    //   return modalRef.componentInstance.message = "Saisir toutes les valeurs !";
       
-    } 
+    // } 
 
-        const payload= { 'id_chouffeur':array[0],'mois':array[1],'anne':array[2], };
-        this.getChefServiceCharet((results)=>{
-          if(results.length>0){
-          this.displayCard=true;
-          this.makeChart(results);
-          }else{
-            alert("Données introuvables pour ce chauffeur !")
-            //message no data
-            //  const modalRef = this.modalService.open(LoginErrorComponent);
-            //  return modalRef.componentInstance.message = "Saisir toutes les valeurs !";
-          }
-        },payload)
+    //     const payload= { 'id_chouffeur':array[0],'mois':array[1],'anne':array[2], };
+    //     this.getChefServiceCharet((results)=>{
+    //       if(results.length>0){
+    //       this.displayCard=true;
+    //       this.makeChart(results);
+    //       }else{
+    //         //  const modalRef = this.modalService.open(LoginErrorComponent);
+    //         //  return modalRef.componentInstance.message = "Saisir toutes les valeurs !";
+    //       }
+    //     },payload)
 
 
 
   }
 
-  async getChefServiceCharet(callback,payload) {
+  // async getChefServiceCharet(callback,payload) {
 
-    try {
-      const { msg, erorer} = await this.dashboardService.getChefServiceCharet(payload) as any || [];   
-      if(!erorer){
+  //   try {
+  //     const { msg, erorer} = await this.dashboardService.getChefServiceCharet(payload) as any || [];   
+  //     if(!erorer){
 
-      callback(msg);
-      }    
-    } catch (error) {
-      return error;
-    }
+  //     callback(msg);
+  //     }    
+  //   } catch (error) {
+  //     return error;
+  //   }
   }
   
 

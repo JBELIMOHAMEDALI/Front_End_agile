@@ -36,6 +36,7 @@ export class PopupMissionComponent implements OnInit {
     this.loadChauffeursNonAffectes(chauffeurs => {
       this.chauffeurList = chauffeurs
       this.chauffeurtoUpdate = chauffeurs.filter(chauffeur=>chauffeur.id_chauffeur!=this.mission.id_chauffeur);
+
     });
     this.loadVoituresNonAffectees(voitures => {
       this.voitureList = voitures;

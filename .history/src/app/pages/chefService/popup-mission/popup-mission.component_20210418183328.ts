@@ -23,7 +23,7 @@ export class PopupMissionComponent implements OnInit {
   @Input() mission: any;
   voitureList = new Array<Voiture>();
   chauffeurList = new Array<Chauffeur>();
-  chauffeurtoUpdate=new Array<Chauffeur>();
+
   constructor(
     public activeModal: NgbActiveModal,
     private missionService: MissionsService,
@@ -34,8 +34,8 @@ export class PopupMissionComponent implements OnInit {
 
   ngOnInit() {
     this.loadChauffeursNonAffectes(chauffeurs => {
-      this.chauffeurList = chauffeurs
-      this.chauffeurtoUpdate = chauffeurs.filter(chauffeur=>chauffeur.id_chauffeur!=this.mission.id_chauffeur);
+      this.chauffeurList = chauffeurs;
+
     });
     this.loadVoituresNonAffectees(voitures => {
       this.voitureList = voitures;
@@ -69,7 +69,7 @@ export class PopupMissionComponent implements OnInit {
       }
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = "Ajout non effectué,Vérifier la voiture affectée à ce chauffeur !";
+      modelServ.componentInstance.message = "Ajout non effectué !";
     }
   }
 
@@ -101,7 +101,8 @@ export class PopupMissionComponent implements OnInit {
       }
 
     } catch (error) {
-      return error;
+      const modelServ = this.modalService.open(LoginErrorComponent);
+      modelServ.componentInstance.message = "Erreur d'accées internet !";
     }
   }
 
@@ -114,7 +115,8 @@ export class PopupMissionComponent implements OnInit {
       }
 
     } catch (error) {
-      return error;
+      const modelServ = this.modalService.open(LoginErrorComponent);
+      modelServ.componentInstance.message = "Erreur d'accées internet !";
     }
 
   }
