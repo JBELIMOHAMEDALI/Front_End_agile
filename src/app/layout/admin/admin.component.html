@@ -20,7 +20,7 @@
       [attr.header-theme]="headerTheme"
     >
       <div class="navbar-wrapper">
-        <div class="navbar-logo" [attr.logo-theme]="logoTheme">
+        <div class="navbar-logo"  [attr.logo-theme]="logoTheme">
           <a
             class="mobile-menu"
             id="mobile-collapse"
@@ -31,14 +31,14 @@
           >
             <i class="ti-menu"></i>
           </a>
-          <a [routerLink]="['/dashboard',this.getuserRole()]">
+          <!-- <a [routerLink]="['/dashboard',this.getuserRole()]">
             <img
-            (click)="redirectToProfile()"
-            class="img-fluid"
-              src="assets/images/logo.png"
+              (click)="redirectToProfile()"
+              class="img-fluid"
+              src="assets/images/agile.png"
               alt="Theme-Logo"
             />
-          </a>
+          </a> -->
           <a (click)="onMobileMenu()" class="mobile-options">
             <i class="ti-more"></i>
           </a>
@@ -74,7 +74,7 @@
                 <!-- <a routerLink=""> -->
                   <img
                   (click)="redirectToProfile()"
-                  src="assets/images/avatar-4.jpg"
+                  src="assets/images/logo-user.png"
                     class="img-radius"
                     alt="User-Profile-Image"
                   />
@@ -127,7 +127,7 @@
               <div class="main-menu-header">
                 <img
                   class="img-40 img-radius"
-                  src="assets/images/avatar-4.jpg"
+                  src="assets/images/logo-user.png"
                   alt="User-Profile-Image"
                 />
                 <div class="user-details">

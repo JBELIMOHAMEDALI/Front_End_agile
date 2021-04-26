@@ -126,10 +126,7 @@ export class SigninComponent implements OnInit {
 
       return "chauffeur"
     }
-    // else if (values[2].includes(element)) {
-
-    //   return "chauffeur"
-    // }
+    
 
   }
 
