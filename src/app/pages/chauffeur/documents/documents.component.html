@@ -20,7 +20,7 @@
                 </a>
               </li>
               <li class="breadcrumb-item">
-  
+
                 <a>Impression Des Documents</a>
               </li>
             </ul>
@@ -30,7 +30,7 @@
     </div>
   </div>
   <!-- Page-header end -->
-  
+
   <div class="row">
     <div class="col-sm-12">
       <app-card [title]="'Liste Des Documents :'">
@@ -41,13 +41,13 @@
           <div class="col-md-6 col-xl-4">
             <div class="h-100 d-inline-block card widget-card">
               <div class="card-block-small">
-                
+
                 <span class="text-c-blue f-w-600" style="text-align: center;">Déclaration des pannes</span>
                 <h4 class="mt-5" style="text-align: left;text-align:justify;">Ce document est utile pour les déclarations des pannes</h4>
                  <div>
                   <center> <button  class="mt-5 btn hor-grd btn-grd-warning" printSectionId="print-section" ngxPrint><i
                     class="icofont icofont-printer"></i>Imprimer</button></center>
-                
+
                 </div>
               </div>
             </div>
@@ -55,30 +55,31 @@
           <div class="col-md-6 col-xl-4">
             <div class="h-100 d-inline-block card widget-card">
               <div class="card-block-small">
-                
+
                 <span class="text-c-blue f-w-600" style="text-align: center;">Ordre de service</span>
                 <h4 class="mt-5" style="text-align: left;text-align:justify;">Ce document est utile pour les ordres de service</h4>
                 <div>
                   <center> <button  class="mt-5 btn hor-grd btn-grd-warning" printSectionId="print-section2" ngxPrint><i
                     class="icofont icofont-printer"></i>Imprimer</button></center>
-                
+
                 </div>
               </div>
             </div>
-          </div> 
-          
+          </div>
+
           <div class="col-md-6 col-xl-4">
             <div class="h-100 d-inline-block card widget-card">
               <div class="card-block-small">
-                
+
                 <span class="text-c-blue f-w-600" style="text-align: center;">Bon de prélèvement matériel</span>
                 <h4 class="mt-5" style="text-align: left;text-align:justify;">Ce document est utile pour les bons de prélevement matériel</h4>
                 <div>
-                  <center> <button  class="mt-4 btn hor-grd btn-grd-warning" printSectionId="print-section3" ngxPrint [useExistingCss]="true"
+                  <br>
+                  <center> <button  class="btn hor-grd btn-grd-warning" printSectionId="print-section3" ngxPrint [useExistingCss]="true"
                     styleSheetFile="src\app\pages\chauffeur\documents\documents.component.scss"
                     ><i
                     class="icofont icofont-printer"></i>Imprimer</button></center>
-                
+
                 </div>
               </div>
             </div>
@@ -99,4 +100,3 @@
     </app-card>
     </div>
   </div>
-  

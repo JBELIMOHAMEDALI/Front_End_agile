@@ -39,29 +39,34 @@ export class FirstconnectionComponent implements OnInit {
 
 
   ngOnInit() {
-    this.controls.verifLogin();
     const idcnx = JSON.parse(localStorage.getItem('idConnexion'));
+    const userid = this.verifUser()[2];
+    if(!idcnx){
+      this.route.navigate([`/user/${userid}`]);
+    }
+    else{
 
-    const userRoleData = this.verifUser();
-
-    if (idcnx != null) {
-      const { loggedin, connexionid } = idcnx;
-
-      if (loggedin) {
-        return this.route.navigate(['/dashboard', userRoleData[0]]);
-
-      }
-
-      if (this.idUser != this.controls.decryptData(connexionid)) {
-        return this.route.navigate(['/user/' + this.idUser]);
-      }
+      this.controls.verifLogin(userid);
     }
 
+    // if (idcnx != null) {
+    //   const { loggedin, connexionid } = idcnx;
 
-    else {
-      return this.route.navigate(['/user/' + this.idUser]);
+    //   if (loggedin) {
+    //     return this.route.navigate(['/dashboard', userRoleData[0]]);
 
-    }
+    //   }
+
+    //   if (this.idUser != this.controls.decryptData(connexionid)) {
+    //     return this.route.navigate(['/user/' + this.idUser]);
+    //   }
+    // }
+
+
+    // else {
+    //   return this.route.navigate(['/user/' + this.idUser]);
+
+    // }
 
   }
 
@@ -106,10 +111,10 @@ export class FirstconnectionComponent implements OnInit {
       return ["administrateur", "id_admin"];
     } else if (values[1].includes(element)) {
 
-      return ["chefService", "id_chefService"];
+      return ["chefService", "id_chefService",idUser];
     } else if (values[2].includes(element)) {
 
-      return ["chauffeur", "id_chauffeur"];
+      return ["chauffeur", "id_chauffeur",idUser];
     }
 
   };

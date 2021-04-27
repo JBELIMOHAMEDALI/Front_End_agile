@@ -4,7 +4,7 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <form  name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate> 
+  <form  name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
   <div class="modal-body">
 
     <!-- <div class="form-group">
@@ -24,9 +24,9 @@
       <input type="number" class="form-control" ngModel
       name="klm" required  #klm="ngModel" placeholder="Kilométrage">
   </div>
-  
+
   <div *ngIf="(klm.invalid && klm.touched)" class="alert alert-danger" role="alert">
-      Kilométrage est invalide
+    Kilométrage est invalide
   </div>
 
 
@@ -44,9 +44,9 @@
       <span class="input-group-prepend"><label class="input-group-text"><i
             class="icofont icofont-energy-oil"></i></label></span>
       <input type="number" class="form-control" ngModel
-      name="con" required  #con="ngModel" placeholder="Consommation en litre">
+      name="con" required  #con="ngModel" placeholder="Consommation en dt">
   </div>
-  
+
   <div *ngIf="(con.invalid && con.touched)" class="alert alert-danger" role="alert">
       Consommation non valide
   </div>
@@ -59,4 +59,3 @@
     <button class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
   </div>
 </form>
-  

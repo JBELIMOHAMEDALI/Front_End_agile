@@ -16,6 +16,7 @@ import { Chauffeur } from "../../../models/chauffeur";
 import { ControlsService } from "../../../services/controls.service";
 import { LoginErrorComponent } from '../../auth/login-error/login-error.component';
 import { DashboardService } from "../../../services/dashboard.service";
+import { EntretienService } from "../../../services/entretien.service";
 
 
 declare const AmCharts: any;
@@ -47,7 +48,7 @@ export class DashboardChefServiceComponent implements OnInit {
   displayCard:boolean;
 
   constructor(private userServ: UserService,
-    private voitureService: VoitureService,
+    private entretienService: EntretienService,
     public controls: ControlsService,
     private modalService: NgbModal,
     private dashboardService:DashboardService) {
@@ -58,7 +59,7 @@ export class DashboardChefServiceComponent implements OnInit {
 
   ngOnInit() {
     this.controls.verifVF('chauffeur');
-    
+
     this.getChauffeursAndNumbers(res => {
       this.nbChauffeurs=res[0];
       this.chauffeursAll = [...res[1]];
@@ -76,16 +77,16 @@ export class DashboardChefServiceComponent implements OnInit {
 
     this.getNbMissionAttente(res => {
       this.nbMissionsAttente = res;
-      
+
     });
 
     this.getNbMissionTerminees(res => {
       this.nbMissionsTerminees = res;
-      
+
     });
 
     this.getNbEntretiens(res => {
-      this.nbEntretiens = res;
+      this.nbEntretiens = res.length;
     });
 
 
@@ -103,7 +104,7 @@ export class DashboardChefServiceComponent implements OnInit {
 
   makeChart(results) {
 
-  
+
 
     AmCharts.makeChart('statistics-chart', {
       type: 'serial',
@@ -163,8 +164,8 @@ export class DashboardChefServiceComponent implements OnInit {
     let res:any[]=[]
     try {
       const { nbChauffeur, err } = await this.dashboardService.getNbChauffeursChefservice() as any || [];
-        res.push(nbChauffeur);      
-      
+        res.push(nbChauffeur);
+
       const { msg, erorer } = await this.userServ.getAllUsers(actif) as any || [];
       if (!erorer) {
         res.push(msg)
@@ -180,7 +181,7 @@ export class DashboardChefServiceComponent implements OnInit {
   async getNbVoitures(callback) {
 
     try {
-      const { nbVoitures, err } = await this.dashboardService.getNbVoituresChefservice() as any || [];       
+      const { nbVoitures, err } = await this.dashboardService.getNbVoituresChefservice() as any || [];
       callback(nbVoitures);
     } catch (error) {
       return error;
@@ -190,17 +191,17 @@ export class DashboardChefServiceComponent implements OnInit {
 async getNbVoituresAffectees(callback) {
 
     try {
-      const { msg, erorer} = await this.dashboardService.getNbVoituresAffectesChefservice() as any || [];       
+      const { msg, erorer} = await this.dashboardService.getNbVoituresAffectesChefservice() as any || [];
       callback(msg);
     } catch (error) {
       return error;
     }
   }
-  
+
 async getNbMissionAttente(callback) {
 
     try {
-      const { msg, erorer} = await this.dashboardService.getNbMissionAttenteChefservice() as any || [];       
+      const { msg, erorer} = await this.dashboardService.getNbMissionAttenteChefservice() as any || [];
       callback(msg);
     } catch (error) {
       return error;
@@ -211,7 +212,7 @@ async getNbMissionAttente(callback) {
   async getNbMissionTerminees(callback) {
 
     try {
-      const { msg, erorer} = await this.dashboardService.getNbMissionTermineesChefservice() as any || [];       
+      const { msg, erorer} = await this.dashboardService.getNbMissionTermineesChefservice() as any || [];
       callback(msg);
     } catch (error) {
       return error;
@@ -222,17 +223,12 @@ async getNbMissionAttente(callback) {
   async getNbEntretiens(callback) {
 
     try {
-      const { msg, erorer} = await this.dashboardService.getNbEntretiensChefservice() as any || [];       
+      const { msg, erorer} = await this.entretienService.getAllEntrtieninfo() as any || [];
       callback(msg);
     } catch (error) {
       return error;
     }
   }
-  
-
-
-
-
 
   submit(chauffeur: string, moi: string, annee: string) {
     const array: string[] = [chauffeur,moi, annee];
@@ -240,8 +236,8 @@ async getNbMissionAttente(callback) {
     if (array.includes("-1")) {
       const modalRef = this.modalService.open(LoginErrorComponent);
       return modalRef.componentInstance.message = "Saisir toutes les valeurs !";
-      
-    } 
+
+    }
 
         const payload= { 'id_chouffeur':array[0],'mois':array[1],'anne':array[2], };
         this.getChefServiceCharet((results)=>{
@@ -249,10 +245,8 @@ async getNbMissionAttente(callback) {
           this.displayCard=true;
           this.makeChart(results);
           }else{
-            alert("Données introuvables pour ce chauffeur !")
-            //message no data
-            //  const modalRef = this.modalService.open(LoginErrorComponent);
-            //  return modalRef.componentInstance.message = "Saisir toutes les valeurs !";
+             const modalRef = this.modalService.open(LoginErrorComponent);
+             return modalRef.componentInstance.message = "Vérifier le chauffeur ainsi que la voiture affectée !";
           }
         },payload)
 
@@ -263,16 +257,16 @@ async getNbMissionAttente(callback) {
   async getChefServiceCharet(callback,payload) {
 
     try {
-      const { msg, erorer} = await this.dashboardService.getChefServiceCharet(payload) as any || [];   
+      const { msg, erorer} = await this.dashboardService.getChefServiceCharet(payload) as any || [];
       if(!erorer){
 
       callback(msg);
-      }    
+      }
     } catch (error) {
       return error;
     }
   }
-  
+
 
 
 }//end class
