@@ -49,7 +49,9 @@ export class ControlsService {
   verifMatriculeExiste(input: HTMLInputElement, matList: string[]): boolean {
     if (input.value) {
       if (matList.length > 0)
-        if (matList.includes(this.trimStr(input.value))) return true;
+        if (matList.includes(this.trimStr(input.value.toLowerCase()))) {
+          return true;
+        }
 
       return false;
     } else {
@@ -90,7 +92,8 @@ export class ControlsService {
     if (input.value) {
       const arrayEmail = [...emailList];
       if (arrayEmail.length > 0)
-        if (arrayEmail.includes(this.trimStr(input.value))) return true;
+        if (arrayEmail.includes(this.trimStr(input.value.toLowerCase())))
+          return true;
 
       return false;
     } else {
@@ -164,16 +167,18 @@ export class ControlsService {
   }
 
   getAllMatriculeOrEmails(array, option: string): string[] {
-    const List = new Array<string>();
+    let List = new Array<string>();
     switch (option) {
       case "matricule":
         for (let index = 0; index < array.length; index++) {
-          List.push(array[index].matricule);
+          List.push(array[index].matricule.toLowerCase());
         }
+        break;
       case "email":
         for (let index = 0; index < array.length; index++) {
-          List.push(array[index].email);
+          List.push(array[index].email.toLowerCase());
         }
+        break;
     }
     return List;
   }
