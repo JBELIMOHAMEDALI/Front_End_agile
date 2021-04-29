@@ -60,7 +60,7 @@
                 </a>
               </li>
               <li class="mega-menu-top">
-                
+
               </li>
             </ul>
             <ul
@@ -68,8 +68,8 @@
               class="nav-right"
               [ngClass]="isCollapsedMobile"
             >
-             
-              
+
+
               <li class="user-profile header-notification">
                 <!-- <a routerLink=""> -->
                   <img
@@ -80,12 +80,12 @@
                   />
                   <span>{{this.user.nomPrenom}}</span>
                   <i class="ti-angle-down"></i>
-               
+
               <!-- </a> -->
-              
+
                 <ul class="show-notification profile-notification">
                   <li>
-                    
+
                     <a [routerLink]="['/dashboard/'+this.getuserRole()+'/profil']">
                       <i class="ti-user"></i> Profil
                     </a>
@@ -103,7 +103,7 @@
       </div>
     </nav>
 
-    
+
 
     <div class="pcoded-main-container" [style.margin-top]="headerFixedMargin">
       <div class="pcoded-wrapper">
@@ -154,8 +154,8 @@
                 </ul>
               </div>
             </div>
-           
-            
+
+
             <perfect-scrollbar
               [style.max-width]="'100%'"
               [style.max-height]="'calc(100vh - 230px)'"
@@ -184,7 +184,7 @@
                       appAccordionToggle
                     >
                       <span class="pcoded-micon"><i class="icofont icofont-chart-bar-graph"></i></span>
-                      <span class="pcoded-mtext">Tableau De Board</span>
+                      <span class="pcoded-mtext">Tableau De Bord</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
                   </li>
@@ -209,7 +209,7 @@
                       <span class="pcoded-mtext">Chauffeurs Inactifs</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
-                  </li>   
+                  </li>
                   <li appAccordionLink>
                     <a
                       [routerLink]="['/dashboard/chefService/affectM']"
@@ -231,7 +231,7 @@
                       <span class="pcoded-mtext">Gestion Des Voitures</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
-                  </li> 
+                  </li>
                   <li appAccordionLink>
                     <a
                       [routerLink]="['/dashboard/chefService/voituresInactives']"
@@ -242,7 +242,7 @@
                       <span class="pcoded-mtext">Voitures Inactives</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
-                  </li> 
+                  </li>
                   <li appAccordionLink>
                     <a
                       [routerLink]="['/dashboard/chefService/affectV']"
@@ -254,7 +254,7 @@
                       <span class="pcoded-mcaret"></span>
                     </a>
                   </li>
-                  
+
                   <li appAccordionLink>
                     <a
                       [routerLink]="['/dashboard/chefService/historiqueAffectV']"
@@ -265,9 +265,9 @@
                       <span class="pcoded-mtext">Historique Affectations Chauffeur Voiture</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
-                  </li>                   
-                  
-               
+                  </li>
+
+
                   <li appAccordionLink>
                     <a
                       [routerLink]="['/dashboard/chefService/entretien']"
@@ -279,10 +279,10 @@
                       <span class="pcoded-mcaret"></span>
                     </a>
                   </li>
-                 
+
                 </ul>
-             
-               
+
+
                 <ul
                 *ngIf="this.getuserRole()==='chauffeur'"
                   class="pcoded-item pcoded-left-item"
@@ -298,7 +298,7 @@
                       appAccordionToggle
                     >
                       <span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
-                      <span class="pcoded-mtext">Tableau de board</span>
+                      <span class="pcoded-mtext">Tableau de bord</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
                   </li>
@@ -309,7 +309,7 @@
                       appAccordionToggle
                     >
                       <span class="pcoded-micon"><i class="icofont icofont-notebook"></i></span>
-                      <span class="pcoded-mtext">Carnet de board</span>
+                      <span class="pcoded-mtext">Carnet de bord</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
                   </li>
@@ -324,8 +324,8 @@
                       <span class="pcoded-mcaret"></span>
                     </a>
                   </li>
-                 
-                  
+
+
                   <li appAccordionLink>
                     <a
                       [routerLink]="['/dashboard/chauffeur/missions']"
@@ -348,14 +348,14 @@
                       <span class="pcoded-mcaret"></span>
                     </a>
                   </li>
-                  
+
                 </ul>
               </div>
             </perfect-scrollbar>
           </div>
 
 
-          
+
 
 
           <!-- <div class="d-color">
@@ -397,7 +397,7 @@
               </li>
             </ul>
           </div> -->
-          
+
         </nav>
         <div class="pcoded-content">
           <div class="pcoded-inner-content">
@@ -408,7 +408,7 @@
                   <!-- <app-breadcrumbs></app-breadcrumbs> -->
                   <router-outlet> </router-outlet>
 
-                  <!-- Page-header start -->                            
+                  <!-- Page-header start -->
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
     <div class="">
-      
+
       <!-- Page-header start -->
       <div class="page-header card">
         <div class="row align-items-end">
@@ -12,8 +12,8 @@
                 <span class="d-block">
                   <h4>Historique Affectations Chauffeur Voiture</h4>
                 </span>
-                <span>                
-                  Dans cette page le chef service peut consulter l'historique des affectations des chauffeurs aux voitures 
+                <span>
+                  Dans cette page le chef service peut consulter l'historique des affectations des chauffeurs aux voitures
                 </span>
               </div>
             </div>
@@ -37,15 +37,24 @@
     </div>
       <!-- Page-header end -->
 
-      
+
       <div class="row">
-       
+
 
         <div class="col-sm-12" >
           <app-card [title]="'Historique des affectations Chauffeur Voiture :'" [classHeader]="true" [blockClass]="'table-border-style'">
-            
+            <div class="col-11 col-md-6 col-lg-5 offset-md-3" style="width: 100%;">
+              <div class="input-group">
+                <span class="input-group-prepend">
+                <label class="input-group-text">
+                  <i class="icofont icofont-search"></i>
+                </label>
+                </span>
+                <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
+              </div>
+          </div>
             <div class="table-responsive">
-      
+
             <div style="margin: 60px;overflow-x:auto;">
               <table class="table table-hover" >
                 <thead>
@@ -67,23 +76,23 @@
 
                   <tbody>
                     <tr style="text-align: center;">
-                     
+
                      <td colspan="6">
                        PAS DE DONNEES !
                      </td>
-                    </tr>      
-                  </tbody>              
+                    </tr>
+                  </tbody>
                 </ng-container>
                 <ng-container *ngIf="this.voituresNonAffectees.length>0">
 
-                  <tbody *ngFor="let affectation of this.voituresNonAffectees | paginate: { itemsPerPage: 3, currentPage: p } ">
+                  <tbody *ngFor="let affectation of this.voituresNonAffectees |filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
                     <tr style="text-align: center;">
-                      <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>    
-                      <td>{{affectation.matricule}}</td>                    
+                      <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>
+                      <td>{{affectation.matricule}}</td>
                       <td>{{affectation.type}}</td>
-                      <td>{{affectation.nomPrenom}}</td>                     
-                    </tr>      
-                  </tbody>              
+                      <td>{{affectation.nomPrenom}}</td>
+                    </tr>
+                  </tbody>
                 </ng-container>
               </table>
               <div *ngIf="this.voituresNonAffectees.length>0" style="text-align: center;">
@@ -96,5 +105,5 @@
 
 
           </app-card>
-        </div>       
+        </div>
         </div>

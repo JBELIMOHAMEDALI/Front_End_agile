@@ -20,7 +20,7 @@
                 </a>
               </li>
               <li class="breadcrumb-item">
-  
+
                 <a>Missions Terminées</a>
               </li>
             </ul>
@@ -30,10 +30,20 @@
     </div>
   </div>
   <!-- Page-header end -->
-  
+
   <div class="row">
     <div class="col-sm-12">
       <app-card [title]="'Liste Des Missions Finies :'">
+        <div class="col-11 col-md-6 col-lg-5 offset-md-3" style="width: 100%;">
+          <div class="input-group">
+            <span class="input-group-prepend">
+            <label class="input-group-text">
+              <i class="icofont icofont-search"></i>
+            </label>
+            </span>
+            <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
+          </div>
+      </div>
         <div class="table-responsive">
 
             <div style="margin: 60px;overflow-x:auto;">
@@ -50,27 +60,27 @@
                     <th scope="col">Date Debut</th>
                     <th scope="col">Date Fin</th>
                     <th scope="col">Action</th>
-    
+
                   </tr>
                 </thead>
                 <ng-container *ngIf="this.listmession.length>0">
-                 
-                <tbody *ngFor="let mission of this.listmession| paginate: { itemsPerPage: 3, currentPage: p } ">
+
+                <tbody *ngFor="let mission of this.listmession|filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
                   <tr  style="text-align: center;">
                     <th scope="row">{{mission.voiture+" "+mission.matricule}}</th>
                     <td>{{this.controls.dateFormat(mission.date_debut)}}</td>
                     <td>{{this.controls.dateFormat(mission.date_fin)}}</td>
-    
+
                     <td>
                         <button class="btn hor-grd btn-secondary" id="{{mission.id_mission}}"
                         (click)="showMission(mission)"><i
                           class="icofont icofont-info-circle"></i>Détails</button>&nbsp;
-                     
-                     
+
+
                     </td>
                   </tr>
-    
-    
+
+
                 </tbody>
                 </ng-container>
                 <ng-container *ngIf="this.listmession.length===0">
@@ -80,16 +90,16 @@
                      <td colspan="4">
                        AUCUNE MISSION TERMINEE !
                      </td>
-                    
+
                     </tr>
-      
-      
-                  </tbody> 
+
+
+                  </tbody>
               </ng-container>
-  
-    
+
+
               </table>
-    
+
               <div *ngIf="this.listmession.length>0" style="text-align: center;">
                 <hr>
                 <pagination-controls (pageChange)="p = $event"></pagination-controls>
@@ -98,10 +108,9 @@
 
 
 
-              
+
             </div>
           </div>
       </app-card>
     </div>
   </div>
-  

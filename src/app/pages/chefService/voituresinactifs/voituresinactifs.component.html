@@ -1,6 +1,6 @@
 <ng-container *ngIf="this.voitureListInactif">
     <div class="">
-      
+
       <!-- Page-header start -->
       <div class="page-header card">
         <div class="row align-items-end">
@@ -13,8 +13,8 @@
                 <span class="d-block">
                   <h4>Voitures inactives</h4>
                 </span>
-                <span>                
-                  Dans cette page le chef service peut accéder et controler toutes les voitures inactives 
+                <span>
+                  Dans cette page le chef service peut accéder et controler toutes les voitures inactives
                 </span>
               </div>
             </div>
@@ -37,16 +37,26 @@
       </div>
     </div>
       <!-- Page-header end -->
-     
-      
+
+
       <div class="row">
-        
-  
+
+
         <div class="col-sm-12" >
           <app-card [title]="'Liste des voitures inactives :'" [classHeader]="true" [blockClass]="'table-border-style'">
-            
+            <div class="col-11 col-md-6 col-lg-5 offset-md-3" style="width: 100%;">
+              <div class="input-group">
+                <span class="input-group-prepend">
+                <label class="input-group-text">
+                  <i class="icofont icofont-search"></i>
+                </label>
+                </span>
+                <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
+              </div>
+          </div>
+
             <div class="table-responsive">
-      
+
             <div style="margin: 60px;overflow-x:auto;">
               <table class="table table-hover" >
                 <thead>
@@ -63,29 +73,29 @@
                     <th scope="col">Puissance</th>
                     <th scope="col">Service</th>
                     <th scope="col">Action</th>
-                   
+
                   </tr>
                 </thead>
                 <ng-container *ngIf="this.voitureListInactif.length>0">
-  
-                <tbody *ngFor="let voiture of this.voitureListInactif|paginate: { itemsPerPage: 3, currentPage: p }">
+
+                <tbody *ngFor="let voiture of this.voitureListInactif|filter:term|paginate: { itemsPerPage: 3, currentPage: p }">
                   <tr (dblclick)="showVoiture(voiture)" style="text-align: center;">
-                    <th scope="row">{{voiture.matricule}}</th>            
+                    <th scope="row">{{voiture.matricule}}</th>
                     <td>{{voiture.type}}</td>
                     <td>{{this.controls.dateFormat(voiture.dmc)}}</td>
                     <td>{{voiture.puissance}}</td>
                     <td>{{voiture.service}}</td>
                     <td>
-                     
+
                       <button class="btn hor-grd btn-grd-success" id="{{voiture.id_voiture}}" (click)="activerDesactiver(voiture.id_voiture)"><i
                           class="icofont icofont-checked"></i>Activer</button>&nbsp;
-                    
+
                     </td>
                   </tr>
-      
-      
-                </tbody>  
-                </ng-container> 
+
+
+                </tbody>
+                </ng-container>
                 <ng-container *ngIf="this.voitureListInactif.length===0">
                   <tbody >
                     <tr style="text-align: center;">
@@ -93,10 +103,10 @@
                       AUCUNE VOITURE INACTIVE !
                     </td>
                     </tr>
-        
-        
-                  </tbody>  
-                </ng-container>              
+
+
+                  </tbody>
+                </ng-container>
               </table>
               <div *ngIf="this.voitureListInactif.length>0" style="text-align: center;">
                 <hr>
@@ -106,9 +116,9 @@
           </div>
           </app-card>
         </div>
-  
-        
-    
-       
+
+
+
+
         </div>
       </ng-container>

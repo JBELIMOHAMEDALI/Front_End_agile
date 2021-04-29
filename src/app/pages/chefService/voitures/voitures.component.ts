@@ -14,6 +14,7 @@ import { ControlsService } from "../../../services/controls.service";
 export class VoituresComponent implements OnInit {
   voitureListActif: Voiture[] = [];
   voitureListAll: Voiture[] = [];
+  term: any;
 
   p: number = 1;
   constructor(

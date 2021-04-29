@@ -36,11 +36,35 @@
   <div class="row">
     <div class="col-sm-12">
       <app-card [title]="'Liste des carnets de bord :'">
-        <div style="float: right ;margin-right: 30px;">
+
+      <div class="row">
+
+        <div class="col-11 col-md-6 col-lg-5 ml-lg-5 " style="width: 100%;">
+          <div class="input-group">
+            <span class="input-group-prepend">
+            <label class="input-group-text">
+              <i class="icofont icofont-search"></i>
+            </label>
+            </span>
+            <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
+          </div>
+      </div>
+
+
+        <div class="col-md-6 col-lg-3 offset-lg-3">
           <button class="btn hor-grd btn-grd-primary" (click)="Ajouter()">
-            <i class="icofont icofont-notebook"></i>Nouveau carnet de board</button>
+            <i class="icofont icofont-notebook"></i>Nouveau carnet</button>
         </div>
+
+
+      </div>
+
+
+
         <div class="table-responsive">
+
+
+          <!-- <input type="text" [(ngModel)]="term"/> -->
 
           <div style="margin: 60px;overflow-x:auto;">
             <table class="table table-hover">
@@ -61,7 +85,7 @@
               </thead>
               <ng-container *ngIf="this.carnetboardlist.length>0">
 
-                <tbody *ngFor="let carnet of this.carnetboardlist| paginate: { itemsPerPage: 3, currentPage: p } ">
+                <tbody *ngFor="let carnet of this.carnetboardlist|filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
                  <tr style="text-align: center;">
                    <th scope="row">{{carnet.klm}}km</th>
                    <td>{{carnet.consomation}}dt</td>
@@ -78,7 +102,7 @@
                 <tbody>
                  <tr style="text-align: center;">
                   <td colspan="3">
-                    AUCUN CARNET DE BOARD !
+                    AUCUN CARNET DE BORD !
                   </td>
 
                  </tr>

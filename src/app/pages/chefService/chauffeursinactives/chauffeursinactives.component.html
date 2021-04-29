@@ -1,5 +1,5 @@
     <div class="">
-      
+
       <!-- Page-header start -->
       <div class="page-header card">
         <div class="row align-items-end">
@@ -12,7 +12,7 @@
                 <span class="d-block">
                   <h4>Chauffeurs Inactifs</h4>
                 </span>
-                <span>                
+                <span>
                   Dans cette page le chef service à le controle de tous les chauffeurs inactifs .
                 </span>
               </div>
@@ -36,16 +36,25 @@
       </div>
     </div>
       <!-- Page-header end -->
-     
+
       <div class="row">
-        
-    
-    
+
+
+
         <div class="col-sm-12">
           <app-card [title]="'Liste des chauffeurs inactifs :'" [classHeader]="true" [blockClass]="'table-border-style'">
-            
+            <div class="col-11 col-md-6 col-lg-5 offset-md-3" style="width: 100%;">
+              <div class="input-group">
+                <span class="input-group-prepend">
+                <label class="input-group-text">
+                  <i class="icofont icofont-search"></i>
+                </label>
+                </span>
+                <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
+              </div>
+          </div>
             <div class="table-responsive">
-      
+
             <div style="margin: 60px;overflow-x:auto;">
               <table class="table table-hover" >
                 <thead>
@@ -61,40 +70,40 @@
                     <th scope="col">Numéro de Télephone</th>
                     <th scope="col">Email</th>
                     <th scope="col">Action</th>
-                   
-      
+
+
                   </tr>
                 </thead>
                 <ng-container *ngIf="this.chauffeursInactif.length>0">
-                <tbody *ngFor="let chauffeur of this.chauffeursInactif | paginate: { itemsPerPage: 3, currentPage: p } ">
+                <tbody *ngFor="let chauffeur of this.chauffeursInactif|filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
                   <tr (dblclick)="showChauffeur(chauffeur)" style="text-align: center;">
-                    <th scope="row">{{chauffeur.matricule}}</th>            
+                    <th scope="row">{{chauffeur.matricule}}</th>
                     <td>{{chauffeur.nomPrenom}}</td>
                     <td>{{chauffeur.tel}}</td>
                     <td>{{chauffeur.email}}</td>
-                    <td>                 
+                    <td>
                           <button class="btn hor-grd btn-grd-success" id="{{chauffeur.id_chauffeur}}" (click)="activerDesactiver(chauffeur.id_chauffeur)"><i
                             class="icofont icofont-checked"></i>Activer</button>
                     </td>
                   </tr>
-      
-      
+
+
                 </tbody>
                 </ng-container>
-    
+
                 <ng-container *ngIf="this.chauffeursInactif.length===0">
                   <tbody >
                     <tr style="text-align: center;">
                         <td colspan="5">
                           AUCUN CHAUFFEUR INACTIF !
                         </td>
-                     
+
                     </tr>
-        
-        
+
+
                   </tbody>
                   </ng-container>
-             
+
               </table>
               <div *ngIf="this.chauffeursInactif.length>0" style="text-align: center;">
                 <hr>

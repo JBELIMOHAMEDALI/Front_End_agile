@@ -38,6 +38,7 @@
     "ng-select": "^1.0.0-rc.3",
     "ng-toastr": "^1.0.0",
     "ng2-google-charts": "^3.4.0",
+    "ng2-search-filter": "^0.5.1",
     "ng2-toasty": "^4.0.3",
     "ngx-pagination": "^5.0.0",
     "ngx-perfect-scrollbar": "^5.3.5",

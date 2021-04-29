@@ -1,5 +1,5 @@
 <div class="">
-  
+
   <!-- Page-header start -->
   <div class="page-header card">
     <div class="row align-items-end">
@@ -12,14 +12,14 @@
             <span class="d-block">
               <h4>Gestion Des Chauffeurs</h4>
             </span>
-            <span>                
-              Dans cette page le chef service a l'accées de gestion et controle de tous les chauffeurs . 
+            <span>
+              Dans cette page le chef service a l'accées de gestion et controle de tous les chauffeurs .
             </span>
           </div>
         </div>
       </div>
 
-      
+
       <div class="col-lg-4">
         <div class="page-header-breadcrumb">
           <ul class="breadcrumb">
@@ -40,18 +40,39 @@
   </div>
 </div>
   <!-- Page-header end -->
- 
+
   <div class="row">
     <div class="col-sm-12">
       <app-card [title]="'Liste des chauffeurs actifs :'" [classHeader]="true" [blockClass]="'table-border-style'">
-        <div style="float: right ;margin-right: 30px;">
+        <div class="row">
+
+          <div class="col-11 col-md-6 col-lg-5 ml-lg-5 " style="width: 100%;">
+            <div class="input-group">
+              <span class="input-group-prepend">
+              <label class="input-group-text">
+                <i class="icofont icofont-search"></i>
+              </label>
+              </span>
+              <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
+            </div>
+        </div>
+
+
+          <div class="col-md-6 col-lg-3 offset-lg-3">
+            <button class="btn hor-grd btn-grd-primary" (click)="Ajouter()">
+              <i class="icofont icofont-group"></i>Nouveau chauffeur</button>
+          </div>
+
+
+        </div>
+        <!-- <div style="float: right ;margin-right: 30px;">
           <button class="btn hor-grd btn-grd-primary" (click)="Ajouter()"><i
           class="icofont icofont-group"></i>Nouveau Chauffeur</button>
-        </div>
+        </div> -->
         <div class="table-responsive">
-  
+
         <div style="margin: 60px;overflow-x:auto;">
-          
+
           <table class="table table-hover" >
             <thead>
               <ng-container matColumnDef="actions">
@@ -66,13 +87,13 @@
                 <th scope="col">Numéro de Télephone</th>
                 <th scope="col">Email</th>
                 <th scope="col">Actions</th>
-               
+
               </tr>
             </thead>
             <ng-container *ngIf="this.chauffeursActif.length>0">
-            <tbody *ngFor="let chauffeur of this.chauffeursActif| paginate: { itemsPerPage: 3, currentPage: p } ">
+            <tbody *ngFor="let chauffeur of this.chauffeursActif|filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
               <tr (dblclick)="showChauffeur(chauffeur,true)" style="text-align: center;">
-                <th scope="row">{{chauffeur.matricule}}</th>            
+                <th scope="row">{{chauffeur.matricule}}</th>
                 <td>{{chauffeur.nomPrenom}}</td>
                 <td>{{chauffeur.tel}}</td>
                 <td>{{chauffeur.email}}</td>
@@ -81,11 +102,11 @@
                       class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
                   <button class="btn hor-grd btn-grd-danger" id="{{chauffeur.id_chauffeur}}" (click)="activerDesactiver(chauffeur.id_chauffeur,true)"><i
                       class="icofont icofont-close"></i>Désactiver</button>&nbsp;
-                
+
                 </td>
               </tr>
-  
-  
+
+
             </tbody>
             </ng-container>
             <ng-container *ngIf="this.chauffeursActif.length===0">
@@ -94,13 +115,13 @@
                     <td colspan="5">
                       AUCUN CHAUFFEUR ACTIF !
                     </td>
-                 
+
                 </tr>
-    
-    
+
+
               </tbody>
               </ng-container>
-         
+
           </table>
           <div *ngIf="this.chauffeursActif.length>0" style="text-align: center;">
             <hr>
@@ -113,7 +134,7 @@
         </div>
 
 
-        
+
       </app-card>
-    </div>   
+    </div>
     </div>

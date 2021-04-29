@@ -1,6 +1,6 @@
 <ng-container *ngIf="this.voituresAffectes">
     <div class="">
-      
+
       <!-- Page-header start -->
       <div class="page-header card">
         <div class="row align-items-end">
@@ -13,8 +13,8 @@
                 <span class="d-block">
                   <h4>Affectations Chauffeur Voiture</h4>
                 </span>
-                <span>                
-                  Dans cette page le chef service a l'accés de gestion et controle de toutes les affectations des chauffeurs aux voitures 
+                <span>
+                  Dans cette page le chef service a l'accés de gestion et controle de toutes les affectations des chauffeurs aux voitures
                 </span>
               </div>
             </div>
@@ -38,16 +38,41 @@
     </div>
       <!-- Page-header end -->
 
-      
+
       <div class="row">
         <div class="col-sm-12" >
           <app-card [title]="'Liste des affectations Chauffeur Voiture :'" [classHeader]="true" [blockClass]="'table-border-style'">
-            <div style="float: right ;margin-right: 30px;">
+
+            <div class="row">
+
+              <div class="col-11 col-md-6 col-lg-5 ml-lg-5 " style="width: 100%;">
+                <div class="input-group">
+                  <span class="input-group-prepend">
+                  <label class="input-group-text">
+                    <i class="icofont icofont-search"></i>
+                  </label>
+                  </span>
+                  <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
+                </div>
+            </div>
+
+
+              <div class="col-md-6 col-lg-3 offset-lg-3">
+                <button class="btn hor-grd btn-grd-primary" (click)="Affecter()">
+                  <i class="icofont icofont-car-alt-1"></i>Nouvelle affectation</button>
+              </div>
+
+
+            </div>
+
+            <!-- <div style="float: right ;margin-right: 30px;">
               <button class="btn hor-grd btn-grd-primary" (click)="Affecter()"><i
               class="icofont icofont-car-alt-1"></i>Nouvelle Affectation</button>
-            </div>
+            </div> -->
+
+
             <div class="table-responsive">
-      
+
             <div style="margin: 60px;overflow-x:auto;">
               <table class="table table-hover" >
                 <thead>
@@ -70,19 +95,19 @@
 
                   <tbody>
                     <tr style="text-align: center;">
-                     
+
                      <td colspan="6">
                        PAS D'AFFECTATIONS !
                      </td>
-                    </tr>      
-                  </tbody>              
+                    </tr>
+                  </tbody>
                 </ng-container>
                 <ng-container *ngIf="this.voituresAffectes.length>0">
 
-                  <tbody *ngFor="let affectation of this.voituresAffectes| paginate: { itemsPerPage: 3, currentPage: p }">
+                  <tbody *ngFor="let affectation of this.voituresAffectes|filter:term| paginate: { itemsPerPage: 3, currentPage: p }">
                     <tr style="text-align: center;">
-                      <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>    
-                      <td>{{affectation.matricule}}</td>                    
+                      <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>
+                      <td>{{affectation.matricule}}</td>
                       <td>{{affectation.type}}</td>
                       <td>{{affectation.nomPrenom}}</td>
                      <td>
@@ -90,16 +115,16 @@
                             class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
                         <button class="btn hor-grd btn-grd-danger" id="{{affectation.id_affecter_v_chauffeur}}" (click)="activerDesactiverAffectation(affectation.id_affecter_v_chauffeur)"><i
                             class="icofont icofont-trash"></i>Supprimer</button>&nbsp;
-                      
+
                       </td>
-                    </tr>      
-                  </tbody>     
+                    </tr>
+                  </tbody>
                 </ng-container>
               </table>
               <div *ngIf="this.voituresAffectes.length>0" style="text-align: center;">
                 <hr>
                 <pagination-controls (pageChange)="p = $event"></pagination-controls>
-              </div>         
+              </div>
             </div>
           </div>
 

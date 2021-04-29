@@ -43,10 +43,31 @@
   <div class="col-sm-12">
     <app-card [title]="'Liste des affectations des missions :'" [classHeader]="true"
       [blockClass]="'table-border-style'">
-      <div style="float: right ;margin-right: 30px;">
+      <div class="row">
+
+        <div class="col-11 col-md-6 col-lg-5 ml-lg-5 " style="width: 100%;">
+          <div class="input-group">
+            <span class="input-group-prepend">
+            <label class="input-group-text">
+              <i class="icofont icofont-search"></i>
+            </label>
+            </span>
+            <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
+          </div>
+      </div>
+
+
+        <div class="col-md-6 col-lg-3 offset-lg-3">
+          <button class="btn hor-grd btn-grd-primary" (click)="Affecter()">
+            <i class="icofont icofont-delivery-time"></i>Nouvelle mission</button>
+        </div>
+
+
+      </div>
+      <!-- <div style="float: right ;margin-right: 30px;">
         <button class="btn hor-grd btn-grd-primary" (click)="Affecter()"><i
             class="icofont icofont-delivery-time"></i>Nouvelle Mission</button>
-      </div>
+      </div> -->
       <div class="table-responsive">
 
         <div style="margin: 60px;overflow-x:auto;">
@@ -64,15 +85,13 @@
                 <th scope="col">Date Fin</th>
                 <th scope="col">Chauffeur</th>
                 <th scope="col">Actions</th>
-
-
               </tr>
             </thead>
-           
+
 
             <ng-container *ngIf="this.missionsList.length>0">
 
-              <tbody *ngFor="let mission of this.missionsList| paginate: { itemsPerPage: 3, currentPage: p }">
+              <tbody *ngFor="let mission of this.missionsList|filter:term| paginate: { itemsPerPage: 3, currentPage: p }">
                 <tr (dblclick)="showMission(mission)" style="text-align: center;">
                   <th scope="row">{{mission.id_mission}}</th>
                   <td>{{this.controls.dateFormat(mission.date_debut,true)}}</td>

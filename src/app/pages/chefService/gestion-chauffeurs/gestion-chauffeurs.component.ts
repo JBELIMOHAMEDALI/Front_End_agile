@@ -14,6 +14,8 @@ import { PopupChauffeurComponent } from "../popup-chauffeur/popup-chauffeur.comp
 })
 export class GestionChauffeursComponent implements OnInit {
   p: number;
+  term: any;
+
   constructor(
     private userServ: UserService,
     private chefServ: ChefService,
