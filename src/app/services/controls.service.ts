@@ -230,17 +230,7 @@ export class ControlsService {
     return this.dateDiff(today, date_fin);
   };
 
-  daysDiff = (date_fin) => {
-    if (date_fin) {
-      const today = moment(new Date()).format("MM/DD/YYYY hh:mm:ss").toString();
-      const df = moment(date_fin).format("MM/DD/YYYY hh:mm:ss").toString();
-      const date1 = new Date(today);
-      const date2 = new Date(df);
-      const Difference_In_Time = date2.getTime() - date1.getTime();
-      const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-      return [Math.floor(Difference_In_Days), this.hoursDiff(date1, date2)];
-    }
-  };  getMois() {
+    getMois() {
     return [
       { key: "01", value: "Janvier" },
       { key: "02", value: "Février" },
@@ -356,6 +346,23 @@ export class ControlsService {
     }
     return List;
   }
+  daysDiff = (date_fin) => {
+    if (date_fin) {
+      const today = moment(new Date()).format("MM/DD/YYYY hh:mm:ss").toString();
+      const df = moment(date_fin).format("MM/DD/YYYY hh:mm:ss").toString();
+      const date1 = new Date(today);
+      const date2 = new Date(df);
+      const Difference_In_Time = date2.getTime() - date1.getTime();
+      const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+      const res = [Math.ceil(Difference_In_Days), this.hoursDiff(date1, date2)];
+      if (Math.floor(Difference_In_Days) == 0)
+        return [0, this.hoursDiff(date1, date2)];
+
+      return res;
+    }
+  };
+
   dureeDiff = (date_debut, date_fin) => {
     if (date_fin) {
       const dd = moment(date_debut).format("MM/DD/YYYY hh:mm:ss").toString();
@@ -364,8 +371,8 @@ export class ControlsService {
       const date2 = new Date(df) as any;
       const Difference_In_Time = date2.getTime() - date1.getTime();
       const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-      return [Math.floor(Difference_In_Days), this.hoursDiff(date1, date2)];
 
+      return [Math.floor(Difference_In_Days), this.hoursDiff(date1, date2)];
     }
   };
   hoursDiff = (date1, date2) => {
@@ -373,7 +380,6 @@ export class ControlsService {
       return date1.getHours() - date2.getHours();
     if (date2.getHours() > date1.getHours())
       return date2.getHours() - date1.getHours();
-    if (date2.getHours() === date1.getHours())
-      return 0;
+    if (date2.getHours() === date1.getHours()) return 0;
   };
 }
