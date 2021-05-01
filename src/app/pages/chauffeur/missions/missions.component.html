@@ -1,114 +1,117 @@
 <!-- Page-header start -->
 <div class="">
-    <div class="page-header card">
-      <div class="row align-items-end">
-        <div class="col-lg-8">
-          <div class="page-header-title">
-            <span><i class="icofont icofont-briefcase bg-c-pink"></i></span>
-            <div class="d-inline">
-              <span class="d-block"><h4>Missions</h4></span>
-              <span>Dans Cette Page Le Chauffeur A L'accés de gestion et conclusion de ses missions .</span>
-            </div>
+  <div class="page-header card">
+    <div class="row align-items-end">
+      <div class="col-lg-8">
+        <div class="page-header-title">
+          <span><i class="icofont icofont-briefcase bg-c-pink"></i></span>
+          <div class="d-inline">
+            <span class="d-block">
+              <h4>Missions</h4>
+            </span>
+            <span>Dans Cette Page Le Chauffeur A L'accés de gestion et conclusion de ses missions .</span>
           </div>
         </div>
-        <div class="col-lg-4">
-          <div class="page-header-breadcrumb">
-            <ul class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a [routerLink]="['/dashboard/chauffeur']">
-                  <i class="icofont icofont-home"></i>
-                </a>
-              </li>
-              <li class="breadcrumb-item">
+      </div>
+      <div class="col-lg-4">
+        <div class="page-header-breadcrumb">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/dashboard/chauffeur']">
+                <i class="icofont icofont-home"></i>
+              </a>
+            </li>
+            <li class="breadcrumb-item">
 
-                <a>Liste Des Missions</a>
-              </li>
-            </ul>
-          </div>
+              <a>Liste Des Missions</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
-  <!-- Page-header end -->
+</div>
+<!-- Page-header end -->
 
-  <div class="row">
-    <div class="col-sm-12">
-      <app-card [title]="'Liste des missions :'">
-        <div class="col-11 col-md-6 col-lg-5 offset-md-3" style="width: 100%;">
-          <div class="input-group">
-            <span class="input-group-prepend">
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Liste des missions :'">
+      <div class="col-11 col-md-6 col-lg-5 offset-md-3" style="width: 100%;">
+        <div class="input-group">
+          <span class="input-group-prepend">
             <label class="input-group-text">
               <i class="icofont icofont-search"></i>
             </label>
-            </span>
-            <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
-          </div>
+          </span>
+          <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
+        </div>
       </div>
-        <div class="table-responsive">
+      <div class="table-responsive">
 
-            <div style="margin: 60px;overflow-x:auto;">
-              <table class="table table-hover">
-                <thead>
-                  <ng-container matColumnDef="actions">
-                    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-                    <mat-cell *matCellDef="let row">
-                      <button mat-button>Edit</button>
-                    </mat-cell>
-                  </ng-container>
-                  <tr style="text-align: center;">
-                    <th scope="col">voiture</th>
-                    <th scope="col">Date Debut</th>
-                    <th scope="col">Date Fin</th>
-                    <th scope="col">Action</th>
+        <div style="margin: 60px;overflow-x:auto;">
+          <table class="table table-hover">
+            <thead>
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <button mat-button>Edit</button>
+                </mat-cell>
+              </ng-container>
+              <tr style="text-align: center;">
+                <th scope="col">voiture</th>
+                <th scope="col">Date Debut</th>
+                <th scope="col">Date Fin</th>
+                <th scope="col">Action</th>
 
-                  </tr>
-                </thead>
-                <ng-container *ngIf="this.listmession.length>0">
+              </tr>
+            </thead>
+            <ng-container *ngIf="this.listmession.length>0">
 
-                <tbody *ngFor="let mission of this.listmession|filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
-                  <tr (dblclick)="showMission(mission)" style="text-align: center;">
-                    <th scope="row">{{mission.voiture+" "+mission.matricule}}</th>
-                    <td>{{this.controls.dateFormat(mission.date_debut)}}</td>
-                    <td>{{this.controls.dateFormat(mission.date_fin)}}</td>
+              <tbody
+                *ngFor="let mission of this.listmession|filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
+                <tr (dblclick)="showMission(mission)" style="text-align: center;">
+                  <th scope="row">{{mission.voiture+" "+mission.matricule}}</th>
+                  <td>{{this.controls.dateFormat(mission.date_debut,true)}}</td>
+                  <td>{{this.controls.dateFormat(mission.date_fin,true)}}</td>
 
-                    <td>
-                      <button class="btn hor-grd btn-grd-info" id="{{mission.id_mission}}"
-                        (click)="don(mission.id_mission)"><i
-                          class="icofont icofont-hand-power"></i>Terminer</button>&nbsp;
+                  <td>
+                    <button class="btn hor-grd btn-grd-info" id="{{mission.id_mission}}"
+                      (click)="don(mission.id_mission)"><i
+                        class="icofont icofont-hand-power"></i>Terminer</button>&nbsp;
 
-                    </td>
-                  </tr>
-
-
-                </tbody>
-                </ng-container>
-              <ng-container *ngIf="this.listmession.length===0">
-
-                <tbody>
-                  <tr style="text-align: center;">
-                   <td colspan="4">
-                     AUCUNE MISSION AFFECTEE !
-                   </td>
-
-                  </tr>
+                  </td>
+                </tr>
 
 
-                </tbody>
+              </tbody>
+            </ng-container>
+            <ng-container *ngIf="this.listmession.length===0">
+
+              <tbody>
+                <tr style="text-align: center;">
+                  <td colspan="4">
+                    AUCUNE MISSION AFFECTEE !
+                  </td>
+
+                </tr>
+
+
+              </tbody>
             </ng-container>
 
-              </table>
+          </table>
 
-              <div *ngIf="this.listmession.length>0" style="text-align: center;">
-                <hr>
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-              </div>
-
-
-
-
-
-            </div>
+          <div *ngIf="this.listmession.length>0" style="text-align: center;">
+            <hr>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
-      </app-card>
-    </div>
+
+
+
+
+
+        </div>
+      </div>
+    </app-card>
   </div>
+</div>

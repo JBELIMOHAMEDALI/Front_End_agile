@@ -8,7 +8,7 @@ import { ControlsService } from "./controls.service";
 
 export class UserService {
 
-  constructor(private httpClient: HttpClient,private controls:ControlsService) { }
+  constructor(private httpClient: HttpClient, private controls: ControlsService) { }
 
   getAllUsers(actif: boolean) {
     this.controls.verifVF('chauffeur');
@@ -30,9 +30,9 @@ export class UserService {
 
 
 
-  getOneUserbyId(payload, actif: boolean,from?:string) {
-    if(from){
-    this.controls.verifProfile();
+  getOneUserbyId(payload, actif: boolean, from?: string) {
+    if (from) {
+      this.controls.verifProfile();
     }
     // else{
     // this.controls.verifVF();

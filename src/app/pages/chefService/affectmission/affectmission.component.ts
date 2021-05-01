@@ -14,25 +14,22 @@ export class AffectmissionComponent implements OnInit {
   missionsList: [] = [];
   p: number;
   term: any;
-
   constructor(
     private missionService: MissionsService,
     private modalService: NgbModal,
     public controls: ControlsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAllMissions((res) => {
       this.missionsList = res;
     });
   }
-
   Affecter() {
     const modalRef = this.modalService.open(PopupMissionComponent);
     modalRef.componentInstance.title = "NOUVELLE MISSION";
     modalRef.componentInstance.id = -1;
   }
-
   async getAllMissions(callback) {
     try {
       const { msg, erorer } =
@@ -42,20 +39,17 @@ export class AffectmissionComponent implements OnInit {
       return error;
     }
   }
-
   updateMission(mission) {
     const modalRef = this.modalService.open(PopupMissionComponent);
     modalRef.componentInstance.title = "MODIFIER UNE MISSION";
     modalRef.componentInstance.id = Number(mission.id_mission);
     modalRef.componentInstance.mission = { ...mission };
   }
-
   supprimerMission(id_mission: string) {
     const modalRef = this.modalService.open(PopupMissionComponent);
     modalRef.componentInstance.title = "SUPPRESSION MISSION";
     modalRef.componentInstance.id = Number(id_mission);
   }
-
   showMission(mission) {
     const modalRef = this.modalService.open(PopupMissionComponent);
     modalRef.componentInstance.title = "DONNEES MISSION";

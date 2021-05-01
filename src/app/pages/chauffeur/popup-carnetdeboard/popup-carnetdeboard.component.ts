@@ -27,23 +27,24 @@ export class PopupCarnetdeboardComponent implements OnInit {
 
 
   onSubmit(form: NgForm) {
- const {klm,con}=form.value;
+    const { klm, con } = form.value;
     try {
       const carnbored = new Carnetdeboard(klm, con, this.id_choufeur);
 
 
       const { msg, erorer } = this.serv_carne_bord.addCarnetBord(carnbored) as any || [];
       if (!erorer) {
-           this.controls.reloadComponent();
-           this.activeModal.dismiss();
+        this.controls.reloadComponent();
+        this.activeModal.dismiss();
       }
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Ajout non effectué !";
-    }  }
+    }
+  }
 
 
-  
+
 
 
 }

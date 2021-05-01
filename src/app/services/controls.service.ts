@@ -7,7 +7,7 @@ import * as CryptoJS from "crypto-js";
   providedIn: "root",
 })
 export class ControlsService {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   reloadComponent() {
     const currentRoute = this.router.url;
@@ -232,18 +232,15 @@ export class ControlsService {
 
   daysDiff = (date_fin) => {
     if (date_fin) {
-      const today = moment(new Date()).format("MM/DD/YYYY").toString();
-      const df = moment(date_fin).format("MM/DD/YYYY").toString();
+      const today = moment(new Date()).format("MM/DD/YYYY hh:mm:ss").toString();
+      const df = moment(date_fin).format("MM/DD/YYYY hh:mm:ss").toString();
       const date1 = new Date(today);
       const date2 = new Date(df);
       const Difference_In_Time = date2.getTime() - date1.getTime();
       const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-
-      return Difference_In_Days;
+      return [Math.floor(Difference_In_Days), this.hoursDiff(date1, date2)];
     }
-  };
-
-  getMois() {
+  };  getMois() {
     return [
       { key: "01", value: "Janvier" },
       { key: "02", value: "Février" },
@@ -302,7 +299,7 @@ export class ControlsService {
     }
   }
 
-  verifLogin(userid?: string) {
+  verifLogin() {
     const idcnx = JSON.parse(localStorage.getItem("idConnexion"));
     if (idcnx) {
       const type = this.decryptData(idcnx.type);
@@ -311,11 +308,7 @@ export class ControlsService {
         this.navigateAndreload(`/dashboard/${type}`);
       }
     }
-    // else if (userid) {
-    //   this.navigateAndreload(`/user/${userid}`);
-    // } else {
-    //   this.navigateAndreload("/accueil");
-    // }
+
   }
 
   verifProfile() {
@@ -331,4 +324,56 @@ export class ControlsService {
         break;
     }
   }
+  //verife emailexiste and matricle
+  getAllMatriculeOrEmailsUpdate(
+    array,
+    option: string,
+    value: string
+  ): string[] {
+    let List = new Array<string>();
+    switch (option) {
+      case "matricule":
+        for (let index = 0; index < array.length; index++) {
+          const element = array[index];
+          if (
+            this.trimStr(element.matricule).toLowerCase() !=
+            this.trimStr(value).toLowerCase()
+          ) {
+            List.push(element.matricule.toLowerCase());
+          }
+        }
+        break;
+      case "email":
+        for (let index = 0; index < array.length; index++) {
+          const element = array[index].email;
+          if (
+            this.trimStr(element).toLowerCase() !=
+            this.trimStr(value).toLowerCase()
+          )
+            List.push(element.toLowerCase());
+        }
+        break;
+    }
+    return List;
+  }
+  dureeDiff = (date_debut, date_fin) => {
+    if (date_fin) {
+      const dd = moment(date_debut).format("MM/DD/YYYY hh:mm:ss").toString();
+      const df = moment(date_fin).format("MM/DD/YYYY hh:mm:ss").toString();
+      const date1 = new Date(dd) as any;
+      const date2 = new Date(df) as any;
+      const Difference_In_Time = date2.getTime() - date1.getTime();
+      const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+      return [Math.floor(Difference_In_Days), this.hoursDiff(date1, date2)];
+
+    }
+  };
+  hoursDiff = (date1, date2) => {
+    if (date1.getHours() > date2.getHours())
+      return date1.getHours() - date2.getHours();
+    if (date2.getHours() > date1.getHours())
+      return date2.getHours() - date1.getHours();
+    if (date2.getHours() === date1.getHours())
+      return 0;
+  };
 }

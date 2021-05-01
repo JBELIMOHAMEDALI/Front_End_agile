@@ -1,21 +1,26 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #1d1d1a;" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">
-            <img src="../../../assets/accueilTemp/assets/img/navbar-logo.svg" alt="backgroundImage" /></a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars ml-1"></i>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarResponsive">
-            <ul class="navbar-nav text-uppercase ml-auto">
-                <li  class="nav-item"   ><a routerLinkActive="active" class="nav-link js-scroll-trigger" [routerLink]="['/accueil']" [routerLinkActiveOptions]="{exact:true}">Accueil</a></li>
+  <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">
+      <img src="../../../assets/accueilTemp/assets/img/navbar-logo.svg" alt="backgroundImage" /></a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+      data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+      aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars ml-1"></i>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarResponsive">
+      <ul class="navbar-nav text-uppercase ml-auto">
+        <li class="nav-item"><a routerLinkActive="active" class="nav-link js-scroll-trigger" [routerLink]="['/accueil']"
+            [routerLinkActiveOptions]="{exact:true}">Accueil</a></li>
 
-                <!-- <li  class="nav-item"   ><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active current" class="nav-link js-scroll-trigger" [routerLink]="['/user',this.getRoute('administrateur')]">Espace Adminstrateur</a></li> -->
-                <li   class="nav-item"  ><a  routerLinkActive="active" class="nav-link js-scroll-trigger" [routerLink]="['/user',this.getRoute('chefService')]" >Espace Chef Service</a></li>
-                <li   class="nav-item"  ><a  routerLinkActive="active" class="nav-link js-scroll-trigger" [routerLink]="['/user',this.getRoute('chauffeur')]">Espace Chauffeur</a></li>
-                
-                
-            </ul>
-        </div>
+        <!-- <li  class="nav-item"   ><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active current" class="nav-link js-scroll-trigger" [routerLink]="['/user',this.getRoute('administrateur')]">Espace Adminstrateur</a></li> -->
+        <li class="nav-item"><a routerLinkActive="active" class="nav-link js-scroll-trigger"
+            [routerLink]="['/user',this.getRoute('chefService')]">Espace Chef Service</a></li>
+        <li class="nav-item"><a routerLinkActive="active" class="nav-link js-scroll-trigger"
+            [routerLink]="['/user',this.getRoute('chauffeur')]">Espace Chauffeur</a></li>
+
+
+      </ul>
     </div>
+  </div>
 </nav>

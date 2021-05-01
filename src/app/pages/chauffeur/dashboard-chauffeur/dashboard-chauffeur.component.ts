@@ -25,11 +25,11 @@ export class DashboardChauffeurComponent implements OnInit {
   // totalValueGraphData1 = buildChartJS('#fff', [45, 25, 35, 20, 45, 20, 40, 10, 30, 45], '#3a73f1', 'transparent');
   // totalValueGraphData2 = buildChartJS('#fff', [10, 25, 35, 20, 10, 20, 15, 45, 15, 10], '#e55571', 'transparent');
   // totalValueGraphOption = buildChartOption();
-  
-  nbMissionsTerminees:number=0;
-  nbMissionsAttente:number=0;
-  nbCarnet:number=0;
-  constructor( private dashboardService:DashboardService,private controls:ControlsService) { }
+
+  nbMissionsTerminees: number = 0;
+  nbMissionsAttente: number = 0;
+  nbCarnet: number = 0;
+  constructor(private dashboardService: DashboardService, private controls: ControlsService) { }
 
   ngOnInit() {
     this.controls.verifVF('chefService');
@@ -301,14 +301,14 @@ export class DashboardChauffeurComponent implements OnInit {
       ]
     });
 
-   this.getNbMissionAttente(res => {
+    this.getNbMissionAttente(res => {
       this.nbMissionsAttente = res;
-      
+
     });
 
     this.getNbMissionTerminees(res => {
       this.nbMissionsTerminees = res;
-      
+
     });
 
     this.getNbCarnet(res => {
@@ -326,7 +326,7 @@ export class DashboardChauffeurComponent implements OnInit {
   async getNbMissionAttente(callback) {
 
     try {
-      const { msg, erorer} = await this.dashboardService.getNbMissionAttenteChauffeur(this.getChauffeurId()) as any || [];       
+      const { msg, erorer } = await this.dashboardService.getNbMissionAttenteChauffeur(this.getChauffeurId()) as any || [];
       callback(msg);
     } catch (error) {
       return error;
@@ -337,7 +337,7 @@ export class DashboardChauffeurComponent implements OnInit {
   async getNbMissionTerminees(callback) {
 
     try {
-      const { msg, erorer} = await this.dashboardService.getNbMissionTermineesChauffeur(this.getChauffeurId()) as any || [];       
+      const { msg, erorer } = await this.dashboardService.getNbMissionTermineesChauffeur(this.getChauffeurId()) as any || [];
       callback(msg);
     } catch (error) {
       return error;
@@ -348,14 +348,14 @@ export class DashboardChauffeurComponent implements OnInit {
   async getNbCarnet(callback) {
 
     try {
-      const { msg, erorer} = await this.dashboardService.getNbCarnetDeBoardChauffeur(this.getChauffeurId()) as any || [];       
+      const { msg, erorer } = await this.dashboardService.getNbCarnetDeBoardChauffeur(this.getChauffeurId()) as any || [];
       callback(msg);
     } catch (error) {
       return error;
     }
   }
 
-  getChauffeurId(){
+  getChauffeurId() {
     const id = JSON.parse(localStorage.getItem('idConnexion')).idUser;
     return this.controls.decryptData(id);
   }

@@ -21,7 +21,7 @@ export class GestionentretiensComponent implements OnInit {
     private entretienService: EntretienService,
     private modalService: NgbModal,
     public controls: ControlsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAllEntrtiens((entretiens) => {

@@ -1,37 +1,20 @@
 <ng-container *ngIf="this.user">
-<div
-  class="pcoded"
-  [attr.nav-type]="navType"
-  [attr.theme-layout]="themeLayout"
-  [attr.layout-type]="layoutType"
-  [attr.vertical-placement]="verticalPlacement"
-  [attr.vertical-layout]="verticalLayout"
-  [attr.pcoded-device-type]="deviceType"
-  [attr.vertical-nav-type]="verticalNavType"
-  [attr.vertical-effect]="verticalEffect"
-  [attr.vnavigation-view]="vNavigationView"
-  (window:resize)="onResize($event)"
->
-  <div class="pcoded-overlay-box"></div>
-  <div class="pcoded-container navbar-wrapper">
-    <nav
-      class="navbar header-navbar pcoded-header"
-      [attr.pcoded-header-position]="pcodedHeaderPosition"
-      [attr.header-theme]="headerTheme"
-    >
-      <div class="navbar-wrapper">
-        <div class="navbar-logo"  [attr.logo-theme]="logoTheme">
-          <a
-            class="mobile-menu"
-            id="mobile-collapse"
-            href="javascript:;"
-            (click)="toggleOpened()"
-            [exclude]="'#main_navbar'"
-            (clickOutside)="onClickedOutside($event)"
-          >
-            <i class="ti-menu"></i>
-          </a>
-          <!-- <a [routerLink]="['/dashboard',this.getuserRole()]">
+  <div class="pcoded" [attr.nav-type]="navType" [attr.theme-layout]="themeLayout" [attr.layout-type]="layoutType"
+    [attr.vertical-placement]="verticalPlacement" [attr.vertical-layout]="verticalLayout"
+    [attr.pcoded-device-type]="deviceType" [attr.vertical-nav-type]="verticalNavType"
+    [attr.vertical-effect]="verticalEffect" [attr.vnavigation-view]="vNavigationView"
+    (window:resize)="onResize($event)">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+      <nav class="navbar header-navbar pcoded-header" [attr.pcoded-header-position]="pcodedHeaderPosition"
+        [attr.header-theme]="headerTheme">
+        <div class="navbar-wrapper">
+          <div class="navbar-logo" [attr.logo-theme]="logoTheme">
+            <a class="mobile-menu" id="mobile-collapse" href="javascript:;" (click)="toggleOpened()"
+              [exclude]="'#main_navbar'" (clickOutside)="onClickedOutside($event)">
+              <i class="ti-menu"></i>
+            </a>
+            <!-- <a [routerLink]="['/dashboard',this.getuserRole()]">
             <img
               (click)="redirectToProfile()"
               class="img-fluid"
@@ -39,326 +22,223 @@
               alt="Theme-Logo"
             />
           </a> -->
-          <a (click)="onMobileMenu()" class="mobile-options">
-            <i class="ti-more"></i>
-          </a>
-        </div>
+            <a (click)="onMobileMenu()" class="mobile-options">
+              <i class="ti-more"></i>
+            </a>
+          </div>
 
-        <div class="navbar-container">
-          <div>
-            <ul class="nav-left">
-              <li>
-                <div class="sidebar_toggle">
-                  <a href="javascript:;" (click)="toggleOpened()"
-                    ><i class="ti-menu f-18"></i
-                  ></a>
-                </div>
-              </li>
-              <li>
-                <a href="javascript:;" appToggleFullScreen>
-                  <i class="ti-fullscreen"></i>
-                </a>
-              </li>
-              <li class="mega-menu-top">
+          <div class="navbar-container">
+            <div>
+              <ul class="nav-left">
+                <li>
+                  <div class="sidebar_toggle">
+                    <a href="javascript:;" (click)="toggleOpened()"><i class="ti-menu f-18"></i></a>
+                  </div>
+                </li>
+                <li>
+                  <a href="javascript:;" appToggleFullScreen>
+                    <i class="ti-fullscreen"></i>
+                  </a>
+                </li>
+                <li class="mega-menu-top">
 
-              </li>
-            </ul>
-            <ul
-              [@mobileMenuTop]="isCollapsedMobile"
-              class="nav-right"
-              [ngClass]="isCollapsedMobile"
-            >
+                </li>
+              </ul>
+              <ul [@mobileMenuTop]="isCollapsedMobile" class="nav-right" [ngClass]="isCollapsedMobile">
 
 
-              <li class="user-profile header-notification">
-                <!-- <a routerLink=""> -->
-                  <img
-                  (click)="redirectToProfile()"
-                  src="assets/images/logo-user.png"
-                    class="img-radius"
-                    alt="User-Profile-Image"
-                  />
+                <li class="user-profile header-notification">
+                  <!-- <a routerLink=""> -->
+                  <img (click)="redirectToProfile()" src="assets/images/logo-user.png" class="img-radius"
+                    alt="User-Profile-Image" />
                   <span>{{this.user.nomPrenom}}</span>
                   <i class="ti-angle-down"></i>
 
-              <!-- </a> -->
+                  <!-- </a> -->
 
-                <ul class="show-notification profile-notification">
-                  <li>
+                  <ul class="show-notification profile-notification">
+                    <li>
 
-                    <a [routerLink]="['/dashboard/'+this.getuserRole()+'/profil']">
-                      <i class="ti-user"></i> Profil
-                    </a>
-                  </li>
-                  <li>
-                    <a [routerLink]="" (click)="logout()">
-                      <i class="ti-layout-sidebar-left"></i> Déconnexion
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+                      <a [routerLink]="['/dashboard/'+this.getuserRole()+'/profil']">
+                        <i class="ti-user"></i> Profil
+                      </a>
+                    </li>
+                    <li>
+                      <a [routerLink]="" (click)="logout()">
+                        <i class="ti-layout-sidebar-left"></i> Déconnexion
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
 
 
 
-    <div class="pcoded-main-container" [style.margin-top]="headerFixedMargin">
-      <div class="pcoded-wrapper">
-        <nav
-          id="main_navbar"
-          class="pcoded-navbar"
-          (clickOutside)="onClickedOutside($event)"
-          [exclude]="'#mobile-collapse'"
-          [attr.pcoded-header-position]="pcodedHeaderPosition"
-          [attr.navbar-theme]="navBarTheme"
-          [attr.active-item-theme]="activeItemTheme"
-          sub-item-theme="theme2"
-          active-item-style="style0"
-          [attr.pcoded-navbar-position]="pcodedSidebarPosition"
-        >
-          <div class="sidebar_toggle">
-            <a href="javascript:;"><i class="icon-close icons"></i></a>
-          </div>
-          <div class="pcoded-inner-navbar main-menu" appAccordion>
-            <div class="">
-              <div class="main-menu-header">
-                <img
-                  class="img-40 img-radius"
-                  src="assets/images/logo-user.png"
-                  alt="User-Profile-Image"
-                />
-                <div class="user-details">
-                  <span >{{ this.user.nomPrenom }}</span>
-                  <span id="more-details" (click)="toggleOpenedSidebar()"
-                    >{{ this.user.type }}<i class="ti-angle-down"></i
-                  ></span>
+      <div class="pcoded-main-container" [style.margin-top]="headerFixedMargin">
+        <div class="pcoded-wrapper">
+          <nav id="main_navbar" class="pcoded-navbar" (clickOutside)="onClickedOutside($event)"
+            [exclude]="'#mobile-collapse'" [attr.pcoded-header-position]="pcodedHeaderPosition"
+            [attr.navbar-theme]="navBarTheme" [attr.active-item-theme]="activeItemTheme" sub-item-theme="theme2"
+            active-item-style="style0" [attr.pcoded-navbar-position]="pcodedSidebarPosition">
+            <div class="sidebar_toggle">
+              <a href="javascript:;"><i class="icon-close icons"></i></a>
+            </div>
+            <div class="pcoded-inner-navbar main-menu" appAccordion>
+              <div class="">
+                <div class="main-menu-header">
+                  <img class="img-40 img-radius" src="assets/images/logo-user.png" alt="User-Profile-Image" />
+                  <div class="user-details">
+                    <span>{{ this.user.nomPrenom }}</span>
+                    <span id="more-details" (click)="toggleOpenedSidebar()">{{ this.user.type }}<i
+                        class="ti-angle-down"></i></span>
+                  </div>
+                </div>
+                <div class="main-menu-content">
+                  <ul>
+                    <li [@mobileMenuTop]="isCollapsedSideBar" class="more-details" [ngClass]="isCollapsedSideBar">
+                      <a [routerLink]="['/dashboard/'+this.getuserRole()+'/profil']"><i class="ti-user"></i>Profil</a>
+                      <a [routerLink]="" (click)="logout()"><i class="ti-layout-sidebar-left"></i>Déconnexion</a>
+                    </li>
+                  </ul>
                 </div>
               </div>
-              <div class="main-menu-content">
-                <ul>
-                  <li
-                    [@mobileMenuTop]="isCollapsedSideBar"
-                    class="more-details"
-                    [ngClass]="isCollapsedSideBar"
-                  >
-                    <a [routerLink]="['/dashboard/'+this.getuserRole()+'/profil']"
-                      ><i class="ti-user"></i>Profil</a
-                    >
-                    <a [routerLink]="" (click)="logout()"
-                      ><i class="ti-layout-sidebar-left"></i>Déconnexion</a
-                    >
-                  </li>
-                </ul>
-              </div>
+
+
+              <perfect-scrollbar [style.max-width]="'100%'" [style.max-height]="'calc(100vh - 230px)'"
+                [config]="config">
+                <div class="d-color">
+                  <div class="pcoded-navigatio-lavel" [attr.menu-title-theme]="menuTitleTheme">
+                    Navigation
+                  </div>
+                  <ul *ngIf="this.getuserRole()==='chefService'" class="pcoded-item pcoded-left-item"
+                    [attr.item-border]="itemBorder" [attr.item-border-style]="itemBorderStyle"
+                    [attr.subitem-border]="subItemBorder" appAccordionLink>
+                    <!--aaaaaaaaaaaaa-->
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chefService']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="icofont icofont-chart-bar-graph"></i></span>
+                        <span class="pcoded-mtext">Tableau De Bord</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chefService/chauffeur']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="icofont icofont-group"></i></span>
+                        <span class="pcoded-mtext">Gestion Des Chauffeurs</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chefService/chauffeursInactifs']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="icofont icofont-close"></i></span>
+                        <span class="pcoded-mtext">Chauffeurs Inactifs</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chefService/affectM']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="icofont icofont-delivery-time"></i></span>
+                        <span class="pcoded-mtext">Affectation Des Missions</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chefService/voitures']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="icofont icofont-car-alt-1"></i></span>
+                        <span class="pcoded-mtext">Gestion Des Voitures</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chefService/voituresInactives']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="icofont icofont-close"></i></span>
+                        <span class="pcoded-mtext">Voitures Inactives</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chefService/affectV']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="icofont icofont-car-alt-1"></i></span>
+                        <span class="pcoded-mtext">Affectations Chauffeur Voiture</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chefService/historiqueAffectV']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="icofont icofont-history"></i></span>
+                        <span class="pcoded-mtext">Historique Affectations Chauffeur Voiture</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+
+
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chefService/entretien']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="icofont icofont-tools-bag"></i></span>
+                        <span class="pcoded-mtext">Gestion Des Entretiens</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+
+                  </ul>
+
+
+                  <ul *ngIf="this.getuserRole()==='chauffeur'" class="pcoded-item pcoded-left-item"
+                    [attr.item-border]="itemBorder" [attr.item-border-style]="itemBorderStyle"
+                    [attr.subitem-border]="subItemBorder" appAccordionLink>
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chauffeur']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+                        <span class="pcoded-mtext">Tableau de bord</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chauffeur/carnetDeBoard']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="icofont icofont-notebook"></i></span>
+                        <span class="pcoded-mtext">Carnet de bord</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chauffeur/documents']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="ti-printer"></i></span>
+                        <span class="pcoded-mtext">Documents</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+
+
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chauffeur/missions']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="icofont icofont-briefcase"></i></span>
+                        <span class="pcoded-mtext">Missions</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+                    <li appAccordionLink>
+                      <a [routerLink]="['/dashboard/chauffeur/missionsdon']" target="_self" appAccordionToggle>
+                        <span class="pcoded-micon"><i class="icofont icofont-delivery-time"></i></span>
+                        <span class="pcoded-mtext">Missions finies</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </li>
+
+                  </ul>
+                </div>
+              </perfect-scrollbar>
             </div>
 
 
-            <perfect-scrollbar
-              [style.max-width]="'100%'"
-              [style.max-height]="'calc(100vh - 230px)'"
-              [config]="config"
-            >
-              <div class="d-color" >
-                <div
-                  class="pcoded-navigatio-lavel"
-                  [attr.menu-title-theme]="menuTitleTheme"
-                >
-                  Navigation
-                </div>
-                <ul
-                *ngIf="this.getuserRole()==='chefService'"
-                  class="pcoded-item pcoded-left-item"
-                  [attr.item-border]="itemBorder"
-                  [attr.item-border-style]="itemBorderStyle"
-                  [attr.subitem-border]="subItemBorder"
-                  appAccordionLink
-                >
-                  <!--aaaaaaaaaaaaa-->
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chefService']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="icofont icofont-chart-bar-graph"></i></span>
-                      <span class="pcoded-mtext">Tableau De Bord</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chefService/chauffeur']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="icofont icofont-group"></i></span>
-                      <span class="pcoded-mtext">Gestion Des Chauffeurs</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chefService/chauffeursInactifs']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="icofont icofont-close"></i></span>
-                      <span class="pcoded-mtext">Chauffeurs Inactifs</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chefService/affectM']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="icofont icofont-delivery-time"></i></span>
-                      <span class="pcoded-mtext">Affectation Des Missions</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chefService/voitures']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="icofont icofont-car-alt-1"></i></span>
-                      <span class="pcoded-mtext">Gestion Des Voitures</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chefService/voituresInactives']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="icofont icofont-close"></i></span>
-                      <span class="pcoded-mtext">Voitures Inactives</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chefService/affectV']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="icofont icofont-car-alt-1"></i></span>
-                    <span class="pcoded-mtext">Affectations Chauffeur Voiture</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chefService/historiqueAffectV']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="icofont icofont-history"></i></span>
-                      <span class="pcoded-mtext">Historique Affectations Chauffeur Voiture</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-
-
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chefService/entretien']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="icofont icofont-tools-bag"></i></span>
-                      <span class="pcoded-mtext">Gestion Des Entretiens</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-
-                </ul>
-
-
-                <ul
-                *ngIf="this.getuserRole()==='chauffeur'"
-                  class="pcoded-item pcoded-left-item"
-                  [attr.item-border]="itemBorder"
-                  [attr.item-border-style]="itemBorderStyle"
-                  [attr.subitem-border]="subItemBorder"
-                  appAccordionLink
-                >
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chauffeur']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
-                      <span class="pcoded-mtext">Tableau de bord</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chauffeur/carnetDeBoard']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="icofont icofont-notebook"></i></span>
-                      <span class="pcoded-mtext">Carnet de bord</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chauffeur/documents']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="ti-printer"></i></span>
-                      <span class="pcoded-mtext">Documents</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-
-
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chauffeur/missions']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="icofont icofont-briefcase"></i></span>
-                      <span class="pcoded-mtext">Missions</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/chauffeur/missionsdon']"
-                      target="_self"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon"><i class="icofont icofont-delivery-time"></i></span>
-                      <span class="pcoded-mtext">Missions finies</span>
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-
-                </ul>
-              </div>
-            </perfect-scrollbar>
-          </div>
 
 
 
-
-
-          <!-- <div class="d-color">
+            <!-- <div class="d-color">
             <ul
               class="pcoded-item pcoded-left-item"
               [attr.item-border]="itemBorder"
@@ -398,26 +278,26 @@
             </ul>
           </div> -->
 
-        </nav>
-        <div class="pcoded-content">
-          <div class="pcoded-inner-content">
-            <div class="main-body">
-              <div class="page-wrapper">
+          </nav>
+          <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+              <div class="main-body">
+                <div class="page-wrapper">
 
-                <div class="page-body">
-                  <!-- <app-breadcrumbs></app-breadcrumbs> -->
-                  <router-outlet> </router-outlet>
+                  <div class="page-body">
+                    <!-- <app-breadcrumbs></app-breadcrumbs> -->
+                    <router-outlet> </router-outlet>
 
-                  <!-- Page-header start -->
+                    <!-- Page-header start -->
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+
     </div>
-
-
   </div>
-</div>
 </ng-container>

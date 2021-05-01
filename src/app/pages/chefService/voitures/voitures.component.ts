@@ -21,7 +21,7 @@ export class VoituresComponent implements OnInit {
     private voitureService: VoitureService,
     private modalService: NgbModal,
     public controls: ControlsService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.getVoitures((resActif) => {

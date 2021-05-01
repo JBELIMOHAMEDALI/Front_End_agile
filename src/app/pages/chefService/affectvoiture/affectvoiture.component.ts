@@ -13,25 +13,21 @@ export class AffectvoitureComponent implements OnInit {
   voituresAffectes: [] = [];
   p: number;
   term: any;
-
   constructor(
     private affectService: AffectVoitureService,
     private modalService: NgbModal,
     private affectVoitureService: AffectVoitureService,
     private controls: ControlsService
-  ) {}
-
+  ) { }
   ngOnInit() {
     this.getAllAffectations((res) => {
       this.voituresAffectes = res;
     });
   }
-
   Affecter() {
     const modalRef = this.modalService.open(PopupAffectationComponent);
     modalRef.componentInstance.title = "AFFECTATION CHAUFFEUR VOITURE";
   }
-
   async getAllAffectations(callback) {
     try {
       const { msg, erorer } =
@@ -41,7 +37,6 @@ export class AffectvoitureComponent implements OnInit {
       return error;
     }
   }
-
   updateAffectation(payload) {
     const modalRef = this.modalService.open(PopupAffectationComponent);
     modalRef.componentInstance.title = "MODIFICATION AFFECTATION";
@@ -55,7 +50,6 @@ export class AffectvoitureComponent implements OnInit {
       payload.id_chauffeur
     );
   }
-
   async loadObjects(option: string, id?: string) {
     try {
       const { msg, erorer } =
@@ -72,11 +66,10 @@ export class AffectvoitureComponent implements OnInit {
       return error;
     }
   }
-
   activerDesactiverAffectation(idAffectation: string) {
     const modalRef = this.modalService.open(PopupAffectationComponent);
     modalRef.componentInstance.title =
-      "DESACTIVATION D'UNE AFFECTATION CHAUFFEUR VOITURE";
+      "SUPPRESSION D'UNE AFFECTATION CHAUFFEUR VOITURE";
     modalRef.componentInstance.idAffectation = idAffectation;
   }
 }

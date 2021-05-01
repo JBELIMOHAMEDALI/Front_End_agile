@@ -27,7 +27,7 @@ export class PopupEntretienComponent implements OnInit {
     private modalService: NgbModal,
     private voitureService: VoitureService,
     public controls: ControlsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     if (!this.show) {

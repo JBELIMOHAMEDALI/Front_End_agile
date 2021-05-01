@@ -1,161 +1,161 @@
 <ng-container>
-<div class="modal-header">
+  <div class="modal-header">
     <h4 class="modal-title">{{title}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <span aria-hidden="true">&times;</span>
     </button>
-</div>
-<form *ngIf="this.id>0&&this.entretien&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
-<div  class="modal-body" >
+  </div>
+  <!-- modifer  -->
+  <form *ngIf="this.id>0&&this.entretien&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
+    <div class="modal-body">
 
 
-        <div class="input-group">
+      <div class="input-group">
 
-            <span class="input-group-prepend"><label class="input-group-text"><i
+        <span class="input-group-prepend"><label class="input-group-text"><i
               class="icofont icofont-calendar"></i></label></span>
-            <input class="form-control" type="date" name="date" [(ngModel)]="this.entretien.date"
-            required #date="ngModel"  />
-        </div>
+        <input class="form-control" type="date" name="date" [(ngModel)]="this.entretien.date" required
+          #date="ngModel" />
+      </div>
 
-        <div *ngIf="(date.invalid && date.touched)" class="alert alert-danger p-2" role="alert">
-            Saisir la date
-        </div>
+      <div *ngIf="(date.invalid && date.touched)" class="alert alert-danger p-2" role="alert">
+        Saisir la date
+      </div>
 
-        <div class="input-group">
+      <div class="input-group">
 
-            <span class="input-group-prepend"><label class="input-group-text"><i
+        <span class="input-group-prepend"><label class="input-group-text"><i
               class="icofont icofont-paper"></i></label></span>
 
-            <textarea class="form-control" id="exampleInputDesc"
-            placeholder="Description" name="desc"
-            required [(ngModel)]="this.entretien.description" #desc="ngModel">
+        <textarea class="form-control" id="exampleInputDesc" placeholder="Description" name="desc" required
+          [(ngModel)]="this.entretien.description" #desc="ngModel">
         </textarea>
-        </div>
-        <div *ngIf="(desc.invalid && desc.touched)" class="alert alert-danger p-2" role="alert">
-          Description invalide
-        </div>
-
-
-        <div class="modal-footer">
-
-            <input type="submit" class="btn btn-outline-primary" [disabled]="date.invalid||desc.invalid" value="Modifier"/>
-            <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
-        </div>
-    </div>
-</form>
-<form *ngIf="this.id===-1&&!this.entretien" name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
-
-    <div  class="modal-body" >
-
-
-
-        <div class="input-group">
-
-            <span class="input-group-prepend"><label class="input-group-text"><i
-              class="icofont icofont-calendar"></i></label></span>
-            <input class="form-control" type="date" name="date" ngModel
-            required #date="ngModel"  />
-        </div>
-
-        <div *ngIf="(date.invalid && date.touched)" class="alert alert-danger p-2" role="alert">
-            Saisir la date
-        </div>
-
-
-        <div class="input-group">
-            <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-car-alt-1"></i></label></span>
-        <select  ngModel={{-1}} #voitureopt="ngModel" name="voitureopt" class="form-control" required>
-            <option disabled [value]="-1">Séléctionner une voiture</option>
-            <ng-container *ngFor="let voiture of this.voitureList;let i=index;">
-
-                <option [value]="voiture.id_voiture">
-                    {{voiture.matricule+' ** '+voiture.type}}
-                </option>
-            </ng-container>
-
-        </select>
-    </div>
-    <div *ngIf="(this.controls.validateSelect(voitureopt.value)&&voitureopt.touched)" class="alert alert-danger p-2" role="alert">
-        Séléctionner une voiture
-    </div>
-
-
-
-
-        <div class="input-group">
-
-            <span class="input-group-prepend"><label class="input-group-text"><i
-              class="icofont icofont-paper"></i></label></span>
-
-            <textarea class="form-control" id="exampleInputDesc"
-            placeholder="Description" name="desc"
-            required ngModel #desc="ngModel">
-        </textarea>
-        </div>
-        <div *ngIf="(desc.invalid && desc.touched)" class="alert alert-danger p-2" role="alert">
-          Description invalide
-        </div>
-
-        <div class="modal-footer">
-            <input value="Confirmer" type="submit" class="btn btn-outline-primary"
-            [disabled]="date.invalid||this.controls.validateSelect(voitureopt.value)||desc.invalid" />
-            <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
-        </div>
-    </div>
-</form>
-
-<div class="modal-body" *ngIf="this.show&&this.entretien">
-
-    <div class="view-info">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="general-info">
-              <div class="row">
-                <div class="col-lg-12 col-xl-12">
-                  <div class="table-responsive">
-                    <table class="table m-0">
-                      <tbody>
-                        <tr>
-                          <th scope="row">Matricule Voiture</th>
-                          <td > {{ this.entretien.matricule }}</td>
-                        </tr>
-
-                        <tr>
-                          <th scope="row">Date Entretien</th>
-                          <td>{{ this.controls.dateFormat(this.entretien.date) }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Description</th>
-                            <td *ngIf="this.entretien.description">{{ this.entretien.description }}</td>
-                            <td *ngIf="!this.entretien.description">Aucune Description</td>
-
-                          </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                <!-- end of table col-lg-6 -->
-              </div>
-              <!-- end of row -->
-            </div>
-            <!-- end of general info -->
-          </div>
-          <!-- end of col-lg-12 -->
-        </div>
-        <!-- end of row -->
+      </div>
+      <div *ngIf="(desc.invalid && desc.touched)" class="alert alert-danger p-2" role="alert">
+        Description invalide
       </div>
 
 
-    <div class="modal-footer">
+      <div class="modal-footer">
+
+        <input type="submit" class="btn btn-outline-primary" [disabled]="date.invalid||desc.invalid" value="Modifier" />
         <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+      </div>
     </div>
-</div>
+  </form>
+  <!-- ajouter -->
+  <form *ngIf="this.id===-1&&!this.entretien" name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
 
-<div class="modal-body" *ngIf="this.id!=-1&&!this.entretien">
+    <div class="modal-body">
 
-  <div class="view-info">
+
+
+      <div class="input-group">
+
+        <span class="input-group-prepend"><label class="input-group-text"><i
+              class="icofont icofont-calendar"></i></label></span>
+        <input class="form-control" type="date" name="date" ngModel required #date="ngModel" />
+      </div>
+
+      <div *ngIf="(date.invalid && date.touched)" class="alert alert-danger p-2" role="alert">
+        Saisir la date
+      </div>
+
+
+      <div class="input-group">
+        <span class="input-group-prepend"><label class="input-group-text"><i
+              class="icofont icofont-car-alt-1"></i></label></span>
+        <select ngModel={{-1}} #voitureopt="ngModel" name="voitureopt" class="form-control" required>
+          <option disabled [value]="-1">Séléctionner une voiture</option>
+          <ng-container *ngFor="let voiture of this.voitureList;let i=index;">
+
+            <option [value]="voiture.id_voiture">
+              {{voiture.matricule+' ** '+voiture.type}}
+            </option>
+          </ng-container>
+
+        </select>
+      </div>
+      <div *ngIf="(this.controls.validateSelect(voitureopt.value)&&voitureopt.touched)" class="alert alert-danger p-2"
+        role="alert">
+        Séléctionner une voiture
+      </div>
+
+
+
+
+      <div class="input-group">
+
+        <span class="input-group-prepend"><label class="input-group-text"><i
+              class="icofont icofont-paper"></i></label></span>
+
+        <textarea class="form-control" id="exampleInputDesc" placeholder="Description" name="desc" required ngModel
+          #desc="ngModel">
+        </textarea>
+      </div>
+      <div *ngIf="(desc.invalid && desc.touched)" class="alert alert-danger p-2" role="alert">
+        Description invalide
+      </div>
+
+      <div class="modal-footer">
+        <input value="Confirmer" type="submit" class="btn btn-outline-primary"
+          [disabled]="date.invalid||this.controls.validateSelect(voitureopt.value)||desc.invalid" />
+        <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+      </div>
+    </div>
+  </form>
+  <!-- info -->
+  <div class="modal-body" *ngIf="this.show&&this.entretien">
+
+    <div class="view-info">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="general-info">
+            <div class="row">
+              <div class="col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Matricule Voiture</th>
+                        <td> {{ this.entretien.matricule }}</td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">Date Entretien</th>
+                        <td>{{ this.controls.dateFormat(this.entretien.date) }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Description</th>
+                        <td *ngIf="this.entretien.description">{{ this.entretien.description }}</td>
+                        <td *ngIf="!this.entretien.description">Aucune Description</td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- end of table col-lg-6 -->
+            </div>
+            <!-- end of row -->
+          </div>
+          <!-- end of general info -->
+        </div>
+        <!-- end of col-lg-12 -->
+      </div>
+      <!-- end of row -->
+    </div>
+
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+    </div>
+  </div>
+  <!-- supprtion  -->
+  <div class="modal-body" *ngIf="this.id!=-1&&!this.entretien">
+
+    <div class="view-info">
       <div class="row">
         <div class="col-lg-12">
           <div class="general-info">
@@ -186,10 +186,9 @@
       <!-- end of row -->
     </div>
 
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)="this.supprimerEntretien()">Confirmer</button>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="this.supprimerEntretien()">Confirmer</button>
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+    </div>
   </div>
-</div>
 </ng-container>
-

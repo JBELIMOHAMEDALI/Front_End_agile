@@ -1,6 +1,4 @@
 <div class="">
-
-  <!-- Page-header start -->
   <div class="page-header card">
     <div class="row align-items-end">
       <div class="col-lg-8">
@@ -36,9 +34,6 @@
     </div>
   </div>
 </div>
-<!-- Page-header end -->
-
-
 <div class="row">
   <div class="col-sm-12">
     <app-card [title]="'Liste des affectations des missions :'" [classHeader]="true"
@@ -48,28 +43,19 @@
         <div class="col-11 col-md-6 col-lg-5 ml-lg-5 " style="width: 100%;">
           <div class="input-group">
             <span class="input-group-prepend">
-            <label class="input-group-text">
-              <i class="icofont icofont-search"></i>
-            </label>
+              <label class="input-group-text">
+                <i class="icofont icofont-search"></i>
+              </label>
             </span>
             <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
           </div>
-      </div>
-
-
+        </div>
         <div class="col-md-6 col-lg-3 offset-lg-3">
           <button class="btn hor-grd btn-grd-primary" (click)="Affecter()">
             <i class="icofont icofont-delivery-time"></i>Nouvelle mission</button>
         </div>
-
-
       </div>
-      <!-- <div style="float: right ;margin-right: 30px;">
-        <button class="btn hor-grd btn-grd-primary" (click)="Affecter()"><i
-            class="icofont icofont-delivery-time"></i>Nouvelle Mission</button>
-      </div> -->
       <div class="table-responsive">
-
         <div style="margin: 60px;overflow-x:auto;">
           <table class="table table-hover">
             <thead>
@@ -87,34 +73,27 @@
                 <th scope="col">Actions</th>
               </tr>
             </thead>
-
-
             <ng-container *ngIf="this.missionsList.length>0">
-
-              <tbody *ngFor="let mission of this.missionsList|filter:term| paginate: { itemsPerPage: 3, currentPage: p }">
+              <tbody
+                *ngFor="let mission of this.missionsList|filter:term| paginate: { itemsPerPage: 3, currentPage: p }">
                 <tr (dblclick)="showMission(mission)" style="text-align: center;">
                   <th scope="row">{{mission.id_mission}}</th>
                   <td>{{this.controls.dateFormat(mission.date_debut,true)}}</td>
                   <td>{{this.controls.dateFormat(mission.date_fin,true)}}</td>
                   <td>{{mission.nomPrenom}}</td>
-
                   <td>
                     <button class="btn hor-grd btn-grd-info" id="{{mission.id_mission}}"
                       (click)="updateMission(mission)"><i class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
                     <button class="btn hor-grd btn-grd-danger" id="{{mission.id_mission}}"
                       (click)="supprimerMission(mission.id_mission)"><i
                         class="icofont icofont-trash"></i>Supprimer</button>&nbsp;
-
                   </td>
                 </tr>
               </tbody>
             </ng-container>
-
             <ng-container *ngIf="this.missionsList.length===0">
-
               <tbody>
                 <tr style="text-align: center;">
-
                   <td colspan="6">
                     AUCUNE MISSION !
                   </td>
@@ -122,19 +101,12 @@
               </tbody>
             </ng-container>
           </table>
-
-
           <div *ngIf="this.missionsList.length>0" style="text-align: center;">
             <hr>
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
-
-
         </div>
       </div>
-
-
-
     </app-card>
   </div>
 </div>

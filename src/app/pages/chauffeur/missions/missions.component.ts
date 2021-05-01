@@ -22,7 +22,7 @@ export class MissionsComponent implements OnInit {
     public controls: ControlsService,
     private serviseMesion: MissionsChauffeurService,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getMesMession((resulta) => {

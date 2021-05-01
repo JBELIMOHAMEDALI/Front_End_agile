@@ -1,140 +1,114 @@
 <ng-container>
-    <div class="">
-
-      <!-- Page-header start -->
-      <div class="page-header card">
-        <div class="row align-items-end">
-          <div class="col-lg-8">
-            <div class="page-header-title">
-              <span>
-                <i class="icofont icofont-tools-bag bg-c-blue card1-icon"></i>
+  <div class="">
+    <!-- Page-header start -->
+    <div class="page-header card">
+      <div class="row align-items-end">
+        <div class="col-lg-8">
+          <div class="page-header-title">
+            <span>
+              <i class="icofont icofont-tools-bag bg-c-blue card1-icon"></i>
+            </span>
+            <div class="d-inline">
+              <span class="d-block">
+                <h4>Gestion Des Entretiens</h4>
               </span>
-              <div class="d-inline">
-                <span class="d-block">
-                  <h4>Gestion Des Entretiens</h4>
-                </span>
-                <span>
-                  Dans cette page le chef service a l'accées de gestion et controle de tous les entretiens des voitures .
-                </span>
-              </div>
+              <span>
+                Dans cette page le chef service a l'accées de gestion et controle de tous les entretiens des voitures .
+              </span>
             </div>
           </div>
-          <div class="col-lg-4">
-            <div class="page-header-breadcrumb">
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a [routerLink]="['/dashboard/chefService']">
-                    <i class="icofont icofont-home"></i>
-                  </a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a [routerLink]="['/dashboard/chefService/entretien']">Gestion Des Entretiens</a>
-                </li>
-              </ul>
-            </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="page-header-breadcrumb">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/dashboard/chefService']">
+                  <i class="icofont icofont-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/dashboard/chefService/entretien']">Gestion Des Entretiens</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-      <!-- Page-header end -->
+  </div>
+  <!-- Page-header end -->
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card [title]="'Liste des entretiens des voitures :'" [classHeader]="true"
+        [blockClass]="'table-border-style'">
+        <div class="row">
 
-
-      <div class="row">
-        <div class="col-sm-12">
-          <app-card [title]="'Liste des entretiens des voitures :'" [classHeader]="true" [blockClass]="'table-border-style'">
-            <div class="row">
-
-              <div class="col-11 col-md-6 col-lg-5 ml-lg-5 " style="width: 100%;">
-                <div class="input-group">
-                  <span class="input-group-prepend">
-                  <label class="input-group-text">
-                    <i class="icofont icofont-search"></i>
-                  </label>
-                  </span>
-                  <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
-                </div>
+          <div class="col-11 col-md-6 col-lg-5 ml-lg-5 " style="width: 100%;">
+            <div class="input-group">
+              <span class="input-group-prepend">
+                <label class="input-group-text">
+                  <i class="icofont icofont-search"></i>
+                </label>
+              </span>
+              <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
             </div>
-
-
-              <div class="col-md-6 col-lg-3 offset-lg-3">
-                <button class="btn hor-grd btn-grd-primary" (click)="AddEntretien()">
-                  <i class="icofont icofont-tools-bag"></i>Nouvel entretien</button>
-              </div>
-
-
-            </div>
-
-            <!-- <div style="float: right ;margin-right: 30px;">
-              <button class="btn hor-grd btn-grd-primary" (click)="AddEntretien()"><i
-              class="icofont icofont-tools-bag"></i>Nouvel Entretien</button>
-            </div> -->
-
-
-            <div class="table-responsive">
-
-            <div style="margin: 60px;overflow-x:auto;">
-              <table class="table table-hover" >
-                <thead>
-                  <ng-container matColumnDef="actions">
-                    <mat-header-cell  *matHeaderCellDef > Actions </mat-header-cell>
-                    <mat-cell *matCellDef="let row" >
-                         <button mat-button >Edit</button>
-                    </mat-cell>
-                  </ng-container>
-                  <tr style="text-align: center;">
-                    <th scope="col">Numéro Entretien</th>
-                    <th scope="col">Date Entretien</th>
-                    <th scope="col">Matricule Voiture</th>
-                    <th scope="col">Actions</th>
-
-                  </tr>
-                </thead>
-                <ng-container *ngIf="this.entretienList.length>0">
-                <tbody *ngFor="let entretien of this.entretienList |filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
+          </div>
+          <div class="col-md-6 col-lg-3 offset-lg-3">
+            <button class="btn hor-grd btn-grd-primary" (click)="AddEntretien()">
+              <i class="icofont icofont-tools-bag"></i>Nouvel entretien</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <div style="margin: 60px;overflow-x:auto;">
+            <table class="table table-hover">
+              <thead>
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <button mat-button>Edit</button>
+                  </mat-cell>
+                </ng-container>
+                <tr style="text-align: center;">
+                  <th scope="col">Numéro Entretien</th>
+                  <th scope="col">Date Entretien</th>
+                  <th scope="col">Matricule Voiture</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <ng-container *ngIf="this.entretienList.length>0">
+                <tbody
+                  *ngFor="let entretien of this.entretienList |filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
                   <tr (dblclick)="this.showEntretien(entretien.id_entretien)" style="text-align: center;">
                     <th scope="row">{{entretien.id_entretien}}</th>
                     <td>{{this.controls.dateFormat(entretien.date)}}</td>
                     <td>{{entretien.matricule}}</td>
                     <td>
-                      <button class="btn hor-grd btn-grd-info" id="{{entretien.id_entretien}}" (click)="updateEntretien(entretien.id_entretien)"><i
+                      <button class="btn hor-grd btn-grd-info" id="{{entretien.id_entretien}}"
+                        (click)="updateEntretien(entretien.id_entretien)"><i
                           class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
-                      <button class="btn hor-grd btn-grd-danger" id="{{entretien.id_entretien}}" (click)="supprimerEntretien(entretien.id_entretien)"><i
+                      <button class="btn hor-grd btn-grd-danger" id="{{entretien.id_entretien}}"
+                        (click)="supprimerEntretien(entretien.id_entretien)"><i
                           class="icofont icofont-trash"></i>Supprimer</button>&nbsp;
-
                     </td>
                   </tr>
-
-
                 </tbody>
-                </ng-container>
-                <ng-container *ngIf="this.entretienList.length===0">
-                  <tbody >
-                    <tr style="text-align: center;">
-                        <td colspan="5">
-                          AUCUN ENTRETIEN !
-                        </td>
-
-                    </tr>
-
-
-                  </tbody>
-                  </ng-container>
-
-              </table>
-              <div *ngIf="this.entretienList.length>0" style="text-align: center;">
-                <hr>
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-              </div>
+              </ng-container>
+              <ng-container *ngIf="this.entretienList.length===0">
+                <tbody>
+                  <tr style="text-align: center;">
+                    <td colspan="5">
+                      AUCUN ENTRETIEN !
+                    </td>
+                  </tr>
+                </tbody>
+              </ng-container>
+            </table>
+            <div *ngIf="this.entretienList.length>0" style="text-align: center;">
+              <hr>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
             </div>
-            </div>
-          </app-card>
+          </div>
         </div>
-
-
-
-
-
-
-
-        </div>
-      </ng-container>
+      </app-card>
+    </div>
+  </div>
+</ng-container>

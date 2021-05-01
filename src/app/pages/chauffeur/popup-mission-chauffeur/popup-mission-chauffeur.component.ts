@@ -16,18 +16,17 @@ import { ControlsService } from "../../../services/controls.service";
 
 export class PopupMissionChauffeurComponent implements OnInit {
   @Input() title;
-  @Input() mission:Mission;
-  @Input() id:string;
+  @Input() mission: Mission;
+  @Input() id: string;
 
 
   constructor(private modalService: NgbModal, public activeModal: NgbActiveModal,
     public controls: ControlsService,
     private router: Router, private missionServise: MissionsChauffeurService) { }
- 
- 
+
+
   ngOnInit() {
-   
-    this.controls.daysDiff(this.mission.date_fin)
+
 
   }
 
@@ -36,12 +35,12 @@ export class PopupMissionChauffeurComponent implements OnInit {
     try {
       const { msg, erorer } = await this.missionServise.updateEtatMission(this.id) as any || [];
       if (!erorer) {
-           this.controls.reloadComponent();
-          this.activeModal.dismiss();
+        this.controls.reloadComponent();
+        this.activeModal.dismiss();
 
       }
     } catch (error) {
-       const modalRef = this.modalService.open(LoginErrorComponent);
+      const modalRef = this.modalService.open(LoginErrorComponent);
       modalRef.componentInstance.message = "Erreur d'accées internet !";
     }
   }
@@ -65,7 +64,7 @@ export class PopupMissionChauffeurComponent implements OnInit {
 
   // }
 
-  
+
 }
 
 

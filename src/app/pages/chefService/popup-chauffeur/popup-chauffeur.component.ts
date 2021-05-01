@@ -15,17 +15,13 @@ import { ChefService } from "../../../services/chef-service.service";
 })
 export class PopupChauffeurComponent implements OnInit {
   @Input() title: string = "";
-  @Input() show: boolean = false;
-  @Input() matList: string[] = [];
-  @Input() emailList: string[] = [];
-  @Input() chauffeursAll: Chauffeur[] = [];
-
-  @Input() chauffeur: Chauffeur;
-
+  @Input() show: boolean = false;//double click
+  @Input() matList: string[] = [];//controle matrcule
+  @Input() emailList: string[] = [];//controle email
+  @Input() chauffeur: Chauffeur;//update
+  @Input() id_chauffeur: string = null;//delete
+  @Input() actif: boolean = true;//type =>actve / desctive
   regions: string[] = [];
-
-  @Input() id_chauffeur: string = null;
-  @Input() actif: boolean = true;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -38,14 +34,6 @@ export class PopupChauffeurComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.show) {
-      this.matList = this.matList.filter(
-        (matricule) => matricule != this.chauffeur.matricule
-      );
-      this.emailList = this.emailList.filter(
-        (email) => email != this.chauffeur.email
-      );
-    }
   }
 
   onSubmit(form: NgForm) {

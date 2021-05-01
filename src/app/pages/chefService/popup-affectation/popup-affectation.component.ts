@@ -28,7 +28,7 @@ export class PopupAffectationComponent implements OnInit {
     private modalService: NgbModal,
     private affectVoitureService: AffectVoitureService,
     public controls: ControlsService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     if (this.id != -1) {

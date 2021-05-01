@@ -8,7 +8,7 @@ import { ControlsService } from "./controls.service";
 })
 export class ChauffeurService {
 
-  constructor(private httpClient: HttpClient,private controls:ControlsService) { }
+  constructor(private httpClient: HttpClient, private controls: ControlsService) { }
 
   addChauffeur(chauffeur: Chauffeur) {
     this.controls.verifVF('chauffeur');
@@ -37,7 +37,7 @@ export class ChauffeurService {
 
 
   updateChauffeur(chauffeur: Chauffeur) {
-        this.controls.verifVF('chauffeur');
+    this.controls.verifVF('chauffeur');
 
     const { matricule, nomPrenom, email, tel, dns, region, statut, id_chauffeur } = chauffeur;
 

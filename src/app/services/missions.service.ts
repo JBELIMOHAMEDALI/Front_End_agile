@@ -8,7 +8,7 @@ import { ControlsService } from "./controls.service";
 })
 export class MissionsService {
 
-  constructor(private httpClient: HttpClient,private controls:ControlsService) { }
+  constructor(private httpClient: HttpClient, private controls: ControlsService) { }
 
   addMission(mission: Mission) {
     this.controls.verifVF('chauffeur');
@@ -81,8 +81,8 @@ export class MissionsService {
 
     return new Promise((resolve, reject) => {
 
-      this.httpClient.get(`http://127.0.0.1/pfe_api/chauffeur/get_chouffeur_for_mession`)
-        .forEach(data =>{
+      this.httpClient.get(`http://127.0.0.1/pfe_api/Chauffeur/get_chouffeur_one_voiture`)
+        .forEach(data => {
           resolve(data)
         }
         ).catch((err) => {
@@ -93,7 +93,7 @@ export class MissionsService {
   }
 
 
- 
+
 
 
 

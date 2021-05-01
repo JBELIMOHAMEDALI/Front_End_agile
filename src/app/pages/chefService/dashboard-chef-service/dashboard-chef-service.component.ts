@@ -1,7 +1,6 @@
 
 
 import { Component, OnInit } from '@angular/core';
-
 import '../../../../assets/charts/amchart/amcharts.js';
 import '../../../../assets/charts/amchart/gauge.js';
 import '../../../../assets/charts/amchart/pie.js';
@@ -17,11 +16,8 @@ import { ControlsService } from "../../../services/controls.service";
 import { LoginErrorComponent } from '../../auth/login-error/login-error.component';
 import { DashboardService } from "../../../services/dashboard.service";
 import { EntretienService } from "../../../services/entretien.service";
-
-
 declare const AmCharts: any;
 declare const $: any;
-
 @Component({
   selector: 'app-dashboard-chef-service',
   templateUrl: './dashboard-chef-service.component.html',
@@ -31,88 +27,63 @@ declare const $: any;
   ]
 })
 export class DashboardChefServiceComponent implements OnInit {
-
-
   nbChauffeurs: number = 0;
-  // chauffeursInactif: number = 0;
   nbVoitures: number = 0;
   nbVoituresAffectees: number = 0;
-  nbMissionsTerminees:number=0;
-  nbMissionsAttente:number=0;
-  nbEntretiens:number=0;
-
+  nbMissionsTerminees: number = 0;
+  nbMissionsAttente: number = 0;
+  nbEntretiens: number = 0;
   chauffeursAll: Chauffeur[] = [];
   listMois: any[] = [];
   listYears: any[] = [];
   list: any[] = [];
-  displayCard:boolean;
-
+  displayCard: boolean;
   constructor(private userServ: UserService,
     private entretienService: EntretienService,
     public controls: ControlsService,
     private modalService: NgbModal,
-    private dashboardService:DashboardService) {
+    private dashboardService: DashboardService) {
     this.listMois = this.controls.getMois();
     this.listYears = this.controls.getAnnee();
-    this.displayCard=false;
+    this.displayCard = false;
   }
-
   ngOnInit() {
     this.controls.verifVF('chauffeur');
 
     this.getChauffeursAndNumbers(res => {
-      this.nbChauffeurs=res[0];
+      this.nbChauffeurs = res[0];
       this.chauffeursAll = [...res[1]];
     }, true);
-      // this.getChauffeursAndNumbers(result => {
-      //   this.chauffeursAll = [...res[1]].concat(result[1]);
-      // }, false);
-
     this.getNbVoitures(res => {
       this.nbVoitures = res;
       this.getNbVoituresAffectees(result => {
         this.nbVoituresAffectees = result;
       });
     });
-
     this.getNbMissionAttente(res => {
       this.nbMissionsAttente = res;
-
     });
-
     this.getNbMissionTerminees(res => {
       this.nbMissionsTerminees = res;
-
     });
-
     this.getNbEntretiens(res => {
       this.nbEntretiens = res.length;
     });
-
-
-    //end OnInit
   }
-
-  getDataFromDb(results){
-    const values:any[]=[];
+  getDataFromDb(results) {
+    const values: any[] = [];
     for (let index = 0; index < results.length; index++) {
-      const obj = {year:"SEMAINE "+(index+1).toString(),value:results[index].consomation};
+      const obj = { year: "SEMAINE " + (index + 1).toString(), value: results[index].consomation };
       values.push(obj);
     }
     return values;
   }
-
   makeChart(results) {
-
-
-
     AmCharts.makeChart('statistics-chart', {
       type: 'serial',
       marginTop: 0,
-
       marginRight: 0,
       dataProvider: this.getDataFromDb(results),
-
       valueAxes: [{
         axisAlpha: 0,
         dashLength: 6,
@@ -151,35 +122,26 @@ export class DashboardChefServiceComponent implements OnInit {
         enabled: true
       }
     });
-
   }
-
   onTaskStatusChange(event) {
     const parentNode = (event.target.parentNode.parentNode);
     parentNode.classList.toggle('done-task');
   }
-
-
   async getChauffeursAndNumbers(callback, actif: boolean) {
-    let res:any[]=[]
+    let res: any[] = []
     try {
       const { nbChauffeur, err } = await this.dashboardService.getNbChauffeursChefservice() as any || [];
-        res.push(nbChauffeur);
-
+      res.push(nbChauffeur);
       const { msg, erorer } = await this.userServ.getAllUsers(actif) as any || [];
       if (!erorer) {
         res.push(msg)
       }
-        callback(res);
-
+      callback(res);
     } catch (error) {
       return error;
     }
-
   }
-
   async getNbVoitures(callback) {
-
     try {
       const { nbVoitures, err } = await this.dashboardService.getNbVoituresChefservice() as any || [];
       callback(nbVoitures);
@@ -187,97 +149,73 @@ export class DashboardChefServiceComponent implements OnInit {
       return error;
     }
   }
-
-async getNbVoituresAffectees(callback) {
-
+  async getNbVoituresAffectees(callback) {
     try {
-      const { msg, erorer} = await this.dashboardService.getNbVoituresAffectesChefservice() as any || [];
+      const { msg, erorer } = await this.dashboardService.getNbVoituresAffectesChefservice() as any || [];
       callback(msg);
     } catch (error) {
       return error;
     }
   }
-
-async getNbMissionAttente(callback) {
-
+  async getNbMissionAttente(callback) {
     try {
-      const { msg, erorer} = await this.dashboardService.getNbMissionAttenteChefservice() as any || [];
+      const { msg, erorer } = await this.dashboardService.getNbMissionAttenteChefservice() as any || [];
       callback(msg);
     } catch (error) {
       return error;
     }
   }
-
-
   async getNbMissionTerminees(callback) {
-
     try {
-      const { msg, erorer} = await this.dashboardService.getNbMissionTermineesChefservice() as any || [];
+      const { msg, erorer } = await this.dashboardService.getNbMissionTermineesChefservice() as any || [];
       callback(msg);
     } catch (error) {
       return error;
     }
   }
-
-
   async getNbEntretiens(callback) {
-
     try {
-      const { msg, erorer} = await this.entretienService.getAllEntrtieninfo() as any || [];
+      const { msg, erorer } = await this.entretienService.getAllEntrtieninfo() as any || [];
       callback(msg);
     } catch (error) {
       return error;
     }
   }
-
   submit(chauffeur: string, moi: string, annee: string) {
-    const array: string[] = [chauffeur,moi, annee];
-
+    const array: string[] = [chauffeur, moi, annee];
     if (array.includes("-1")) {
       const modalRef = this.modalService.open(LoginErrorComponent);
       return modalRef.componentInstance.message = "Saisir toutes les valeurs !";
-
     }
-
-        const payload= { 'id_chouffeur':array[0],'mois':array[1],'anne':array[2], };
-        this.getChefServiceCharet((results)=>{
-          if(results.length>0){
-          this.displayCard=true;
-          this.makeChart(results);
-          }else{
-             const modalRef = this.modalService.open(LoginErrorComponent);
-             return modalRef.componentInstance.message = "Vérifier le chauffeur ainsi que la voiture affectée !";
-          }
-        },payload)
-
-
-
+    const payload = { 'id_chouffeur': array[0], 'mois': array[1], 'anne': array[2], };
+    this.getChefServiceCharet((results) => {
+      if (results.length > 0) {
+        this.displayCard = true;
+        this.makeChart(results);
+      } else {
+        const modalRef = this.modalService.open(LoginErrorComponent);
+        return modalRef.componentInstance.message = "Vérifier le chauffeur ainsi que la voiture affectée !";
+      }
+    }, payload)
   }
-
-  async getChefServiceCharet(callback,payload) {
-
+  async getChefServiceCharet(callback, payload) {
     try {
-      const { msg, erorer} = await this.dashboardService.getChefServiceCharet(payload) as any || [];
-      if(!erorer){
+      const { msg, erorer } = await this.dashboardService.getChefServiceCharet(payload) as any || [];
+      if (!erorer) {
 
-      callback(msg);
+        callback(msg);
       }
     } catch (error) {
       return error;
     }
   }
-
-
-
-}//end class
-
+}
 function getRandomData() {
   let data = [];
   const totalPoints = 300;
   if (data.length > 0) {
     data = data.slice(1);
   }
-
   while (data.length < totalPoints) {
     const prev = data.length > 0 ? data[data.length - 1] : 50;
     let y = prev + Math.random() * 10 - 5;

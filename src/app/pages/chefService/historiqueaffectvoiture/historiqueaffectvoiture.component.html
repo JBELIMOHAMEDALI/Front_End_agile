@@ -1,109 +1,112 @@
-    <div class="">
+<div class="">
 
-      <!-- Page-header start -->
-      <div class="page-header card">
-        <div class="row align-items-end">
-          <div class="col-lg-8">
-            <div class="page-header-title">
-              <span>
-                <i class="icofont icofont-history bg-c-blue card1-icon"></i>
-              </span>
-              <div class="d-inline">
-                <span class="d-block">
-                  <h4>Historique Affectations Chauffeur Voiture</h4>
-                </span>
-                <span>
-                  Dans cette page le chef service peut consulter l'historique des affectations des chauffeurs aux voitures
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="page-header-breadcrumb">
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a  [routerLink]="['/dashboard/chefService']">
-                    <i class="icofont icofont-home"></i>
-                  </a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a  [routerLink]="['/dashboard/chefService/historiqueAffectV']">Historique Affectations Chauffeur Voiture</a>
-                </li>
-              </ul>
-            </div>
+  <!-- Page-header start -->
+  <div class="page-header card">
+    <div class="row align-items-end">
+      <div class="col-lg-8">
+        <div class="page-header-title">
+          <span>
+            <i class="icofont icofont-history bg-c-blue card1-icon"></i>
+          </span>
+          <div class="d-inline">
+            <span class="d-block">
+              <h4>Historique Affectations Chauffeur Voiture</h4>
+            </span>
+            <span>
+              Dans cette page le chef service peut consulter l'historique des affectations des chauffeurs aux voitures
+            </span>
           </div>
         </div>
       </div>
+      <div class="col-lg-4">
+        <div class="page-header-breadcrumb">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/dashboard/chefService']">
+                <i class="icofont icofont-home"></i>
+              </a>
+            </li>
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/dashboard/chefService/historiqueAffectV']">Historique Affectations Chauffeur
+                Voiture</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-      <!-- Page-header end -->
+  </div>
+</div>
+<!-- Page-header end -->
 
 
-      <div class="row">
+<div class="row">
 
 
-        <div class="col-sm-12" >
-          <app-card [title]="'Historique des affectations Chauffeur Voiture :'" [classHeader]="true" [blockClass]="'table-border-style'">
-            <div class="col-11 col-md-6 col-lg-5 offset-md-3" style="width: 100%;">
-              <div class="input-group">
-                <span class="input-group-prepend">
-                <label class="input-group-text">
-                  <i class="icofont icofont-search"></i>
-                </label>
-                </span>
-                <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
-              </div>
-          </div>
-            <div class="table-responsive">
-
-            <div style="margin: 60px;overflow-x:auto;">
-              <table class="table table-hover" >
-                <thead>
-                  <ng-container matColumnDef="actions">
-                    <mat-header-cell  *matHeaderCellDef > Actions </mat-header-cell>
-                    <mat-cell *matCellDef="let row" >
-                         <button mat-button >Edit</button>
-                    </mat-cell>
-                  </ng-container>
-                  <tr style="text-align: center;">
-                    <th scope="col">Numéro Affectation</th>
-                    <th scope="col">Matricule Voiture</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Chauffeur</th>
-
-                  </tr>
-                </thead>
-                <ng-container *ngIf="this.voituresNonAffectees.length===0">
-
-                  <tbody>
-                    <tr style="text-align: center;">
-
-                     <td colspan="6">
-                       PAS DE DONNEES !
-                     </td>
-                    </tr>
-                  </tbody>
-                </ng-container>
-                <ng-container *ngIf="this.voituresNonAffectees.length>0">
-
-                  <tbody *ngFor="let affectation of this.voituresNonAffectees |filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
-                    <tr style="text-align: center;">
-                      <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>
-                      <td>{{affectation.matricule}}</td>
-                      <td>{{affectation.type}}</td>
-                      <td>{{affectation.nomPrenom}}</td>
-                    </tr>
-                  </tbody>
-                </ng-container>
-              </table>
-              <div *ngIf="this.voituresNonAffectees.length>0" style="text-align: center;">
-                <hr>
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-              </div>
-            </div>
-          </div>
-
-
-
-          </app-card>
+  <div class="col-sm-12">
+    <app-card [title]="'Historique des affectations Chauffeur Voiture :'" [classHeader]="true"
+      [blockClass]="'table-border-style'">
+      <div class="col-11 col-md-6 col-lg-5 offset-md-3" style="width: 100%;">
+        <div class="input-group">
+          <span class="input-group-prepend">
+            <label class="input-group-text">
+              <i class="icofont icofont-search"></i>
+            </label>
+          </span>
+          <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
         </div>
+      </div>
+      <div class="table-responsive">
+
+        <div style="margin: 60px;overflow-x:auto;">
+          <table class="table table-hover">
+            <thead>
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <button mat-button>Edit</button>
+                </mat-cell>
+              </ng-container>
+              <tr style="text-align: center;">
+                <th scope="col">Numéro Affectation</th>
+                <th scope="col">Matricule Voiture</th>
+                <th scope="col">Type</th>
+                <th scope="col">Chauffeur</th>
+
+              </tr>
+            </thead>
+            <ng-container *ngIf="this.voituresNonAffectees.length===0">
+
+              <tbody>
+                <tr style="text-align: center;">
+
+                  <td colspan="6">
+                    PAS DE DONNEES !
+                  </td>
+                </tr>
+              </tbody>
+            </ng-container>
+            <ng-container *ngIf="this.voituresNonAffectees.length>0">
+
+              <tbody
+                *ngFor="let affectation of this.voituresNonAffectees |filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
+                <tr style="text-align: center;">
+                  <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>
+                  <td>{{affectation.matricule}}</td>
+                  <td>{{affectation.type}}</td>
+                  <td>{{affectation.nomPrenom}}</td>
+                </tr>
+              </tbody>
+            </ng-container>
+          </table>
+          <div *ngIf="this.voituresNonAffectees.length>0" style="text-align: center;">
+            <hr>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
         </div>
+      </div>
+
+
+
+    </app-card>
+  </div>
+</div>

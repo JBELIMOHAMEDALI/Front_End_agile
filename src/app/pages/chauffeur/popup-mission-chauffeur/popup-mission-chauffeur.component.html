@@ -1,112 +1,118 @@
 <div class="modal-header">
-    <h4 class="modal-title">{{title}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body" *ngIf="this.mission">
-      
-  
-    
-        <div class="view-info">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="general-info">
-                  <div class="row">
-                    <div class="col-lg-12 col-xl-12">
-                      <div class="table-responsive">
-                        <table class="table m-0">
-                          <tbody>
-                            <tr>
-                              <th scope="row">Mission Ref N °</th>
-                              <td > {{ this.mission.id_mission }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Date Début</th>
-                                <td >{{ this.controls.dateFormat(this.mission.date_debut) }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Date Fin</th>
-                                <td >{{ this.controls.dateFormat(this.mission.date_fin) }}</td>
-                              </tr>
-                              <tr *ngIf="this.mission.etat==='0'">
-                                <th scope="row">Dépassement de délai</th>
-                                <td *ngIf="this.controls.daysDiff(this.mission.date_fin)<0">Oui, Délai dépassé par {{this.controls.daysDiff(this.mission.date_fin)*-1}} jour(s)</td>
-                                <td *ngIf="this.controls.daysDiff(this.mission.date_fin)>0">Non, il vous reste {{this.controls.daysDiff(this.mission.date_fin)}} jour(s)</td>
-                                <td *ngIf="this.controls.daysDiff(this.mission.date_fin)===0">Non, il vous reste une journée</td>
+  <h4 class="modal-title">{{title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body" *ngIf="this.mission">
 
-                              </tr>
-                              <tr>
-                                  <th scope="row">Description</th>
-                                  <td *ngIf="this.mission.description"> {{ this.mission.description }}</td>
-                                  <td *ngIf="!this.mission.description"> {{ "Aucune Description" }}</td>
 
-                              </tr>
-                               
-                            
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <!-- end of table col-lg-6 -->
-                   
-                    <!-- end of table col-lg-6 -->
-                  </div>
-                  <!-- end of row -->
-                </div>
-                <!-- end of general info -->
-              </div>
-              <!-- end of col-lg-12 -->
-            </div>
-            <!-- end of row -->
-          </div>
-       
-    
-      
-    </div>
 
-    <div class="modal-body" *ngIf="!this.mission">
-      
-  
-    
-      <div class="view-info">
+  <div class="view-info">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="general-info">
           <div class="row">
-            <div class="col-lg-12">
-              <div class="general-info">
-                <div class="row">
-                  <div class="col-lg-12 col-xl-12">
-                    <!-- <div class="table-responsive">
-                      <table class="table m-0">
-                        <tbody> -->
-                         
-                            <tr >
-                                <center>
-                                  <th scope="row">Merci De Confirmer</th>
-                                </center>
-                            </tr>
-                             
-                          
-                        <!-- </tbody>
-                      </table>
-                    </div> -->
-                  </div>
-                  <!-- end of table col-lg-6 -->
-                 
-                  <!-- end of table col-lg-6 -->
-                </div>
-                <!-- end of row -->
+            <div class="col-lg-12 col-xl-12">
+              <div class="table-responsive">
+                <table class="table m-0">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Mission Ref N °</th>
+                      <td> {{ this.mission.id_mission }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Date Début</th>
+                      <td>{{ this.controls.dateFormat(this.mission.date_debut,true) }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Date Fin</th>
+                      <td>{{ this.controls.dateFormat(this.mission.date_fin,true) }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Durée mission</th>
+                      <td *ngIf="this.controls.dureeDiff(this.mission.date_debut,this.mission.date_fin)[0]>=1">{{
+                        this.controls.dureeDiff(this.mission.date_debut,this.mission.date_fin)[0]+" jour(s) et
+                        "+this.controls.dureeDiff(this.mission.date_debut,this.mission.date_fin)[1]+" heures" }}</td>
+                      <td *ngIf="this.controls.dureeDiff(this.mission.date_debut,this.mission.date_fin)[0]==0">{{0+"
+                        jour(s) et "+this.controls.dureeDiff(this.mission.date_debut,this.mission.date_fin)[1]+" heures"
+                        }}</td>
+                    </tr>
+                    <tr *ngIf="this.mission.etat==='0'">
+                      <th scope="row">Dépassement de délai</th>
+                      <td *ngIf="this.controls.daysDiff(this.mission.date_fin)[0]<0">Oui, Délai dépassé par {{this.controls.daysDiff(this.mission.date_fin)[0]*-1+" jour(s) et "+ this.controls.daysDiff(this.mission.date_fin)[1]+" heures"}}</td>
+                      <td *ngIf="this.controls.daysDiff(this.mission.date_fin)[0]>0">Non, il vous reste {{this.controls.daysDiff(this.mission.date_fin)[0]+" jour(s) et "+this.controls.daysDiff(this.mission.date_fin)[1]+" heures"}} </td>
+                      <td *ngIf="this.controls.daysDiff(this.mission.date_fin)[0]===0">Non, il vous reste {{0+" jour(s) et "+this.controls.daysDiff(this.mission.date_fin)[1]+" heures"}}</td>
+
+                    </tr>
+                    <tr>
+                      <th scope="row">Description</th>
+                      <td *ngIf="this.mission.description"> {{ this.mission.description }}</td>
+                      <td *ngIf="!this.mission.description"> {{ "Aucune Description" }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <!-- end of general info -->
             </div>
-            <!-- end of col-lg-12 -->
+
+
+            <!-- end of table col-lg-6 -->
           </div>
           <!-- end of row -->
         </div>
-     
-  
-    
+        <!-- end of general info -->
+      </div>
+      <!-- end of col-lg-12 -->
+    </div>
+    <!-- end of row -->
   </div>
-    <div class="modal-footer">
-    <button *ngIf="!this.mission" type="button" class="btn btn-primary" (click)="this.update_etat()">Confirmer</button>
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+
+
+
+</div>
+
+<div class="modal-body" *ngIf="!this.mission">
+
+
+
+  <div class="view-info">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="general-info">
+          <div class="row">
+            <div class="col-lg-12 col-xl-12">
+              <!-- <div class="table-responsive">
+                      <table class="table m-0">
+                        <tbody> -->
+
+              <tr>
+                <center>
+                  <th scope="row">Merci De Confirmer</th>
+                </center>
+              </tr>
+
+
+              <!-- </tbody>
+                      </table>
+                    </div> -->
+            </div>
+            <!-- end of table col-lg-6 -->
+
+            <!-- end of table col-lg-6 -->
+          </div>
+          <!-- end of row -->
+        </div>
+        <!-- end of general info -->
+      </div>
+      <!-- end of col-lg-12 -->
+    </div>
+    <!-- end of row -->
   </div>
+
+
+
+</div>
+<div class="modal-footer">
+  <button *ngIf="!this.mission" type="button" class="btn btn-primary" (click)="this.update_etat()">Confirmer</button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+</div>

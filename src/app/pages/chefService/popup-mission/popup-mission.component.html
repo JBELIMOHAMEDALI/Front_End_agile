@@ -1,281 +1,274 @@
-<ng-container>
-    <div class="modal-header">
-        <h4 class="modal-title">{{title}}</h4>
-        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <form *ngIf="this.id>0&&this.mission&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
-    <div  class="modal-body" >
+<div class="modal-header">
+  <h4 class="modal-title">{{title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<!-- update -->
+<form *ngIf="this.id>0&&this.mission&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
+  <div class="modal-body">
+    <div class="input-group">
+      <span class="input-group-prepend"><label class="input-group-text"><i
+            class="icofont icofont-car-alt-1"></i></label></span>
+      <select [(ngModel)]="this.mission.id_chauffeur" #id_chauffeur="ngModel" name="id_chauffeur" class="form-control"
+        required>
+        <option [value]="this.mission.id_chauffeur">{{this.mission.nomPrenom+' ** '+this.mission.matricule}}</option>
 
+        <ng-container *ngFor="let chauffeur of this.chauffeurtoUpdate;let i=index;">
 
+          <option [value]="chauffeur.id_chauffeur">
+            {{chauffeur.nomPrenom+' ** '+chauffeur.matricule}}
+          </option>
+        </ng-container>
 
-
-          <div class="input-group">
-            <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-car-alt-1"></i></label></span>
-        <select  [(ngModel)]="this.mission.id_chauffeur" #id_chauffeur="ngModel" name="id_chauffeur" class="form-control" required>
-          <option [value]="this.mission.id_chauffeur">{{this.mission.nomPrenom+' ** '+this.mission.matricule}}</option>
-
-          <ng-container *ngFor="let chauffeur of this.chauffeurtoUpdate;let i=index;">
-
-                <option [value]="chauffeur.id_chauffeur">
-                    {{chauffeur.nomPrenom+' ** '+chauffeur.matricule}}
-                </option>
-            </ng-container>
-
-        </select>
+      </select>
     </div>
 
-            <div class="input-group">
+    <div class="input-group">
 
-                <span class="input-group-prepend"><label class="input-group-text"><i
-                  class="icofont icofont-calendar"></i></label></span>
-                <input class="form-control" type="datetime-local" name="dd" [(ngModel)]="this.mission.date_debut"
-                required #dd="ngModel"  />
-            </div>
-            <div *ngIf="(dd.invalid && dd.touched)" class="alert alert-danger p-2" role="alert">
-                Saisir la date début
-            </div>
+      <span class="input-group-prepend"><label class="input-group-text"><i
+            class="icofont icofont-calendar"></i></label></span>
+      <input class="form-control" type="datetime-local" name="dd" [(ngModel)]="this.mission.date_debut" required
+        #dd="ngModel" />
+    </div>
+    <div *ngIf="(dd.invalid && dd.touched)" class="alert alert-danger p-2" role="alert">
+      Saisir la date début
+    </div>
 
-            <div class="input-group">
+    <div class="input-group">
 
-              <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-calendar"></i></label></span>
-              <input class="form-control" type="datetime-local" name="df" [(ngModel)]="this.mission.date_fin"
-              required #df="ngModel"  />
-          </div>
-          <div *ngIf="(df.invalid && df.touched)" class="alert alert-danger p-2" role="alert">
-              Saisir la date fin
-          </div>
-          <div *ngIf="(dd.valid && df.valid)&&(this.controls.dateDiff(dd.value,df.value))" class="alert alert-danger p-2" role="alert">
-            la date début est supérieur à la date fin
-        </div>
+      <span class="input-group-prepend"><label class="input-group-text"><i
+            class="icofont icofont-calendar"></i></label></span>
+      <input class="form-control" type="datetime-local" name="df" [(ngModel)]="this.mission.date_fin" required
+        #df="ngModel" />
+    </div>
+    <div *ngIf="(df.invalid && df.touched)" class="alert alert-danger p-2" role="alert">
+      Saisir la date fin
+    </div>
+    <div *ngIf="(dd.valid && df.valid)&&(this.controls.dateDiff(dd.value,df.value))" class="alert alert-danger p-2"
+      role="alert">
+      la date début est supérieur à la date fin
+    </div>
 
-          <div class="input-group">
+    <div class="input-group">
 
-            <span class="input-group-prepend"><label class="input-group-text"><i
-              class="icofont icofont-paper"></i></label></span>
+      <span class="input-group-prepend"><label class="input-group-text"><i
+            class="icofont icofont-paper"></i></label></span>
 
-            <textarea class="form-control" id="exampleInputDesc"
-            placeholder="Aucune Description" name="desc"
-            required [(ngModel)]="this.mission.description" #desc="ngModel">
+      <textarea class="form-control" id="exampleInputDesc" placeholder="Aucune Description" name="desc" required
+        [(ngModel)]="this.mission.description" #desc="ngModel">
         </textarea>
-        </div>
-        <div *ngIf="(desc.invalid && desc.touched)" class="alert alert-danger p-2" role="alert">
-          Description invalide
-        </div>
-
-            <div class="modal-footer">
-
-                <input type="submit" class="btn btn-outline-primary" value="Modifier"
-                [disabled]="df.invalid||dd.invalid||this.controls.dateDiff(dd.value,df.value)||desc.invalid"/>
-                <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
-            </div>
-            </div>
-
-    </form>
-
-
-
-
-    <form *ngIf="this.id===-1&&!this.mission" name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
-
-        <div  class="modal-body" >
-
-
-          <div class="input-group">
-            <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-car-alt-1"></i></label></span>
-        <select  ngModel={{-1}} #id_chauffeur="ngModel" name="id_chauffeur" class="form-control" required>
-            <option disabled [value]="-1">Séléctionner un chauffeur</option>
-            <ng-container *ngFor="let chauffeur of this.chauffeurList;let i=index;">
-
-                <option [value]="chauffeur.id_chauffeur">
-                    {{chauffeur.nomPrenom+' ** '+chauffeur.matricule}}
-                </option>
-            </ng-container>
-
-        </select>
     </div>
-    <div *ngIf="(this.controls.validateSelect(id_chauffeur.value)&&id_chauffeur.touched)" class="alert alert-danger p-2" role="alert">
-        Séléctionner un chauffeur
+    <div *ngIf="(desc.invalid && desc.touched)" class="alert alert-danger p-2" role="alert">
+      Description invalide
     </div>
 
+    <div class="modal-footer">
+
+      <input type="submit" class="btn btn-outline-primary" value="Modifier"
+        [disabled]="df.invalid||dd.invalid||this.controls.dateDiff(dd.value,df.value)||desc.invalid" />
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+    </div>
+  </div>
+
+</form>
+
+
+<!-- ajouter -->
+
+<form *ngIf="this.id===-1&&!this.mission" name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
+
+  <div class="modal-body">
+
+
+    <div class="input-group">
+      <span class="input-group-prepend"><label class="input-group-text"><i
+            class="icofont icofont-car-alt-1"></i></label></span>
+      <select ngModel={{-1}} #id_chauffeur="ngModel" name="id_chauffeur" class="form-control" required>
+        <option disabled [value]="-1">Séléctionner un chauffeur</option>
+        <ng-container *ngFor="let chauffeur of this.chauffeurList;let i=index;">
+
+          <option [value]="chauffeur.id_chauffeur">
+            {{chauffeur.nomPrenom+' ** '+chauffeur.matricule}}
+          </option>
+        </ng-container>
+
+      </select>
+    </div>
+    <div *ngIf="(this.controls.validateSelect(id_chauffeur.value)&&id_chauffeur.touched)" class="alert alert-danger p-2"
+      role="alert">
+      Séléctionner un chauffeur
+    </div>
 
 
 
 
 
-            <div class="input-group">
 
-                <span class="input-group-prepend"><label class="input-group-text"><i
-                  class="icofont icofont-calendar"></i></label></span>
-                  <input class="form-control" type="datetime-local" name="dd" required #dd="ngModel" ngModel>
+    <div class="input-group">
 
-                <!-- <input class="form-control" type="date" name="dd" ngModel
+      <span class="input-group-prepend"><label class="input-group-text"><i
+            class="icofont icofont-calendar"></i></label></span>
+      <input class="form-control" type="datetime-local" name="dd" required #dd="ngModel" ngModel>
+
+      <!-- <input class="form-control" type="date" name="dd" ngModel
                 required #dd="ngModel"  /> -->
-            </div>
-            <div *ngIf="(dd.invalid && dd.touched)" class="alert alert-danger p-2" role="alert">
-                Saisir la date début
-            </div>
-
-
-
-            <div class="input-group">
-
-              <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-calendar"></i></label></span>
-                <input class="form-control" type="datetime-local" name="df" required #df="ngModel" ngModel>
-
-              <!-- <input class="form-control" type="date" name="df" ngModel
-              required #df="ngModel"  /> -->
-          </div>
-          <div *ngIf="(df.invalid && df.touched)" class="alert alert-danger p-2" role="alert">
-              Saisir la date fin
-          </div>
-          <div *ngIf="(dd.valid && df.valid)&&(this.controls.dateDiff(dd.value,df.value))" class="alert alert-danger p-2" role="alert">
-            la date début est supérieur à la date fin
-        </div>
-
-          <div class="input-group">
-
-            <span class="input-group-prepend"><label class="input-group-text"><i
-              class="icofont icofont-paper"></i></label></span>
-
-            <textarea class="form-control" id="exampleInputDesc"
-            placeholder="Aucune Description" name="desc"
-            required ngModel #desc="ngModel">
-        </textarea>
-        </div>
-        <div *ngIf="(desc.invalid && desc.touched)" class="alert alert-danger p-2" role="alert">
-          Description invalide
-        </div>
-
-
-            <div class="modal-footer">
-                <input type="submit" class="btn btn-outline-primary"
-                [disabled]="df.invalid||dd.invalid||this.controls.validateSelect(id_chauffeur.value)
-                ||this.controls.dateDiff(dd.value,df.value)||desc.invalid"
-                value="Confirmer" />
-                <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
-            </div>
-        </div>
-    </form>
-
-    <div class="modal-body" *ngIf="this.show&&this.mission">
-
-
-        <div class="view-info">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="general-info">
-                  <div class="row">
-                    <div class="col-lg-12 col-xl-12">
-                      <div class="table-responsive">
-                        <table class="table m-0">
-                          <tbody>
-                            <tr>
-                              <th scope="row">Numéro mission</th>
-                              <td > {{ this.mission.id_mission }}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Numéro Chauffeur</th>
-                              <td > {{ this.mission.id_chauffeur }}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Matricule Chauffeur</th>
-                              <td > {{ this.mission.matriculeChauffeur }}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Chauffeur</th>
-                              <td > {{ this.mission.nomPrenom }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Voiture</th>
-                                <td >{{ this.mission.matricule+" ** "+this.mission.type }}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Date début mission</th>
-                              <td >{{ this.controls.dateFormat(mission.date_debut,true) }}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Date fin mission</th>
-                            <td >{{ this.controls.dateFormat(this.mission.date_fin,true)}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Mission terminée?</th>
-                          <td *ngIf="this.mission.etat=='0'">Non pas encore</td>
-                          <td *ngIf="this.mission.etat=='1'"> {{"Oui, terminée le "+this.controls.dateFormat(this.mission.date_fin_real)}}</td>
-
-                        </tr>
-                            <tr>
-                              <th scope="row">Description</th>
-                              <td *ngIf="!this.mission.description">Aucune Description</td>
-                              <td *ngIf="this.mission.description">{{this.mission.description}}</td>
-
-                            </tr>
-
-
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <!-- end of table col-lg-6 -->
-
-                    <!-- end of table col-lg-6 -->
-                  </div>
-                  <!-- end of row -->
-                </div>
-                <!-- end of general info -->
-              </div>
-              <!-- end of col-lg-12 -->
-            </div>
-            <!-- end of row -->
-          </div>
-
-
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
-        </div>
+    </div>
+    <div *ngIf="(dd.invalid && dd.touched)" class="alert alert-danger p-2" role="alert">
+      Saisir la date début
     </div>
 
-    <div class="modal-body" *ngIf="this.id!=-1&&!this.mission">
 
-      <div class="view-info">
+
+    <div class="input-group">
+
+      <span class="input-group-prepend"><label class="input-group-text"><i
+            class="icofont icofont-calendar"></i></label></span>
+      <input class="form-control" type="datetime-local" name="df" required #df="ngModel" ngModel>
+
+      <!-- <input class="form-control" type="date" name="df" ngModel
+              required #df="ngModel"  /> -->
+    </div>
+    <div *ngIf="(df.invalid && df.touched)" class="alert alert-danger p-2" role="alert">
+      Saisir la date fin
+    </div>
+    <div *ngIf="(dd.valid && df.valid)&&(this.controls.dateDiff(dd.value,df.value))" class="alert alert-danger p-2"
+      role="alert">
+      la date début est supérieur à la date fin
+    </div>
+
+    <div class="input-group">
+
+      <span class="input-group-prepend"><label class="input-group-text"><i
+            class="icofont icofont-paper"></i></label></span>
+
+      <textarea class="form-control" id="exampleInputDesc" placeholder="Aucune Description" name="desc" required ngModel
+        #desc="ngModel">
+        </textarea>
+    </div>
+    <div *ngIf="(desc.invalid && desc.touched)" class="alert alert-danger p-2" role="alert">
+      Description invalide
+    </div>
+
+
+    <div class="modal-footer">
+      <input type="submit" class="btn btn-outline-primary" [disabled]="df.invalid||dd.invalid||this.controls.validateSelect(id_chauffeur.value)
+                ||this.controls.dateDiff(dd.value,df.value)||desc.invalid" value="Confirmer" />
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+    </div>
+  </div>
+</form>
+<!-- info  -->
+<div class="modal-body" *ngIf="this.show&&this.mission">
+
+
+  <div class="view-info">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="general-info">
           <div class="row">
-            <div class="col-lg-12">
-              <div class="general-info">
-                <div class="row">
-                  <div class="col-lg-12 col-xl-12">
-                    <div class="table-responsive">
-                      <table class="table m-0">
-                        <tbody>
-                          <tr>
-                            <th scope="row">Confirmer la Suppression !</th>
-                          </tr>
+            <div class="col-lg-12 col-xl-12">
+              <div class="table-responsive">
+                <table class="table m-0">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Numéro mission</th>
+                      <td> {{ this.mission.id_mission }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Numéro Chauffeur</th>
+                      <td> {{ this.mission.id_chauffeur }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Matricule Chauffeur</th>
+                      <td> {{ this.mission.matriculeChauffeur }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Chauffeur</th>
+                      <td> {{ this.mission.nomPrenom }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Voiture</th>
+                      <td>{{ this.mission.matricule+" ** "+this.mission.type }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Date début mission</th>
+                      <td>{{ this.controls.dateFormat(mission.date_debut,true) }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Date fin mission</th>
+                      <td>{{ this.controls.dateFormat(this.mission.date_fin,true)}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Mission terminée?</th>
+                      <td *ngIf="this.mission.etat=='0'">Non pas encore</td>
+                      <td *ngIf="this.mission.etat=='1'"> {{"Oui, terminée le
+                        "+this.controls.dateFormat(this.mission.date_fin_real)}}</td>
+
+                    </tr>
+                    <tr>
+                      <th scope="row">Description</th>
+                      <td *ngIf="!this.mission.description">Aucune Description</td>
+                      <td *ngIf="this.mission.description">{{this.mission.description}}</td>
+
+                    </tr>
 
 
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <!-- end of table col-lg-6 -->
-
-                  <!-- end of table col-lg-6 -->
-                </div>
-                <!-- end of row -->
+                  </tbody>
+                </table>
               </div>
-              <!-- end of general info -->
             </div>
-            <!-- end of col-lg-12 -->
+            <!-- end of table col-lg-6 -->
+
+            <!-- end of table col-lg-6 -->
           </div>
           <!-- end of row -->
         </div>
+        <!-- end of general info -->
+      </div>
+      <!-- end of col-lg-12 -->
+    </div>
+    <!-- end of row -->
+  </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="this.supprimerMission()">Confirmer</button>
-          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+  <div class="modal-footer">
+
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+  </div>
+</div>
+
+<!-- info  -->
+
+
+<div class="modal-body" *ngIf="this.id!=-1&&!this.mission">
+
+  <div class="view-info">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="general-info">
+          <div class="row">
+            <div class="col-lg-12 col-xl-12">
+              <div class="table-responsive">
+                <table class="table m-0">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Confirmer la Suppression !</th>
+                    </tr>
+
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
-    </ng-container>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="this.supprimerMission()">Confirmer</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+  </div>
+</div>

@@ -28,7 +28,7 @@ export class PopupMissionComponent implements OnInit {
     private modalService: NgbModal,
     public controls: ControlsService,
     private affectVoitureService: AffectVoitureService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadChauffeursNonAffectes((chauffeurs) => {

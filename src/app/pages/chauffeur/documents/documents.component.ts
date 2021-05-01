@@ -8,17 +8,17 @@ import { ControlsService } from '../../../services/controls.service';
 })
 export class DocumentsComponent implements OnInit {
 
-  constructor(private controls:ControlsService) { }
+  constructor(private controls: ControlsService) { }
 
   ngOnInit() {
     switch (this.controls.verifLocalStorage()) {
       case "chefService":
-          this.controls.navigateAndreload('/dashboard');
+        this.controls.navigateAndreload('/dashboard');
         break;
       case null:
-          this.controls.navigateAndreload('/accueil');
+        this.controls.navigateAndreload('/accueil');
         break;
-      
+
     }
   }
 

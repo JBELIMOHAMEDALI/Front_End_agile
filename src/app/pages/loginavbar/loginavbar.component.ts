@@ -23,17 +23,11 @@ export class LoginavbarComponent implements OnInit {
     let result: string = "";
 
     switch (type) {
-      // case 'administrateur':
-      //   ch = "pqrsxy123tu";
-
-      //   break;
       case 'chefService':
         ch = "fghij789kl!";
-
         break;
       case 'chauffeur':
         ch = "abcde456nom";
-
         break;
     }
     for (let i = 0; i < ch.length; i++) {

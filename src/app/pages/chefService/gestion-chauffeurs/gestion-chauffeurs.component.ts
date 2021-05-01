@@ -18,7 +18,7 @@ export class GestionChauffeursComponent implements OnInit {
     private userServ: UserService,
     private modalService: NgbModal,
     private controls: ControlsService
-  ) {}
+  ) { }
 
   chauffeursActif: Chauffeur[] = [];
   chauffeursAll: Chauffeur[] = [];
@@ -44,7 +44,6 @@ export class GestionChauffeursComponent implements OnInit {
       return error;
     }
   }
-
   async update(chauffeur: Chauffeur) {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = "MODIFICATION CHAUFFEUR";
@@ -53,17 +52,19 @@ export class GestionChauffeursComponent implements OnInit {
 
     if (this.chauffeursAll.length > 0) {
       modalRef.componentInstance.chauffeursAll = this.chauffeursAll;
-      modalRef.componentInstance.matList = this.controls.getAllMatriculeOrEmails(
+      modalRef.componentInstance.matList = this.controls.getAllMatriculeOrEmailsUpdate(
         this.chauffeursAll,
-        "matricule"
+        "matricule",
+        chauffeur.matricule
       );
-      modalRef.componentInstance.emailList = this.controls.getAllMatriculeOrEmails(
+
+      modalRef.componentInstance.emailList = this.controls.getAllMatriculeOrEmailsUpdate(
         this.chauffeursAll,
-        "email"
+        "email",
+        chauffeur.email
       );
     }
   }
-
   Ajouter() {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = "NOUVEAU CHAUFFEUR";
@@ -81,7 +82,6 @@ export class GestionChauffeursComponent implements OnInit {
       );
     }
   }
-
   showChauffeur(chauffeur: Chauffeur, actif: boolean) {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = "DONNEES CHAUFFEUR";
@@ -89,7 +89,6 @@ export class GestionChauffeursComponent implements OnInit {
     modalRef.componentInstance.actif = actif;
     modalRef.componentInstance.chauffeur = { ...chauffeur };
   }
-
   activerDesactiver(id_chauffeur: string) {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = "DESACTIVATION CHAUFFEUR";

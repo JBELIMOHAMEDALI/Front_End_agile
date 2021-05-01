@@ -15,22 +15,18 @@ import { PopupChauffeurComponent } from "../popup-chauffeur/popup-chauffeur.comp
 export class ChauffeursinactivesComponent implements OnInit {
   p: number;
   term: any;
-
   constructor(
     private userServ: UserService,
     private chefServ: ChefService,
     private modalService: NgbModal,
     private controls: ControlsService
-  ) {}
-
+  ) { }
   chauffeursInactif: Chauffeur[] = [];
-
   ngOnInit() {
     this.getUsers((result) => {
       this.chauffeursInactif = result;
     });
   }
-
   async getUsers(callback) {
     try {
       const { msg, erorer } =
@@ -42,14 +38,12 @@ export class ChauffeursinactivesComponent implements OnInit {
       return error;
     }
   }
-
   activerDesactiver(id_chauffeur: string) {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = "ACTIVATION CHAUFFEUR";
     modalRef.componentInstance.id_chauffeur = id_chauffeur;
     modalRef.componentInstance.actif = false;
   }
-
   showChauffeur(chauffeur: Chauffeur) {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = "DONNEES CHAUFFEUR";

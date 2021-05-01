@@ -1,116 +1,119 @@
-
 <ng-container>
-<div class="modal-header">
+  <div class="modal-header">
     <h4 class="modal-title">{{title}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <span aria-hidden="true">&times;</span>
     </button>
-</div>
+  </div>
+  <!-- ajouter -->
+  <ng-container *ngIf="!this.voiture&&!this.chauffeur&&!this.idAffectation">
+    <form name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
+      <div class="modal-body">
 
-<ng-container *ngIf="!this.voiture&&!this.chauffeur&&!this.idAffectation">
-<form name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
-        <div class="modal-body">
-
-            <div class="input-group">
-                <span class="input-group-prepend"><label class="input-group-text"><i
-                    class="icofont icofont-user-alt-1"></i></label></span>
-        <select ngModel={{-1}} name="chauffeuropt" #chauffeuropt="ngModel" class="form-control" required >
+        <div class="input-group">
+          <span class="input-group-prepend"><label class="input-group-text"><i
+                class="icofont icofont-user-alt-1"></i></label></span>
+          <select ngModel={{-1}} name="chauffeuropt" #chauffeuropt="ngModel" class="form-control" required>
             <option disabled [value]="-1">Séléctionner un chauffeur</option>
 
             <option *ngFor="let chauffeur of this.chauffeurList;let i=index;" [value]="chauffeur.id_chauffeur">
-                {{chauffeur.nomPrenom}}
+              {{chauffeur.nomPrenom}}
             </option>
 
-        </select>
+          </select>
         </div>
 
-        <div *ngIf="(this.controls.validateSelect(chauffeuropt.value)&&chauffeuropt.touched)" class="alert alert-danger p-2" role="alert">
-            Séléctionner un chauffeur
+        <div *ngIf="(this.controls.validateSelect(chauffeuropt.value)&&chauffeuropt.touched)"
+          class="alert alert-danger p-2" role="alert">
+          Séléctionner un chauffeur
         </div>
 
-    <div class="input-group mt-4">
-        <span class="input-group-prepend"><label class="input-group-text"><i
-            class="icofont icofont-car-alt-1"></i></label></span>
-        <select name="voitureopt" ngModel={{-1}} name="voitureopt" #voitureopt="ngModel"
-        class="form-control" required>
+        <div class="input-group mt-4">
+          <span class="input-group-prepend"><label class="input-group-text"><i
+                class="icofont icofont-car-alt-1"></i></label></span>
+          <select name="voitureopt" ngModel={{-1}} name="voitureopt" #voitureopt="ngModel" class="form-control"
+            required>
             <option disabled [value]="-1">Séléctionner une voiture</option>
             <ng-container *ngFor="let voiture of this.voitureList;let i=index;">
 
-                <option [value]="voiture.id_voiture">
-                    {{voiture.matricule}}
-                </option>
+              <option [value]="voiture.id_voiture">
+                {{voiture.matricule}}
+              </option>
             </ng-container>
 
-        </select>
+          </select>
         </div>
 
 
-        <div *ngIf="(this.controls.validateSelect(voitureopt.value)&&voitureopt.touched)" class="alert alert-danger p-2" role="alert">
-            Séléctionner une voiture
+        <div *ngIf="(this.controls.validateSelect(voitureopt.value)&&voitureopt.touched)" class="alert alert-danger p-2"
+          role="alert">
+          Séléctionner une voiture
         </div>
 
 
 
         <div class="modal-footer">
 
-            <input type="submit" value="Confirmer" class="btn btn-outline-primary"
+          <input type="submit" value="Confirmer" class="btn btn-outline-primary"
             [disabled]="this.controls.validateSelect(voitureopt)||this.controls.validateSelect(chauffeuropt)" />
-            <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
         </div>
-    </div>
- </form>
-</ng-container>
-
-<ng-container *ngIf="this.voiture&&this.chauffeur">
-<form name="form" (ngSubmit)="onSubmit(fupdate)" #fupdate="ngForm" novalidate>
-        <div class="modal-body">
+      </div>
+    </form>
+  </ng-container>
+  <!-- update -->
+  <ng-container *ngIf="this.voiture&&this.chauffeur">
+    <form name="form" (ngSubmit)="onSubmit(fupdate)" #fupdate="ngForm" novalidate>
+      <div class="modal-body">
         <div class="input-group">
-            <span class="input-group-prepend"><label class="input-group-text"><i
+          <span class="input-group-prepend"><label class="input-group-text"><i
                 class="icofont icofont-user-alt-1"></i></label></span>
-        <select [(ngModel)]="this.chauffeur.id_chauffeur" name="chauffeuropt" #chauffeuropt="ngModel" class="form-control" required >
+          <select [(ngModel)]="this.chauffeur.id_chauffeur" name="chauffeuropt" #chauffeuropt="ngModel"
+            class="form-control" required>
             <option [value]="this.chauffeur.id_chauffeur">{{this.chauffeur.nomPrenom}}</option>
 
             <ng-container *ngFor="let chauffeur of this.chauffeurList;let i=index;">
-                <option [value]="this.chauffeur.id_chauffeur">
-                    {{chauffeur.nomPrenom+" ** "+chauffeur.matricule}}
-                </option>
+              <option [value]="this.chauffeur.id_chauffeur">
+                {{chauffeur.nomPrenom+" ** "+chauffeur.matricule}}
+              </option>
             </ng-container>
 
-        </select>
+          </select>
 
         </div>
 
 
 
         <div class="input-group mt-4">
-            <span class="input-group-prepend"><label class="input-group-text"><i
+          <span class="input-group-prepend"><label class="input-group-text"><i
                 class="icofont icofont-car-alt-1"></i></label></span>
-        <select [(ngModel)]="this.voiture.id_voiture" name="voitureopt" #voitureopt="ngModel" class="form-control" required>
+          <select [(ngModel)]="this.voiture.id_voiture" name="voitureopt" #voitureopt="ngModel" class="form-control"
+            required>
             <option [value]="this.voiture.id_voiture">{{this.voiture.matricule}}</option>
 
             <ng-container *ngFor="let voiture of this.voitureList;let i=index;">
-            <option [value]="this.voiture.id_voiture">
+              <option [value]="this.voiture.id_voiture">
                 {{voiture.matricule}}
-            </option>
+              </option>
             </ng-container>
-        </select>
+          </select>
         </div>
 
 
-    <div class="modal-footer">
+        <div class="modal-footer">
 
-        <input type="submit" value="Confirmer" class="btn btn-outline-primary" />
-        <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
-    </div>
-</div>
-</form>
-</ng-container>
+          <input type="submit" value="Confirmer" class="btn btn-outline-primary" />
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+        </div>
+      </div>
+    </form>
+  </ng-container>
 
+  <!-- decastive active  -->
+  <ng-container>
+    <div class="modal-body" *ngIf="this.idAffectation&&!this.chauffeur">
 
-<ng-container>
-  <div class="modal-body" *ngIf="this.idAffectation&&!this.chauffeur">
-
-    <div class="view-info">
+      <div class="view-info">
         <div class="row">
           <div class="col-lg-12">
             <div class="general-info">
@@ -120,7 +123,7 @@
                     <table class="table m-0">
                       <tbody>
                         <tr>
-                          <th scope="row">Confirmer la désactivation !</th>
+                          <th scope="row">Confirmer l'activation !</th>
                         </tr>
 
 
@@ -141,11 +144,12 @@
         <!-- end of row -->
       </div>
 
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-primary" (click)="this.activerDesactiverAffectation()">Confirmer</button>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary"
+          (click)="this.activerDesactiverAffectation()">Confirmer</button>
         <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+      </div>
     </div>
-  </div>
-</ng-container>
+  </ng-container>
 
 </ng-container>

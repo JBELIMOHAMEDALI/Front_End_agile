@@ -46,7 +46,7 @@ export class FirstconnectionComponent implements OnInit {
     }
     else{
 
-      this.controls.verifLogin(userid);
+      this.controls.verifLogin();
     }
 
     // if (idcnx != null) {

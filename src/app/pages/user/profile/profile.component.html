@@ -1,520 +1,507 @@
 <ng-container *ngIf="this.getCurrentUser()">
-<!--profile cover start-->
-<div class="row" >
-  <div class="col-lg-12">
-    <div class="cover-profile">
-      <div class="profile-bg-img">
-        <img class="profile-bg-img img-fluid" style="max-height:250px;" src="assets/images/user-profile/agile-img.jpg" alt="bg-img">
-        <div class="card-body user-info">
-          <div class="col-md-12">
-            <div class="media-left">
-              <a href="javascript:;" class="profile-image">
-                <!-- <div class="row">
-                  <div class="col-md-4">
-                      <img class="thumbnail img-responsive" src="https://e7.pngegg.com/pngimages/409/621/png-clipart-computer-icons-avatar-male-user-profile-others-logo-monochrome.png" />
-                  </div>
-                  </div> -->
-                <!-- <img class="user-img img-radius" src="https://e7.pngegg.com/pngimages/409/621/png-clipart-computer-icons-avatar-male-user-profile-others-logo-monochrome.png" alt="user-img"> -->
-              </a>
-            </div>
-            <div class="media-body row">
-              <div class="col-lg-12">
-                <div class="user-title">
-                  <!-- <h2>{{ this.getCurrentUser().nomPrenom }}</h2> -->
-                  <!-- <span class="text-white">{{this.controls.formatFullName(this.getCurrentUser().type)}}</span> -->
-                </div>
+  <!--profile cover start-->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="cover-profile">
+        <div class="profile-bg-img">
+          <img class="profile-bg-img img-fluid" style="max-height:250px;" src="assets/images/user-profile/agile-img.jpg"
+            alt="bg-img">
+          <div class="card-body user-info">
+            <div class="col-md-12">
+              <div class="media-left">
+                <a href="javascript:;" class="profile-image">
+                </a>
               </div>
-              <!-- <div>
-                <div class="pull-right cover-btn">
-                  <button type="button" class="btn btn-primary m-b-10 m-r-10"><i class="icofont icofont-plus"></i>
-                    Follow</button>
-                  <button type="button" class="btn btn-primary m-b-10"><i class="icofont icofont-ui-messaging"></i>
-                    Message</button>
+              <div class="media-body row">
+                <div class="col-lg-12">
+                  <div class="user-title">
+                  </div>
                 </div>
-              </div> -->
+
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<!--profile cover end-->
+  <!--profile cover end-->
 
-<div class="row">
-  <div class="col-lg-12">
-    <div class="md-tabs">
-      <ngb-tabset>
-        <ngb-tab title="Informations personnelles">
-          
-          <ng-template ngbTabContent>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="md-tabs">
+        <ngb-tabset>
+          <ngb-tab title="Informations personnelles">
 
-            <div [@fadeInOutTranslate] class="m-t-15">
-              <!-- personal card start -->
-              <div class="card">
-                <div class="card-header">
-                  <h5 class="card-header-text">À propos de moi</h5>
-                  <button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right"
-                    (click)="toggleEditProfile()">
-                    <i class="icofont {{ editProfileIcon }}"></i>
-                  </button>
-                </div>
-                
-                <div class="card-body" >
-                  <div class="view-info" *ngIf="editProfile">
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="general-info">
-                          <div class="row">
-                            <div class="col-lg-12 col-xl-6">
-                              <div class="table-responsive">
-                                <table class="table m-0">
-                                  <tbody>
-                                    <tr>
-                                      <th scope="row">Nom Complet</th>
-                                      <td > {{ this.getCurrentUser().nomPrenom }}</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">Matricule</th>
-                                      <td>{{ this.getCurrentUser().matricule }}</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">Date De Naissance</th>
-                                      <td>{{ this.controls.dateFormat(this.getCurrentUser().dns) }}</td>
-                                    </tr>                            
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                            <!-- end of table col-lg-6 -->
-                            <div class="col-lg-12 col-xl-6">
-                              <div class="table-responsive">
-                                <table class="table"  >
-                                  <tbody>
-                                    
-                                    <tr>
-                                      <th scope="row">Numéro de téléphone</th>
-                                      <td> {{ this.getCurrentUser().tel }}</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">Email</th>
-                                      <td><a href="javascript:;">{{ this.getCurrentUser().email }}</a></td>
-                                    </tr>
-                                    
-                                     <tr>
-                                      <th scope="row">Gouvernourat</th>
-                                      <td>{{ this.getCurrentUser().region }}</td>
-                                    </tr>
-                                    <!--<tr>
-                                      <th scope="row">Skype</th>
-                                      <td>codedthemes.demo</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">Website</th>
-                                      <td><a href="javascript:;">www.demo.com</a></td>
-                                    </tr> -->
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
+            <ng-template ngbTabContent>
 
-                            
-                            <!-- end of table col-lg-6 -->
-                          </div>
-                          <!-- end of row -->
-                        </div>
-                        <!-- end of general info -->
-                      </div>
-                      <!-- end of col-lg-12 -->
-                    </div>
-                    <!-- end of row -->
+              <div [@fadeInOutTranslate] class="m-t-15">
+                <!-- personal card start -->
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-header-text">À propos de moi</h5>
+                    <button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right"
+                      (click)="toggleEditProfile()">
+                      <i class="icofont {{ editProfileIcon }}"></i>
+                    </button>
                   </div>
-                  <form name="f" (ngSubmit)="SaveUser(f)" #f="ngForm">
 
-                  <!-- end of view-info -->
-                  <div class="edit-info" *ngIf="!editProfile">
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="general-info">
-
-
-
-                          <div class="row">
-                            <div class="col-lg-6">
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <tbody>
-                                    <tr>
-                                      <td>
-                                      
-                                        <div class="input-group">
-                                          <span class="input-group-prepend"><label class="input-group-text"><i
-                                                class="icofont icofont-user"></i></label></span>                                         
-                                          <input type="text" name="nomComplet" class="form-control" 
-                                          placeholder="Nom complet" required [(ngModel)]="this.getCurrentUser().nomPrenom" 
-                                          #nomComplet="ngModel">
-                                          
-                                          
-                                        </div>
-                                      </td>
-                                    </tr>
-                                    
-                                        <div class="col-12"> 
-
-                                          <div *ngIf="(nomComplet.invalid && nomComplet.touched)||(this.controls.validateEmailregex(nomComplet) && nomComplet.touched)||
-                                          (this.controls.validateLength(nomComplet) && nomComplet.touched)||(this.controls.containsAt(nomComplet)&& nomComplet.touched)" 
-                                          class="alert alert-danger p-2" role="alert">
-                                            NomComplet est invalide 
-                                          </div>
-                                        </div>                                     
-                                    <tr>
-                                      <td>
-                                        <div class="input-group">
-
-                                        <span class="input-group-prepend"><label class="input-group-text"><i
-                                          class="icofont icofont-calendar"></i></label></span>
-                                        <input class="form-control" type="date" name="dns"
-                                        [(ngModel)]="this.getCurrentUser().dns" #dns="ngModel" required />
-                                          </div>
-                                      </td>
-                                    </tr>
-                                    <div class="col-12"> 
-
-                                    <div *ngIf="(dns.invalid && dns.touched)" class="alert alert-danger p-2" role="alert">
-                                      Saisir la date de Naissance
-                                    </div>
-                                    </div>
-                                 
-                              
-                                    <tr>
-                                      <td>
-                                        <div class="input-group">
-
-                                        <span class="input-group-prepend"><label class="input-group-text"><i
-                                          class="icofont icofont-calendar"></i></label></span>
-                                        <input class="form-control" type="text" name="matricule" [disabled]="this.getCurrentUser().type==='chauffeur'"
-                                        
-                                        [(ngModel)]="this.getCurrentUser().matricule" #matricule="ngModel" required />
-                                          </div>
-                                      </td>
-                                    </tr>
-                                    <div class="col-12">
-
-                                      <div *ngIf="(matricule.invalid && matricule.touched)||(this.controls.validateEmailregex(matricule) && matricule.touched)
-                                      ||(this.controls.validateLength(matricule) && matricule.touched)" class="alert alert-danger p-2" role="alert">
-                                        La matricule est invalide
-                                      </div>
-                                    </div>
-                                  </tbody>
-                                </table>
+                  <div class="card-body">
+                    <div class="view-info" *ngIf="editProfile">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="general-info">
+                            <div class="row">
+                              <div class="col-lg-12 col-xl-6">
+                                <div class="table-responsive">
+                                  <table class="table m-0">
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">Nom Complet</th>
+                                        <td> {{ this.getCurrentUser().nomPrenom }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Matricule</th>
+                                        <td>{{ this.getCurrentUser().matricule }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Date De Naissance</th>
+                                        <td>{{ this.controls.dateFormat(this.getCurrentUser().dns) }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
                               </div>
+                              <!-- end of table col-lg-6 -->
+                              <div class="col-lg-12 col-xl-6">
+                                <div class="table-responsive">
+                                  <table class="table">
+                                    <tbody>
+
+                                      <tr>
+                                        <th scope="row">Numéro de téléphone</th>
+                                        <td> {{ this.getCurrentUser().tel }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Email</th>
+                                        <td><a href="javascript:;">{{ this.getCurrentUser().email }}</a></td>
+                                      </tr>
+
+                                      <tr>
+                                        <th scope="row">Gouvernourat</th>
+                                        <td>{{ this.getCurrentUser().region }}</td>
+                                      </tr>
+
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+
+
+                              <!-- end of table col-lg-6 -->
                             </div>
-                            <!-- end of table col-lg-6 -->
-                            <div class="col-lg-6"  >
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <tbody>
-                                    <tr>
-                                      <td>
-                                        <div class="input-group">
-                                          <span class="input-group-prepend"><label class="input-group-text"><i
-                                                class="icofont icofont-mobile-phone"></i></label></span>
-                                          <input  type="text" class="form-control" 
-                                          [(ngModel)]="this.getCurrentUser().tel"
-                                          name="tel" required  #tel="ngModel" placeholder="Numéro de téléphone">
+                            <!-- end of row -->
+                          </div>
+                          <!-- end of general info -->
+                        </div>
+                        <!-- end of col-lg-12 -->
+                      </div>
+                      <!-- end of row -->
+                    </div>
+                    <form name="f" (ngSubmit)="SaveUser(f)" #f="ngForm">
+
+                      <!-- end of view-info -->
+                      <div class="edit-info" *ngIf="!editProfile">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="general-info">
+
+
+
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="table-responsive">
+                                    <table class="table">
+                                      <tbody>
+                                        <tr>
+                                          <td>
+
+                                            <div class="input-group">
+                                              <span class="input-group-prepend"><label class="input-group-text"><i
+                                                    class="icofont icofont-user"></i></label></span>
+                                              <input type="text" name="nomComplet" class="form-control"
+                                                placeholder="Nom complet" required
+                                                [(ngModel)]="this.getCurrentUser().nomPrenom" #nomComplet="ngModel">
+
+
+                                            </div>
+                                          </td>
+                                        </tr>
+
+                                        <div class="col-12">
+
+                                          <div
+                                            *ngIf="(nomComplet.invalid && nomComplet.touched)||(this.controls.validateEmailregex(nomComplet) && nomComplet.touched)||
+                                          (this.controls.validateLength(nomComplet) && nomComplet.touched)||(this.controls.containsAt(nomComplet)&& nomComplet.touched)"
+                                            class="alert alert-danger p-2" role="alert">
+                                            NomComplet est invalide
+                                          </div>
                                         </div>
-                                      </td>
-                                    </tr>
-                                    <div class="col-12">
+                                        <tr>
+                                          <td>
+                                            <div class="input-group">
 
-                                    <div *ngIf="(tel.invalid && tel.touched)||(this.controls.verifTel(tel) && tel.touched)" 
-                                    class="alert alert-danger p-2" role="alert">
-                                        Numéro de téléphone est invalide
-                                    </div>
-                                    </div>
-                                    <tr>
+                                              <span class="input-group-prepend"><label class="input-group-text"><i
+                                                    class="icofont icofont-calendar"></i></label></span>
+                                              <input class="form-control" type="date" name="dns"
+                                                [(ngModel)]="this.getCurrentUser().dns" #dns="ngModel" required />
+                                            </div>
+                                          </td>
+                                        </tr>
+                                        <div class="col-12">
 
-                                      <td>                                     
-                                        <div class="input-group">
-                                          <span class="input-group-prepend"><label class="input-group-text"><i
-                                              class="icofont icofont-location-pin"></i></label></span>
-                                      <select  [(ngModel)]="this.getCurrentUser().region" #region="ngModel" name="region" class="form-control" required>
-                              
-                                        <ng-container *ngFor="let region of this.controls.getRegions();let i=index;">
-                              
-                                              <option [value]="region">
-                                                  {{region}} 
-                                              </option>
-                                          </ng-container>
-                              
-                                      </select>  
+                                          <div *ngIf="(dns.invalid && dns.touched)" class="alert alert-danger p-2"
+                                            role="alert">
+                                            Saisir la date de Naissance
+                                          </div>
+                                        </div>
+
+
+                                        <tr>
+                                          <td>
+                                            <div class="input-group">
+
+                                              <span class="input-group-prepend"><label class="input-group-text"><i
+                                                    class="icofont icofont-calendar"></i></label></span>
+                                              <input class="form-control" type="text" name="matricule"
+                                                [disabled]="this.getCurrentUser().type==='chauffeur'"
+                                                [(ngModel)]="this.getCurrentUser().matricule" #matricule="ngModel"
+                                                required />
+                                            </div>
+                                          </td>
+                                        </tr>
+                                        <div class="col-12">
+
+                                          <div *ngIf="(matricule.invalid && matricule.touched)||(this.controls.validateEmailregex(matricule) && matricule.touched)
+                                      ||(this.controls.validateLength(matricule) && matricule.touched)"
+                                            class="alert alert-danger p-2" role="alert">
+                                            La matricule est invalide
+                                          </div>
+                                        </div>
+                                      </tbody>
+                                    </table>
                                   </div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <div class="input-group">
-                                          <span class="input-group-prepend"><label class="input-group-text"><i
-                                                class="icofont icofont-ui-email"></i></label></span>
-                                          <input name="email" type="email" [disabled]="this.getCurrentUser().type==='chauffeur'" class="form-control" value={{this.getCurrentUser().email}}
-                                           required  [(ngModel)]="this.getCurrentUser().email" #email="ngModel" placeholder="Email">
-                                        </div>
-                                      </td>
-                                    </tr>
-                                    <div class="col-12">
+                                </div>
+                                <!-- end of table col-lg-6 -->
+                                <div class="col-lg-6">
+                                  <div class="table-responsive">
+                                    <table class="table">
+                                      <tbody>
+                                        <tr>
+                                          <td>
+                                            <div class="input-group">
+                                              <span class="input-group-prepend"><label class="input-group-text"><i
+                                                    class="icofont icofont-mobile-phone"></i></label></span>
+                                              <input type="text" class="form-control"
+                                                [(ngModel)]="this.getCurrentUser().tel" name="tel" required
+                                                #tel="ngModel" placeholder="Numéro de téléphone">
+                                            </div>
+                                          </td>
+                                        </tr>
+                                        <div class="col-12">
 
-                                    <div *ngIf="(email.invalid && email.touched)||(!this.controls.validateEmailregex(email) && email.touched)" 
-                                    class="alert alert-danger p-2" role="alert">
-                                        Email est invalide
-                                    </div>
-                                    </div>
-                                   
-                                   
-                                  </tbody>
-                                </table>
+                                          <div
+                                            *ngIf="(tel.invalid && tel.touched)||(this.controls.verifTel(tel) && tel.touched)"
+                                            class="alert alert-danger p-2" role="alert">
+                                            Numéro de téléphone est invalide
+                                          </div>
+                                        </div>
+                                        <tr>
+
+                                          <td>
+                                            <div class="input-group">
+                                              <span class="input-group-prepend"><label class="input-group-text"><i
+                                                    class="icofont icofont-location-pin"></i></label></span>
+                                              <select [(ngModel)]="this.getCurrentUser().region" #region="ngModel"
+                                                name="region" class="form-control" required>
+
+                                                <ng-container
+                                                  *ngFor="let region of this.controls.getRegions();let i=index;">
+
+                                                  <option [value]="region">
+                                                    {{region}}
+                                                  </option>
+                                                </ng-container>
+
+                                              </select>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>
+                                            <div class="input-group">
+                                              <span class="input-group-prepend"><label class="input-group-text"><i
+                                                    class="icofont icofont-ui-email"></i></label></span>
+                                              <input name="email" type="email"
+                                                [disabled]="this.getCurrentUser().type==='chauffeur'"
+                                                class="form-control" value={{this.getCurrentUser().email}} required
+                                                [(ngModel)]="this.getCurrentUser().email" #email="ngModel"
+                                                placeholder="Email">
+                                            </div>
+                                          </td>
+                                        </tr>
+                                        <div class="col-12">
+
+                                          <div
+                                            *ngIf="(email.invalid && email.touched)||(!this.controls.validateEmailregex(email) && email.touched)"
+                                            class="alert alert-danger p-2" role="alert">
+                                            Email est invalide
+                                          </div>
+                                        </div>
+
+
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                                <!-- end of table col-lg-6 -->
+                              </div>
+                              <!-- end of row -->
+                              <div class="text-center">
+                                <input *ngIf="this.getCurrentUser().type==='chefService'" [disabled]="f.invalid||this.controls.verifTel(tel)
+                            ||!this.controls.validateEmailregex(email)||this.controls.validateEmailregex(nomComplet)||this.controls.validateLength(nomComplet)||this.controls.containsAt(nomComplet)
+                            ||this.controls.validateEmailregex(matricule)||this.controls.validateLength(matricule)"
+                                  type="submit" class="btn btn-primary waves-effect waves-light m-r-20"
+                                  value="Enregistrer" />
+
+
+
+                                <input *ngIf="this.getCurrentUser().type==='chauffeur'" [disabled]="f.invalid||this.controls.verifTel(tel)
+                            ||this.controls.validateEmailregex(nomComplet)||this.controls.validateLength(nomComplet)||
+                            this.controls.containsAt(nomComplet)" type="submit"
+                                  class="btn btn-primary waves-effect waves-light m-r-20" value="Enregistrer" />
+
+
+
+                                <a href="javascript:;" id="edit-cancel" class="btn btn-default waves-effect"
+                                  (click)="toggleEditProfile()">Annuler</a>
                               </div>
                             </div>
-                            <!-- end of table col-lg-6 -->
+                            <!-- end of edit info -->
                           </div>
-                          <!-- end of row -->
-                          <div class="text-center">
-                            <input *ngIf="this.getCurrentUser().type==='chefService'"
-                            [disabled]="f.invalid||this.controls.verifTel(tel)
-                            ||!this.controls.validateEmailregex(email)||this.controls.validateEmailregex(nomComplet)||this.controls.validateLength(nomComplet)||this.controls.containsAt(nomComplet)
-                            ||this.controls.validateEmailregex(matricule)||this.controls.validateLength(matricule)"                            
-                             type="submit" 
-                             class="btn btn-primary waves-effect waves-light m-r-20" 
-                             value="Enregistrer" />
-
-
-
-                             <input *ngIf="this.getCurrentUser().type==='chauffeur'"
-                            [disabled]="f.invalid||this.controls.verifTel(tel)
-                            ||this.controls.validateEmailregex(nomComplet)||this.controls.validateLength(nomComplet)||
-                            this.controls.containsAt(nomComplet)"                            
-                             type="submit" 
-                             class="btn btn-primary waves-effect waves-light m-r-20" 
-                             value="Enregistrer" />
-
-
-
-                            <a href="javascript:;" id="edit-cancel" class="btn btn-default waves-effect"
-                              (click)="toggleEditProfile()">Annuler</a>
-                          </div>
+                          <!-- end of col-lg-12 -->
                         </div>
-                        <!-- end of edit info -->
+                        <!-- end of row -->
                       </div>
-                      <!-- end of col-lg-12 -->
-                    </div>
-                    <!-- end of row -->
+                      <!-- end of edit-info -->
+                    </form>
                   </div>
-                  <!-- end of edit-info -->
-                </form>
+                  <!-- end of card-body -->
                 </div>
-                <!-- end of card-body -->
+                <!-- personal card end-->
               </div>
-              <!-- personal card end-->
-            </div>
-          </ng-template>
-        </ngb-tab>
-        <ngb-tab title="Services" >
-          <ng-template ngbTabContent>
-            <div [@fadeInOutTranslate] class="m-t-15">
-              <!-- info card start -->
-              <div class="card">
-                <div class="card-header">
-                  <h5 class="card-header-text">Mes Services</h5>
-                </div>
-                <div class="card-body" >
-                  
-                  
-                  <div class="row" *ngIf="this.getCurrentUser().type==='chefService'">
-                    <div class="col-md-6">
-                      <div class="card b-l-success business-info services m-b-20">
-                        <div ngbDropdown class="card-header">
-                          <div class="service-header">
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Services">
+            <ng-template ngbTabContent>
+              <div [@fadeInOutTranslate] class="m-t-15">
+                <!-- info card start -->
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-header-text">Mes Services</h5>
+                  </div>
+                  <div class="card-body">
+
+
+                    <div class="row" *ngIf="this.getCurrentUser().type==='chefService'">
+                      <div class="col-md-6">
+                        <div class="card b-l-success business-info services m-b-20">
+                          <div ngbDropdown class="card-header">
+                            <div class="service-header">
                               <h5 class="card-header-text">GESTION DES CHAUFFEURS</h5>
-                          </div>
-                         
-                        </div>
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <p class="task-detail">gestion et controle aux chauffeurs actifs et inactifs .</p>
                             </div>
-                            <!-- end of col-sm-8 -->
+
                           </div>
-                          <!-- end of row -->
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <p class="task-detail">gestion et controle aux chauffeurs actifs et inactifs .</p>
+                              </div>
+                              <!-- end of col-sm-8 -->
+                            </div>
+                            <!-- end of row -->
+                          </div>
+                          <!-- end of card-body -->
                         </div>
-                        <!-- end of card-body -->
                       </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card b-l-danger business-info services">
-                        <div ngbDropdown class="card-header">
-                          <div class="service-header">
+                      <div class="col-md-6">
+                        <div class="card b-l-danger business-info services">
+                          <div ngbDropdown class="card-header">
+                            <div class="service-header">
                               <h5 class="card-header-text">AFFECTATION DES MISSIONS</h5>
-                          </div>
-                         
-                        </div>
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <p class="task-detail">
-                                gestion et controle à toutes les missions affectées aux chauffeurs .
-                              </p>
                             </div>
-                            <!-- end of col-sm-8 -->
+
                           </div>
-                          <!-- end of row -->
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <p class="task-detail">
+                                  gestion et controle à toutes les missions affectées aux chauffeurs .
+                                </p>
+                              </div>
+                              <!-- end of col-sm-8 -->
+                            </div>
+                            <!-- end of row -->
+                          </div>
+                          <!-- end of card-body -->
                         </div>
-                        <!-- end of card-body -->
                       </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card b-l-info business-info services">
-                        <div ngbDropdown class="card-header">
-                          <div class="service-header">
+                      <div class="col-md-6">
+                        <div class="card b-l-info business-info services">
+                          <div ngbDropdown class="card-header">
+                            <div class="service-header">
                               <h5 class="card-header-text">GESTION DES VOITURES ET LEURS AFFECTATIONS</h5>
-                          </div>
-                         
-                        </div>
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <p class="task-detail">gestion et controle des voitures ainsi que les affectations chauffeur voiture .</p>
                             </div>
-                            <!-- end of col-sm-8 -->
+
                           </div>
-                          <!-- end of row -->
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <p class="task-detail">gestion et controle des voitures ainsi que les affectations
+                                  chauffeur voiture .</p>
+                              </div>
+                              <!-- end of col-sm-8 -->
+                            </div>
+                            <!-- end of row -->
+                          </div>
+                          <!-- end of card-body -->
                         </div>
-                        <!-- end of card-body -->
                       </div>
-                    </div>                
-                    <div class="col-md-6">
-                      <div class="card b-l-success business-info services">
-                        <div ngbDropdown class="card-header">
-                          <div class="service-header">
+                      <div class="col-md-6">
+                        <div class="card b-l-success business-info services">
+                          <div ngbDropdown class="card-header">
+                            <div class="service-header">
                               <h5 class="card-header-text">GESTION DES ENTRETIENS</h5>
-                          </div>
-                        
-                        </div>
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <p class="task-detail">
-                                gestion et controle de tous les entretiens des voitures .                                
-                              </p>
                             </div>
-                            <!-- end of col-sm-8 -->
+
                           </div>
-                          <!-- end of row -->
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <p class="task-detail">
+                                  gestion et controle de tous les entretiens des voitures .
+                                </p>
+                              </div>
+                              <!-- end of col-sm-8 -->
+                            </div>
+                            <!-- end of row -->
+                          </div>
+                          <!-- end of card-body -->
                         </div>
-                        <!-- end of card-body -->
                       </div>
                     </div>
-                  </div>
 
 
 
 
-                  <div class="row" *ngIf="this.getCurrentUser().type==='chauffeur'">
-                    <div class="col-md-6">
-                      <div class="card b-l-success business-info services m-b-20">
-                        <div ngbDropdown class="card-header">
-                          <div class="service-header">
+                    <div class="row" *ngIf="this.getCurrentUser().type==='chauffeur'">
+                      <div class="col-md-6">
+                        <div class="card b-l-success business-info services m-b-20">
+                          <div ngbDropdown class="card-header">
+                            <div class="service-header">
                               <h5 class="card-header-text">TABLEAU DE BOARD</h5>
-                          </div>
-                         
-                        </div>
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <p class="task-detail">consulter mon tableau de board .</p>
                             </div>
-                            <!-- end of col-sm-8 -->
+
                           </div>
-                          <!-- end of row -->
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <p class="task-detail">consulter mon tableau de board .</p>
+                              </div>
+                              <!-- end of col-sm-8 -->
+                            </div>
+                            <!-- end of row -->
+                          </div>
+                          <!-- end of card-body -->
                         </div>
-                        <!-- end of card-body -->
                       </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card b-l-danger business-info services">
-                        <div ngbDropdown class="card-header">
-                          <div class="service-header">
+                      <div class="col-md-6">
+                        <div class="card b-l-danger business-info services">
+                          <div ngbDropdown class="card-header">
+                            <div class="service-header">
                               <h5 class="card-header-text">CARNET DE BOARD</h5>
-                          </div>
-                         
-                        </div>
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <p class="task-detail">
-                                gestion et controle de tous les carnets De board .
-                              </p>
                             </div>
-                            <!-- end of col-sm-8 -->
+
                           </div>
-                          <!-- end of row -->
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <p class="task-detail">
+                                  gestion et controle de tous les carnets De board .
+                                </p>
+                              </div>
+                              <!-- end of col-sm-8 -->
+                            </div>
+                            <!-- end of row -->
+                          </div>
+                          <!-- end of card-body -->
                         </div>
-                        <!-- end of card-body -->
                       </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card b-l-info business-info services">
-                        <div ngbDropdown class="card-header">
-                          <div class="service-header">
+                      <div class="col-md-6">
+                        <div class="card b-l-info business-info services">
+                          <div ngbDropdown class="card-header">
+                            <div class="service-header">
                               <h5 class="card-header-text">IMPRESSION DES DOCUMENTS</h5>
-                          </div>
-                         
-                        </div>
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <p class="task-detail">impression des documents (pannes,ordre service,bon de prélèvement) .</p>
                             </div>
-                            <!-- end of col-sm-8 -->
+
                           </div>
-                          <!-- end of row -->
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <p class="task-detail">impression des documents (pannes,ordre service,bon de
+                                  prélèvement) .</p>
+                              </div>
+                              <!-- end of col-sm-8 -->
+                            </div>
+                            <!-- end of row -->
+                          </div>
+                          <!-- end of card-body -->
                         </div>
-                        <!-- end of card-body -->
                       </div>
-                    </div>                
-                    <div class="col-md-6">
-                      <div class="card b-l-success business-info services">
-                        <div ngbDropdown class="card-header">
-                          <div class="service-header">
+                      <div class="col-md-6">
+                        <div class="card b-l-success business-info services">
+                          <div ngbDropdown class="card-header">
+                            <div class="service-header">
                               <h5 class="card-header-text">EFFECTUER DES MISSIONS</h5>
-                          </div>
-                        
-                        </div>
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <p class="task-detail">
-                                finir des missions affectées par le chef service .                                
-                              </p>
                             </div>
-                            <!-- end of col-sm-8 -->
+
                           </div>
-                          <!-- end of row -->
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <p class="task-detail">
+                                  finir des missions affectées par le chef service .
+                                </p>
+                              </div>
+                              <!-- end of col-sm-8 -->
+                            </div>
+                            <!-- end of row -->
+                          </div>
+                          <!-- end of card-body -->
                         </div>
-                        <!-- end of card-body -->
                       </div>
                     </div>
+
+
+
+
+
                   </div>
-
-
-
-
-
                 </div>
+                <!-- info card end -->
               </div>
-              <!-- info card end -->
-            </div>
-          </ng-template>
-        </ngb-tab>
+            </ng-template>
+          </ngb-tab>
 
 
 
@@ -524,10 +511,10 @@
 
 
 
-      
-        
-      </ngb-tabset>
+
+
+        </ngb-tabset>
+      </div>
     </div>
   </div>
-</div>
 </ng-container>

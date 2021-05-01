@@ -1,8 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-
 import { AppRoutingModule } from "./app-routing.module";
-
 import { AppComponent } from "./app.component";
 import { AdminComponent } from "./layout/admin/admin.component";
 import { SharedModule } from "./shared/shared.module";
@@ -92,8 +90,8 @@ import { Ng2SearchPipeModule } from "ng2-search-filter";
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     NgxPrintModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
@@ -112,4 +110,4 @@ import { Ng2SearchPipeModule } from "ng2-search-filter";
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

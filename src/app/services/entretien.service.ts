@@ -8,7 +8,7 @@ import { ControlsService } from "./controls.service";
 })
 export class EntretienService {
 
-  constructor(private httpClient: HttpClient,private controls:ControlsService) { }
+  constructor(private httpClient: HttpClient, private controls: ControlsService) { }
 
   addEntretien(entretien: Entretien) {
 
@@ -37,7 +37,7 @@ export class EntretienService {
   updateEntretien(entretien: Entretien) {
     this.controls.verifVF('chauffeur');
 
-    
+
     const { id_voiture, date, description, id_entretien } = entretien;
 
     let param1 = new HttpParams;

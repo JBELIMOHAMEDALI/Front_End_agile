@@ -1,54 +1,54 @@
 <!-- Page-header start -->
 <div class="">
-    <div class="page-header card">
-      <div class="row align-items-end">
-        <div class="col-lg-8">
-          <div class="page-header-title">
-            <span><i class="icofont icofont-notebook bg-c-pink"></i></span>
-            <div class="d-inline">
-              <span class="d-block">
-                <h4>Carnet De Board</h4>
-              </span>
-              <span>Dans cette page le chauffeur a l'accés de gestion et controle de tous les carnets de boards .</span>
-            </div>
+  <div class="page-header card">
+    <div class="row align-items-end">
+      <div class="col-lg-8">
+        <div class="page-header-title">
+          <span><i class="icofont icofont-notebook bg-c-pink"></i></span>
+          <div class="d-inline">
+            <span class="d-block">
+              <h4>Carnet De Board</h4>
+            </span>
+            <span>Dans cette page le chauffeur a l'accés de gestion et controle de tous les carnets de boards .</span>
           </div>
         </div>
-        <div class="col-lg-4">
-          <div class="page-header-breadcrumb">
-            <ul class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a [routerLink]="['/dashboard/chauffeur']">
-                  <i class="icofont icofont-home"></i>
-                </a>
-              </li>
-              <li class="breadcrumb-item">
+      </div>
+      <div class="col-lg-4">
+        <div class="page-header-breadcrumb">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/dashboard/chauffeur']">
+                <i class="icofont icofont-home"></i>
+              </a>
+            </li>
+            <li class="breadcrumb-item">
 
-                <a>Carnet De Board</a>
-              </li>
-            </ul>
-          </div>
+              <a>Carnet De Board</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
-  <!-- Page-header end -->
+</div>
+<!-- Page-header end -->
 
-  <div class="row">
-    <div class="col-sm-12">
-      <app-card [title]="'Liste des carnets de bord :'">
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Liste des carnets de bord :'">
 
       <div class="row">
 
         <div class="col-11 col-md-6 col-lg-5 ml-lg-5 " style="width: 100%;">
           <div class="input-group">
             <span class="input-group-prepend">
-            <label class="input-group-text">
-              <i class="icofont icofont-search"></i>
-            </label>
+              <label class="input-group-text">
+                <i class="icofont icofont-search"></i>
+              </label>
             </span>
             <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
           </div>
-      </div>
+        </div>
 
 
         <div class="col-md-6 col-lg-3 offset-lg-3">
@@ -61,66 +61,67 @@
 
 
 
-        <div class="table-responsive">
+      <div class="table-responsive">
 
 
-          <!-- <input type="text" [(ngModel)]="term"/> -->
+        <!-- <input type="text" [(ngModel)]="term"/> -->
 
-          <div style="margin: 60px;overflow-x:auto;">
-            <table class="table table-hover">
-              <thead>
-                <ng-container matColumnDef="actions">
-                  <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-                  <mat-cell *matCellDef="let row">
-                    <button mat-button>Edit</button>
-                  </mat-cell>
-                </ng-container>
+        <div style="margin: 60px;overflow-x:auto;">
+          <table class="table table-hover">
+            <thead>
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <button mat-button>Edit</button>
+                </mat-cell>
+              </ng-container>
+              <tr style="text-align: center;">
+                <th scope="col">Kilométrage</th>
+                <th scope="col">Consommation</th>
+                <th scope="col">Date de Création</th>
+                <!-- <th scope="col">Actions</th> -->
+
+              </tr>
+            </thead>
+            <ng-container *ngIf="this.carnetboardlist.length>0">
+
+              <tbody
+                *ngFor="let carnet of this.carnetboardlist|filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
                 <tr style="text-align: center;">
-                  <th scope="col">Kilométrage</th>
-                  <th scope="col">Consommation</th>
-                  <th scope="col">Date de Création</th>
-                  <!-- <th scope="col">Actions</th> -->
+                  <th scope="row">{{carnet.klm}}km</th>
+                  <td>{{carnet.consomation}}dt</td>
+                  <td>{{this.controls.dateFormat(carnet.date,true)}}</td>
+
 
                 </tr>
-              </thead>
-              <ng-container *ngIf="this.carnetboardlist.length>0">
-
-                <tbody *ngFor="let carnet of this.carnetboardlist|filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
-                 <tr style="text-align: center;">
-                   <th scope="row">{{carnet.klm}}km</th>
-                   <td>{{carnet.consomation}}dt</td>
-                   <td>{{this.controls.dateFormat(carnet.date,true)}}</td>
 
 
-                 </tr>
+              </tbody>
+            </ng-container>
+            <ng-container *ngIf="this.carnetboardlist.length===0">
 
-
-               </tbody>
-              </ng-container>
-              <ng-container *ngIf="this.carnetboardlist.length===0">
-
-                <tbody>
-                 <tr style="text-align: center;">
+              <tbody>
+                <tr style="text-align: center;">
                   <td colspan="3">
                     AUCUN CARNET DE BORD !
                   </td>
 
-                 </tr>
+                </tr>
 
 
-               </tbody>
-              </ng-container>
+              </tbody>
+            </ng-container>
 
-            </table>
+          </table>
 
-            <div *ngIf="this.carnetboardlist.length>0" style="text-align: center;">
-              <hr>
-              <pagination-controls (pageChange)="p = $event"></pagination-controls>
-            </div>
-
-
-
+          <div *ngIf="this.carnetboardlist.length>0" style="text-align: center;">
+            <hr>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
+
+
+
         </div>
-      </app-card>
-    </div>
+      </div>
+    </app-card>
+  </div>

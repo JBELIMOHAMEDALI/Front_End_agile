@@ -8,7 +8,7 @@ import { ControlsService } from "./controls.service";
 })
 export class VoitureService {
 
-  constructor(private controls: ControlsService,private httpClient: HttpClient) { }
+  constructor(private controls: ControlsService, private httpClient: HttpClient) { }
 
 
   addVoiture(voiture: Voiture) {
@@ -140,7 +140,7 @@ export class VoitureService {
 
 
 
-    
+
 
 }
 

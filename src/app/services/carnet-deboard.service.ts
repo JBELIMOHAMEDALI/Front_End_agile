@@ -8,10 +8,10 @@ import { ControlsService } from "./controls.service";
 })
 export class CarnetDeboardService {
 
-  constructor(private controls: ControlsService,private httpClient: HttpClient) { }
+  constructor(private controls: ControlsService, private httpClient: HttpClient) { }
 
   addCarnetBord(carnetbord: Carnetdeboard) {
-   
+
     this.controls.verifVF('chefService');
     let param1 = new HttpParams;
     param1 = param1.set("klm", carnetbord.klm.toString());
@@ -29,14 +29,14 @@ export class CarnetDeboardService {
 
   getAllCarnetBored(id_carent: string) {
     this.controls.verifVF('chefService');
-     switch (this.controls.verifLocalStorage()) {
+    switch (this.controls.verifLocalStorage()) {
       case "chefService":
-          this.controls.navigateAndreload('/dashboard');
+        this.controls.navigateAndreload('/dashboard');
         break;
       case null:
-          this.controls.navigateAndreload('/accueil');
+        this.controls.navigateAndreload('/accueil');
         break;
-      
+
     }
     const body = { params: { id: id_carent } };
     return new Promise((resolve, reject) => {

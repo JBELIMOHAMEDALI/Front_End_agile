@@ -28,7 +28,7 @@ export class PopupVoitureComponent implements OnInit {
     private voitureService: VoitureService,
     private modalService: NgbModal,
     public controls: ControlsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     if (this.voiture && !this.show)

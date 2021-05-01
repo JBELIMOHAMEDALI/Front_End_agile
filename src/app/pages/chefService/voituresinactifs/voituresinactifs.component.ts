@@ -20,7 +20,7 @@ export class VoituresinactifsComponent implements OnInit {
     private voitureService: VoitureService,
     private modalService: NgbModal,
     public controls: ControlsService
-  ) {}
+  ) { }
   async ngOnInit() {
     this.getVoitures((result) => {
       this.voitureListInactif = result;

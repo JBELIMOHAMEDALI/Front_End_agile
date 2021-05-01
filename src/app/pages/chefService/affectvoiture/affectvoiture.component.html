@@ -1,137 +1,114 @@
 <ng-container *ngIf="this.voituresAffectes">
-    <div class="">
-
-      <!-- Page-header start -->
-      <div class="page-header card">
-        <div class="row align-items-end">
-          <div class="col-lg-8">
-            <div class="page-header-title">
-              <span>
-                <i class="icofont icofont-car-alt-1 bg-c-blue card1-icon"></i>
+  <div class="">
+    <div class="page-header card">
+      <div class="row align-items-end">
+        <div class="col-lg-8">
+          <div class="page-header-title">
+            <span>
+              <i class="icofont icofont-car-alt-1 bg-c-blue card1-icon"></i>
+            </span>
+            <div class="d-inline">
+              <span class="d-block">
+                <h4>Affectations Chauffeur Voiture</h4>
               </span>
-              <div class="d-inline">
-                <span class="d-block">
-                  <h4>Affectations Chauffeur Voiture</h4>
-                </span>
-                <span>
-                  Dans cette page le chef service a l'accés de gestion et controle de toutes les affectations des chauffeurs aux voitures
-                </span>
-              </div>
+              <span>
+                Dans cette page le chef service a l'accés de gestion et controle de toutes les affectations des
+                chauffeurs aux voitures
+              </span>
             </div>
           </div>
-          <div class="col-lg-4">
-            <div class="page-header-breadcrumb">
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a [routerLink]="['/dashboard/chefService']">
-                    <i class="icofont icofont-home"></i>
-                  </a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a [routerLink]="['/dashboard/chefService/affectV']">Affectations Chauffeur Voiture</a>
-                </li>
-              </ul>
-            </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="page-header-breadcrumb">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/dashboard/chefService']">
+                  <i class="icofont icofont-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/dashboard/chefService/affectV']">Affectations Chauffeur Voiture</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-      <!-- Page-header end -->
-
-
-      <div class="row">
-        <div class="col-sm-12" >
-          <app-card [title]="'Liste des affectations Chauffeur Voiture :'" [classHeader]="true" [blockClass]="'table-border-style'">
-
-            <div class="row">
-
-              <div class="col-11 col-md-6 col-lg-5 ml-lg-5 " style="width: 100%;">
-                <div class="input-group">
-                  <span class="input-group-prepend">
-                  <label class="input-group-text">
-                    <i class="icofont icofont-search"></i>
-                  </label>
-                  </span>
-                  <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
-                </div>
-            </div>
-
-
-              <div class="col-md-6 col-lg-3 offset-lg-3">
-                <button class="btn hor-grd btn-grd-primary" (click)="Affecter()">
-                  <i class="icofont icofont-car-alt-1"></i>Nouvelle affectation</button>
-              </div>
-
-
-            </div>
-
-            <!-- <div style="float: right ;margin-right: 30px;">
-              <button class="btn hor-grd btn-grd-primary" (click)="Affecter()"><i
-              class="icofont icofont-car-alt-1"></i>Nouvelle Affectation</button>
-            </div> -->
-
-
-            <div class="table-responsive">
-
-            <div style="margin: 60px;overflow-x:auto;">
-              <table class="table table-hover" >
-                <thead>
-                  <ng-container matColumnDef="actions">
-                    <mat-header-cell  *matHeaderCellDef > Actions </mat-header-cell>
-                    <mat-cell *matCellDef="let row" >
-                         <button mat-button >Edit</button>
-                    </mat-cell>
-                  </ng-container>
-                  <tr style="text-align: center;">
-                    <th scope="col">Numéro Affectation</th>
-                    <th scope="col">Matricule Voiture</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Chauffeur</th>
-                    <th scope="col">Actions</th>
-
-                  </tr>
-                </thead>
-                <ng-container *ngIf="this.voituresAffectes.length===0">
-
-                  <tbody>
-                    <tr style="text-align: center;">
-
-                     <td colspan="6">
-                       PAS D'AFFECTATIONS !
-                     </td>
-                    </tr>
-                  </tbody>
-                </ng-container>
-                <ng-container *ngIf="this.voituresAffectes.length>0">
-
-                  <tbody *ngFor="let affectation of this.voituresAffectes|filter:term| paginate: { itemsPerPage: 3, currentPage: p }">
-                    <tr style="text-align: center;">
-                      <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>
-                      <td>{{affectation.matricule}}</td>
-                      <td>{{affectation.type}}</td>
-                      <td>{{affectation.nomPrenom}}</td>
-                     <td>
-                        <button class="btn hor-grd btn-grd-info" id="{{affectation.id_affecter_v_chauffeur}}" (click)="updateAffectation({'id_affectation':affectation.id_affecter_v_chauffeur,'id_chauffeur':affectation.id_chauffeur,'id_voiture':affectation.id_voiture})"><i
-                            class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
-                        <button class="btn hor-grd btn-grd-danger" id="{{affectation.id_affecter_v_chauffeur}}" (click)="activerDesactiverAffectation(affectation.id_affecter_v_chauffeur)"><i
-                            class="icofont icofont-trash"></i>Supprimer</button>&nbsp;
-
-                      </td>
-                    </tr>
-                  </tbody>
-                </ng-container>
-              </table>
-              <div *ngIf="this.voituresAffectes.length>0" style="text-align: center;">
-                <hr>
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-              </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card [title]="'Liste des affectations Chauffeur Voiture :'" [classHeader]="true"
+        [blockClass]="'table-border-style'">
+        <div class="row">
+          <div class="col-11 col-md-6 col-lg-5 ml-lg-5 " style="width: 100%;">
+            <div class="input-group">
+              <span class="input-group-prepend">
+                <label class="input-group-text">
+                  <i class="icofont icofont-search"></i>
+                </label>
+              </span>
+              <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
             </div>
           </div>
-
-
-
-          </app-card>
+          <div class="col-md-6 col-lg-3 offset-lg-3">
+            <button class="btn hor-grd btn-grd-primary" (click)="Affecter()">
+              <i class="icofont icofont-car-alt-1"></i>Nouvelle affectation</button>
+          </div>
         </div>
-
-      </div>
-      </ng-container>
+        <div class="table-responsive">
+          <div style="margin: 60px;overflow-x:auto;">
+            <table class="table table-hover">
+              <thead>
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <button mat-button>Edit</button>
+                  </mat-cell>
+                </ng-container>
+                <tr style="text-align: center;">
+                  <th scope="col">Numéro Affectation</th>
+                  <th scope="col">Matricule Voiture</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Chauffeur</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <ng-container *ngIf="this.voituresAffectes.length===0">
+                <tbody>
+                  <tr style="text-align: center;">
+                    <td colspan="6">
+                      PAS D'AFFECTATIONS !
+                    </td>
+                  </tr>
+                </tbody>
+              </ng-container>
+              <ng-container *ngIf="this.voituresAffectes.length>0">
+                <tbody
+                  *ngFor="let affectation of this.voituresAffectes|filter:term| paginate: { itemsPerPage: 3, currentPage: p }">
+                  <tr style="text-align: center;">
+                    <th scope="row">{{affectation.id_affecter_v_chauffeur}}</th>
+                    <td>{{affectation.matricule}}</td>
+                    <td>{{affectation.type}}</td>
+                    <td>{{affectation.nomPrenom}}</td>
+                    <td>
+                      <button class="btn hor-grd btn-grd-info" id="{{affectation.id_affecter_v_chauffeur}}"
+                        (click)="updateAffectation({'id_affectation':affectation.id_affecter_v_chauffeur,'id_chauffeur':affectation.id_chauffeur,'id_voiture':affectation.id_voiture})"><i
+                          class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
+                      <button class="btn hor-grd btn-grd-danger" id="{{affectation.id_affecter_v_chauffeur}}"
+                        (click)="activerDesactiverAffectation(affectation.id_affecter_v_chauffeur)"><i
+                          class="icofont icofont-trash"></i>Supprimer</button>&nbsp;
+                    </td>
+                  </tr>
+                </tbody>
+              </ng-container>
+            </table>
+            <div *ngIf="this.voituresAffectes.length>0" style="text-align: center;">
+              <hr>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+</ng-container>

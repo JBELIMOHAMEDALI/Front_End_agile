@@ -19,7 +19,7 @@ export class CarnetDeBoardComponent implements OnInit {
     private serviceCarnetBord: CarnetDeboardService,
     public controls: ControlsService,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit() {
     // setTimeout(() => {

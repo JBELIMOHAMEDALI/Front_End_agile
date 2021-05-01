@@ -24,7 +24,6 @@ import { ChauffeursinactivesComponent } from "./pages/chefService/chauffeursinac
 import { MissionstermineesComponent } from "./pages/chauffeur/missionsterminees/missionsterminees.component";
 
 const routes: Routes = [
-  // { path: 'register/:id', component: RegisterComponent },
   { path: "forgotPass/:id", component: ForgotPasswordComponent },
   { path: "accueil", component: AccueilComponent },
   { path: "user/:id", component: SigninComponent },
@@ -62,8 +61,6 @@ const routes: Routes = [
             component: DocumentsComponent,
             children: [
               { path: "", component: DocumentsComponent },
-              // { path: "document2", component: CarnetDeBoardComponent },
-              // { path: "document1", component: CarnetDeBoardComponent },
             ],
           },
           {
@@ -157,4 +154,4 @@ export function decryptData(data) {
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

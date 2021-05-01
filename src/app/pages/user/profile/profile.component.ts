@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit {
       const payload = { 'id': this.controls.decryptData(user.idUser), 'tabname': userRole, 'nomId': nom_id };
 
       try {
-        const { erorer, msg } = await this.userServ.getOneUserbyId(payload, true,'profil') as any;
+        const { erorer, msg } = await this.userServ.getOneUserbyId(payload, true, 'profil') as any;
         if (erorer) {
           this.route.navigate(['/']);
 
@@ -95,7 +95,7 @@ export class ProfileComponent implements OnInit {
   toggleEditProfile() {
     this.editProfileIcon = (this.editProfileIcon === 'icofont-close') ? 'icofont-edit' : 'icofont-close';
     this.editProfile = !this.editProfile;
-   
+
   }
 
   toggleEditAbout() {
@@ -105,12 +105,12 @@ export class ProfileComponent implements OnInit {
 
   async SaveUser(userData: NgForm) {
 
-    const idName=this.user.type==='chauffeur'?"id_chauffeur":"id_chefService";
+    const idName = this.user.type === 'chauffeur' ? "id_chauffeur" : "id_chefService";
 
-    const tabName=this.user.type==='chauffeur'?"chauffeur":"chefservice";
+    const tabName = this.user.type === 'chauffeur' ? "chauffeur" : "chefservice";
 
-    const idValue=this.user.type==='chauffeur'?this.user.id_chauffeur:this.user.id_chefService
-    const data = { id: idValue, ...userData.value,tabname:tabName,idname:idName };
+    const idValue = this.user.type === 'chauffeur' ? this.user.id_chauffeur : this.user.id_chefService
+    const data = { id: idValue, ...userData.value, tabname: tabName, idname: idName };
 
     try {
       const { erorer, msg } = this.userServ.UpdateUser(data) as any || [];
@@ -125,8 +125,8 @@ export class ProfileComponent implements OnInit {
   };
 
 
-  getCurrentUser(){
-    if(this.user)
-    return {...this.user};
+  getCurrentUser() {
+    if (this.user)
+      return { ...this.user };
   }
 }

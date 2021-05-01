@@ -1,5 +1,4 @@
 <div class="">
-
   <!-- Page-header start -->
   <div class="page-header card">
     <div class="row align-items-end">
@@ -18,8 +17,6 @@
           </div>
         </div>
       </div>
-
-
       <div class="col-lg-4">
         <div class="page-header-breadcrumb">
           <ul class="breadcrumb">
@@ -28,7 +25,7 @@
                 <i class="icofont icofont-home"></i>
               </a>
             </li>
-            <li  class="breadcrumb-item">
+            <li class="breadcrumb-item">
               <a [routerLink]="['/dashboard/chefService/chauffeur']">Gestion Des Chauffeurs</a>
             </li>
           </ul>
@@ -39,46 +36,46 @@
     </div>
   </div>
 </div>
-  <!-- Page-header end -->
+<!-- Page-header end -->
 
-  <div class="row">
-    <div class="col-sm-12">
-      <app-card [title]="'Liste des chauffeurs actifs :'" [classHeader]="true" [blockClass]="'table-border-style'">
-        <div class="row">
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Liste des chauffeurs actifs :'" [classHeader]="true" [blockClass]="'table-border-style'">
+      <div class="row">
 
-          <div class="col-11 col-md-6 col-lg-5 ml-lg-5 " style="width: 100%;">
-            <div class="input-group">
-              <span class="input-group-prepend">
+        <div class="col-11 col-md-6 col-lg-5 ml-lg-5 " style="width: 100%;">
+          <div class="input-group">
+            <span class="input-group-prepend">
               <label class="input-group-text">
                 <i class="icofont icofont-search"></i>
               </label>
-              </span>
-              <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
-            </div>
-        </div>
-
-
-          <div class="col-md-6 col-lg-3 offset-lg-3">
-            <button class="btn hor-grd btn-grd-primary" (click)="Ajouter()">
-              <i class="icofont icofont-group"></i>Nouveau chauffeur</button>
+            </span>
+            <input type="text" class="form-control" name="term" [(ngModel)]="term" placeholder="Rechercher">
           </div>
-
-
         </div>
-        <!-- <div style="float: right ;margin-right: 30px;">
+
+
+        <div class="col-md-6 col-lg-3 offset-lg-3">
+          <button class="btn hor-grd btn-grd-primary" (click)="Ajouter()">
+            <i class="icofont icofont-group"></i>Nouveau chauffeur</button>
+        </div>
+
+
+      </div>
+      <!-- <div style="float: right ;margin-right: 30px;">
           <button class="btn hor-grd btn-grd-primary" (click)="Ajouter()"><i
           class="icofont icofont-group"></i>Nouveau Chauffeur</button>
         </div> -->
-        <div class="table-responsive">
+      <div class="table-responsive">
 
         <div style="margin: 60px;overflow-x:auto;">
 
-          <table class="table table-hover" >
+          <table class="table table-hover">
             <thead>
               <ng-container matColumnDef="actions">
-                <mat-header-cell  *matHeaderCellDef>Actions</mat-header-cell>
-                <mat-cell *matCellDef="let row" >
-                     <button mat-button >Edit</button>
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <button mat-button>Edit</button>
                 </mat-cell>
               </ng-container>
               <tr style="text-align: center;">
@@ -91,36 +88,38 @@
               </tr>
             </thead>
             <ng-container *ngIf="this.chauffeursActif.length>0">
-            <tbody *ngFor="let chauffeur of this.chauffeursActif|filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
-              <tr (dblclick)="showChauffeur(chauffeur,true)" style="text-align: center;">
-                <th scope="row">{{chauffeur.matricule}}</th>
-                <td>{{chauffeur.nomPrenom}}</td>
-                <!-- <td>{{chauffeur.tel}}</td> -->
-                <td>{{chauffeur.email}}</td>
-                <td>
-                  <button class="btn hor-grd btn-grd-info" id="{{chauffeur.id_chauffeur}}" (click)="update(chauffeur)"><i
-                      class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
-                  <button class="btn hor-grd btn-grd-danger" id="{{chauffeur.id_chauffeur}}" (click)="activerDesactiver(chauffeur.id_chauffeur)"><i
-                      class="icofont icofont-close"></i>Désactiver</button>&nbsp;
+              <tbody
+                *ngFor="let chauffeur of this.chauffeursActif|filter:term| paginate: { itemsPerPage: 3, currentPage: p } ">
+                <tr (dblclick)="showChauffeur(chauffeur,true)" style="text-align: center;">
+                  <th scope="row">{{chauffeur.matricule}}</th>
+                  <td>{{chauffeur.nomPrenom}}</td>
+                  <!-- <td>{{chauffeur.tel}}</td> -->
+                  <td>{{chauffeur.email}}</td>
+                  <td>
+                    <button class="btn hor-grd btn-grd-info" id="{{chauffeur.id_chauffeur}}"
+                      (click)="update(chauffeur)"><i class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
+                    <button class="btn hor-grd btn-grd-danger" id="{{chauffeur.id_chauffeur}}"
+                      (click)="activerDesactiver(chauffeur.id_chauffeur)"><i
+                        class="icofont icofont-close"></i>Désactiver</button>&nbsp;
 
-                </td>
-              </tr>
+                  </td>
+                </tr>
 
 
-            </tbody>
+              </tbody>
             </ng-container>
             <ng-container *ngIf="this.chauffeursActif.length===0">
-              <tbody >
+              <tbody>
                 <tr style="text-align: center;">
-                    <td colspan="5">
-                      AUCUN CHAUFFEUR ACTIF !
-                    </td>
+                  <td colspan="5">
+                    AUCUN CHAUFFEUR ACTIF !
+                  </td>
 
                 </tr>
 
 
               </tbody>
-              </ng-container>
+            </ng-container>
 
           </table>
           <div *ngIf="this.chauffeursActif.length>0" style="text-align: center;">
@@ -131,10 +130,10 @@
 
 
         </div>
-        </div>
+      </div>
 
 
 
-      </app-card>
-    </div>
-    </div>
+    </app-card>
+  </div>
+</div>

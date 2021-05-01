@@ -16,7 +16,7 @@ export class HistoriqueaffectvoitureComponent implements OnInit {
   constructor(
     private affectService: AffectVoitureService,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAllAffectations((result) => {

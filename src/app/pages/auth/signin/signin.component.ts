@@ -28,12 +28,10 @@ export class SigninComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    localStorage.clear();
-    this.controls.verifLogin();
-    // const idcnx = JSON.parse(localStorage.getItem('idConnexion'));
-    const idUser = this.getUserid();
-    if (idUser.length != 11) {
-      //verif idUser in actifRoute
+    this.controls.verifLogin();//check if connected
+    localStorage.clear();//cler locale storege
+    const idUser = this.getUserid();// get type
+    if (idUser.length != 11) {//if not matching with role
       return this.route.navigate(["/accueil"]);
     }
   }
@@ -61,14 +59,10 @@ export class SigninComponent implements OnInit {
       modelServ.componentInstance.message = errormsg;
     }
   }
-
+// returen rolr with redirect to
   verifAndRedirect(msg, userRole: string) {
     var payload = { idUser: "", type: "" };
     switch (userRole) {
-      // case 'administrateur':
-      //   payload = { idUser: this.controls.encryptData(msg.id_admin), type: this.controls.encryptData('administrateur') };
-
-      //   break;
       case "chefService":
         payload = {
           idUser: this.controls.encryptData(msg.id_chefService),
@@ -104,7 +98,7 @@ export class SigninComponent implements OnInit {
         break;
     }
   }
-
+//get rolr
   verifUser(): string {
     const idUser = this.getUserid();
     const values = ["fghij789kl!", "abcde456no?"];
