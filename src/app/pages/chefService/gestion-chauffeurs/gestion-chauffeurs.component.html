@@ -84,7 +84,7 @@
               <tr style="text-align: center;">
                 <th scope="col">Matricule</th>
                 <th scope="col">Nom et Prénom</th>
-                <th scope="col">Numéro de Télephone</th>
+                <!-- <th scope="col">Numéro de Télephone</th> -->
                 <th scope="col">Email</th>
                 <th scope="col">Actions</th>
 
@@ -95,12 +95,12 @@
               <tr (dblclick)="showChauffeur(chauffeur,true)" style="text-align: center;">
                 <th scope="row">{{chauffeur.matricule}}</th>
                 <td>{{chauffeur.nomPrenom}}</td>
-                <td>{{chauffeur.tel}}</td>
+                <!-- <td>{{chauffeur.tel}}</td> -->
                 <td>{{chauffeur.email}}</td>
                 <td>
                   <button class="btn hor-grd btn-grd-info" id="{{chauffeur.id_chauffeur}}" (click)="update(chauffeur)"><i
                       class="icofont icofont-edit-alt"></i>Modifier</button>&nbsp;
-                  <button class="btn hor-grd btn-grd-danger" id="{{chauffeur.id_chauffeur}}" (click)="activerDesactiver(chauffeur.id_chauffeur,true)"><i
+                  <button class="btn hor-grd btn-grd-danger" id="{{chauffeur.id_chauffeur}}" (click)="activerDesactiver(chauffeur.id_chauffeur)"><i
                       class="icofont icofont-close"></i>Désactiver</button>&nbsp;
 
                 </td>

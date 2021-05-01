@@ -15,11 +15,13 @@ import { ControlsService } from "../../../services/controls.service";
 export class PopupVoitureComponent implements OnInit {
   @Input() title: string = "";
   @Input() show: boolean = false;
-  @Input() actif: boolean = true;
   @Input() matList: string[] = [];
 
-  @Input() voiture: Voiture;
+  @Input() id: string = null;
   voitureList = new Array<Voiture>();
+
+  @Input() actif: boolean = false;
+  @Input() voiture: Voiture;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -81,6 +83,23 @@ export class PopupVoitureComponent implements OnInit {
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Modification non effectuée !";
+    }
+  }
+
+  async activerDesactiver() {
+    try {
+      const { erorer, msg } = (await this.voitureService.activeDisactiveVoiture(
+        this.id,
+        this.actif
+      )) as any;
+
+      if (!erorer) {
+        this.activeModal.dismiss();
+        this.controls.reloadComponent();
+      }
+    } catch (error) {
+      const modalRef = this.modalService.open(LoginErrorComponent);
+      modalRef.componentInstance.message = "Opération non effectuée !";
     }
   }
 }

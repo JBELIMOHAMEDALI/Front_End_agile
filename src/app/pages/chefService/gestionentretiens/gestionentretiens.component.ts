@@ -44,18 +44,10 @@ export class GestionentretiensComponent implements OnInit {
     });
   }
 
-  async supprimerEntretien(id_entetien: string) {
-    try {
-      const { msg, erorer } =
-        ((await this.entretienService.deleteEntretien(id_entetien)) as any) ||
-        [];
-      if (!erorer) {
-        this.controls.reloadComponent();
-      }
-    } catch (error) {
-      const modelServ = this.modalService.open(LoginErrorComponent);
-      modelServ.componentInstance.message = "Suppression non effectuée";
-    }
+  supprimerEntretien(id_entetien: string) {
+    const modalRef = this.modalService.open(PopupEntretienComponent);
+    modalRef.componentInstance.title = "SUPPRESSION D'UN ENTRETIEN";
+    modalRef.componentInstance.id = Number(id_entetien);
   }
 
   async getAllEntrtiens(callback) {

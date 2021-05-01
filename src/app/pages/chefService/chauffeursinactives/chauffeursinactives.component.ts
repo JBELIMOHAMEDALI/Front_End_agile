@@ -43,23 +43,11 @@ export class ChauffeursinactivesComponent implements OnInit {
     }
   }
 
-  async activerDesactiver(id: string) {
-    try {
-      const {
-        erorer,
-        msg,
-      } = (await this.chefServ.activeDesactiveChauffeurAccount(
-        id,
-        false
-      )) as any;
-
-      if (!erorer) {
-        this.controls.reloadComponent();
-      }
-    } catch (error) {
-      const modalRef = this.modalService.open(LoginErrorComponent);
-      modalRef.componentInstance.message = "Opération non effectuée !";
-    }
+  activerDesactiver(id_chauffeur: string) {
+    const modalRef = this.modalService.open(PopupChauffeurComponent);
+    modalRef.componentInstance.title = "ACTIVATION CHAUFFEUR";
+    modalRef.componentInstance.id_chauffeur = id_chauffeur;
+    modalRef.componentInstance.actif = false;
   }
 
   showChauffeur(chauffeur: Chauffeur) {

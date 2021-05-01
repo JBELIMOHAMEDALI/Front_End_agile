@@ -6,6 +6,7 @@ import { ChauffeurService } from "../../../services/chauffeur.service";
 import { LoginErrorComponent } from "../../auth/login-error/login-error.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ControlsService } from "../../../services/controls.service";
+import { ChefService } from "../../../services/chef-service.service";
 
 @Component({
   selector: "app-popup-chauffeur",
@@ -15,19 +16,21 @@ import { ControlsService } from "../../../services/controls.service";
 export class PopupChauffeurComponent implements OnInit {
   @Input() title: string = "";
   @Input() show: boolean = false;
-  @Input() actif: boolean = true;
   @Input() matList: string[] = [];
   @Input() emailList: string[] = [];
   @Input() chauffeursAll: Chauffeur[] = [];
 
   @Input() chauffeur: Chauffeur;
-  sameChauffeur: boolean = false;
 
   regions: string[] = [];
+
+  @Input() id_chauffeur: string = null;
+  @Input() actif: boolean = true;
 
   constructor(
     public activeModal: NgbActiveModal,
     private chauffeurService: ChauffeurService,
+    private chefServ: ChefService,
     private modalService: NgbModal,
     public controls: ControlsService
   ) {
@@ -35,7 +38,6 @@ export class PopupChauffeurComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.emailList);
     if (!this.show) {
       this.matList = this.matList.filter(
         (matricule) => matricule != this.chauffeur.matricule
@@ -113,6 +115,26 @@ export class PopupChauffeurComponent implements OnInit {
     } catch (error) {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Modification non effectuée !";
+    }
+  }
+
+  async activerDesactiver() {
+    try {
+      const {
+        erorer,
+        msg,
+      } = (await this.chefServ.activeDesactiveChauffeurAccount(
+        this.id_chauffeur,
+        this.actif
+      )) as any;
+
+      if (!erorer) {
+        this.activeModal.dismiss();
+        this.controls.reloadComponent();
+      }
+    } catch (error) {
+      const modalRef = this.modalService.open(LoginErrorComponent);
+      modalRef.componentInstance.message = "Opération non effectuée !";
     }
   }
 }

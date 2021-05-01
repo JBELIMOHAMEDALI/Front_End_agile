@@ -33,22 +33,6 @@ export class VoituresComponent implements OnInit {
     }, false);
   }
 
-  async activerDesactiver(id: string) {
-    try {
-      const { erorer, msg } = (await this.voitureService.activeDisactiveVoiture(
-        id,
-        false
-      )) as any;
-
-      if (!erorer) {
-        this.controls.reloadComponent();
-      }
-    } catch (error) {
-      const modalRef = this.modalService.open(LoginErrorComponent);
-      modalRef.componentInstance.message = "Opération non effectuée !";
-    }
-  }
-
   Ajouter() {
     const modalRef = this.modalService.open(PopupVoitureComponent);
     modalRef.componentInstance.title = "NOUVELLE VOITURE";
@@ -92,5 +76,11 @@ export class VoituresComponent implements OnInit {
     } catch (error) {
       return error;
     }
+  }
+
+  activerDesactiver(id: string) {
+    const modalRef = this.modalService.open(PopupVoitureComponent);
+    modalRef.componentInstance.title = "DESACTIVATION VOITURE";
+    modalRef.componentInstance.id = id;
   }
 }

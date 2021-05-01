@@ -1,16 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ControlsService } from '../../../services/controls.service';
-import { Voiture } from '../../../models/voiture';
-import { Chauffeur } from '../../../models/chauffeur';
-import { NgForm } from '@angular/forms';
-import { LoginErrorComponent } from '../../auth/login-error/login-error.component';
-import { AffectVoitureService } from '../../../services/affect-voiture.service';
+import { Component, OnInit, Input } from "@angular/core";
+import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ControlsService } from "../../../services/controls.service";
+import { Voiture } from "../../../models/voiture";
+import { Chauffeur } from "../../../models/chauffeur";
+import { NgForm } from "@angular/forms";
+import { LoginErrorComponent } from "../../auth/login-error/login-error.component";
+import { AffectVoitureService } from "../../../services/affect-voiture.service";
 
 @Component({
-  selector: 'app-popup-affectation',
-  templateUrl: './popup-affectation.component.html',
-  styleUrls: ['./popup-affectation.component.scss']
+  selector: "app-popup-affectation",
+  templateUrl: "./popup-affectation.component.html",
+  styleUrls: ["./popup-affectation.component.scss"],
 })
 export class PopupAffectationComponent implements OnInit {
   @Input() title: string = "";
@@ -18,65 +18,59 @@ export class PopupAffectationComponent implements OnInit {
   @Input() voiture: any;
   @Input() chauffeur: any;
 
+  @Input() idAffectation: string = null;
+
   voitureList = new Array<Voiture>();
   chauffeurList = new Array<Chauffeur>();
 
-
-  constructor(public activeModal: NgbActiveModal,
+  constructor(
+    public activeModal: NgbActiveModal,
     private modalService: NgbModal,
     private affectVoitureService: AffectVoitureService,
-    public controls: ControlsService) { }
+    public controls: ControlsService
+  ) {}
 
   async ngOnInit() {
-
     if (this.id != -1) {
-
       this.voiture = await this.voiture;
       this.chauffeur = await this.chauffeur;
-
-
     }
 
-
-    this.loadChauffeursNonAffectes(chauffeurs => {
+    this.loadChauffeursNonAffectes((chauffeurs) => {
       this.chauffeurList = chauffeurs;
     });
-    this.loadVoituresNonAffectees(voitures => {
+    this.loadVoituresNonAffectees((voitures) => {
       this.voitureList = voitures;
     });
   }
 
-
   async getOneAffectationbyid(id: string, callback) {
     try {
-
-      const { msg, erorer } = await this.affectVoitureService.getOneAffectationbyId(id) as any || [];
+      const { msg, erorer } =
+        ((await this.affectVoitureService.getOneAffectationbyId(id)) as any) ||
+        [];
 
       if (!erorer) {
         callback(msg[0]);
       }
-
     } catch (error) {
-     return error;
+      return error;
     }
   }
 
-
   onSubmit(form: NgForm) {
     if (this.id === -1) {
-
       return this.addAffectation(form);
     }
 
     this.updateAffectation(form);
-
   }
 
   async addAffectation(form: NgForm) {
-
     try {
-
-      const { msg, erorer } = await this.affectVoitureService.addAffectaion(form.value) as any || [];
+      const { msg, erorer } =
+        ((await this.affectVoitureService.addAffectaion(form.value)) as any) ||
+        [];
       if (!erorer) {
         this.activeModal.dismiss();
         this.controls.reloadComponent();
@@ -85,16 +79,19 @@ export class PopupAffectationComponent implements OnInit {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Affectation non effectué !";
     }
-
   }
 
-
   async updateAffectation(form: NgForm) {
-
     const { voitureopt, chauffeuropt } = form.value;
     try {
-      const payload = { id_voiture: voitureopt, id_chauffeur: chauffeuropt, id_affectation: this.id }
-      const { msg, erorer } = await this.affectVoitureService.updateAffectaion(payload) as any || [];
+      const payload = {
+        id_voiture: voitureopt,
+        id_chauffeur: chauffeuropt,
+        id_affectation: this.id,
+      };
+      const { msg, erorer } =
+        ((await this.affectVoitureService.updateAffectaion(payload)) as any) ||
+        [];
       if (!erorer) {
         this.activeModal.dismiss();
         this.controls.reloadComponent();
@@ -103,37 +100,50 @@ export class PopupAffectationComponent implements OnInit {
       const modelServ = this.modalService.open(LoginErrorComponent);
       modelServ.componentInstance.message = "Modification non effectuée !";
     }
-
   }
 
   async loadChauffeursNonAffectes(callback) {
     try {
-      const { msg, erorer } = await this.affectVoitureService.getChauffeursVoituresNonaffectesActifs('chauffeur') as any || [];
+      const { msg, erorer } =
+        ((await this.affectVoitureService.getChauffeursVoituresNonaffectesActifs(
+          "chauffeur"
+        )) as any) || [];
       if (!erorer) {
-
         callback(msg);
       }
-
     } catch (error) {
       return error;
     }
   }
 
   async loadVoituresNonAffectees(callback) {
-
     try {
-      const { msg, erorer } = await this.affectVoitureService.getChauffeursVoituresNonaffectesActifs('voiture') as any || [];
+      const { msg, erorer } =
+        ((await this.affectVoitureService.getChauffeursVoituresNonaffectesActifs(
+          "voiture"
+        )) as any) || [];
       if (!erorer) {
         callback(msg);
       }
-
     } catch (error) {
       return error;
     }
-
   }
 
+  async activerDesactiverAffectation() {
+    try {
+      const { erorer, msg } =
+        ((await this.affectVoitureService.activerDesactiverAffectation(
+          this.idAffectation
+        )) as any) || [];
 
-
-
+      if (!erorer) {
+        this.activeModal.dismiss();
+        this.controls.reloadComponent();
+      }
+    } catch (error) {
+      const modalRef = this.modalService.open(LoginErrorComponent);
+      modalRef.componentInstance.message = "Opération non effectuée !";
+    }
+  }
 }

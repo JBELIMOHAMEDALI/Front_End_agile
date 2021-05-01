@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ControlsService } from "../../../services/controls.service";
 import { AffectVoitureService } from "../../../services/affect-voiture.service";
-import { LoginErrorComponent } from "../../auth/login-error/login-error.component";
 import { PopupAffectationComponent } from "../popup-affectation/popup-affectation.component";
 
 @Component({
@@ -30,7 +29,7 @@ export class AffectvoitureComponent implements OnInit {
 
   Affecter() {
     const modalRef = this.modalService.open(PopupAffectationComponent);
-    modalRef.componentInstance.title = "AFFECTATION";
+    modalRef.componentInstance.title = "AFFECTATION CHAUFFEUR VOITURE";
   }
 
   async getAllAffectations(callback) {
@@ -40,22 +39,6 @@ export class AffectvoitureComponent implements OnInit {
       if (!erorer) callback(msg);
     } catch (error) {
       return error;
-    }
-  }
-
-  async activerDesactiverAffectation(idAffectation: string) {
-    try {
-      const { erorer, msg } =
-        ((await this.affectService.activerDesactiverAffectation(
-          idAffectation
-        )) as any) || [];
-
-      if (!erorer) {
-        this.controls.reloadComponent();
-      }
-    } catch (error) {
-      const modalRef = this.modalService.open(LoginErrorComponent);
-      modalRef.componentInstance.message = "Opération non effectuée !";
     }
   }
 
@@ -88,5 +71,12 @@ export class AffectvoitureComponent implements OnInit {
     } catch (error) {
       return error;
     }
+  }
+
+  activerDesactiverAffectation(idAffectation: string) {
+    const modalRef = this.modalService.open(PopupAffectationComponent);
+    modalRef.componentInstance.title =
+      "DESACTIVATION D'UNE AFFECTATION CHAUFFEUR VOITURE";
+    modalRef.componentInstance.idAffectation = idAffectation;
   }
 }

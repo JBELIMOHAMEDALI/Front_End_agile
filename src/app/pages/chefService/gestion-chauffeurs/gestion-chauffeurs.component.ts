@@ -2,8 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Chauffeur } from "../../../models/chauffeur";
 import { UserService } from "../../../services/user.service";
-import { LoginErrorComponent } from "../../auth/login-error/login-error.component";
-import { ChefService } from "../../../services/chef-service.service";
 import { ControlsService } from "../../../services/controls.service";
 import { PopupChauffeurComponent } from "../popup-chauffeur/popup-chauffeur.component";
 
@@ -18,7 +16,6 @@ export class GestionChauffeursComponent implements OnInit {
 
   constructor(
     private userServ: UserService,
-    private chefServ: ChefService,
     private modalService: NgbModal,
     private controls: ControlsService
   ) {}
@@ -52,6 +49,7 @@ export class GestionChauffeursComponent implements OnInit {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = "MODIFICATION CHAUFFEUR";
     modalRef.componentInstance.chauffeur = { ...chauffeur };
+    modalRef.componentInstance.id_chauffeur = null;
 
     if (this.chauffeursAll.length > 0) {
       modalRef.componentInstance.chauffeursAll = this.chauffeursAll;
@@ -65,28 +63,11 @@ export class GestionChauffeursComponent implements OnInit {
       );
     }
   }
-  async activerDesactiver(id: string) {
-    try {
-      const {
-        erorer,
-        msg,
-      } = (await this.chefServ.activeDesactiveChauffeurAccount(
-        id,
-        true
-      )) as any;
-
-      if (!erorer) {
-        this.controls.reloadComponent();
-      }
-    } catch (error) {
-      const modalRef = this.modalService.open(LoginErrorComponent);
-      modalRef.componentInstance.message = "Opération non effectuée !";
-    }
-  }
 
   Ajouter() {
     const modalRef = this.modalService.open(PopupChauffeurComponent);
     modalRef.componentInstance.title = "NOUVEAU CHAUFFEUR";
+    modalRef.componentInstance.id_chauffeur = null;
 
     if (this.chauffeursAll.length > 0) {
       modalRef.componentInstance.matList = this.controls.getAllMatriculeOrEmails(
@@ -107,5 +88,11 @@ export class GestionChauffeursComponent implements OnInit {
     modalRef.componentInstance.show = true;
     modalRef.componentInstance.actif = actif;
     modalRef.componentInstance.chauffeur = { ...chauffeur };
+  }
+
+  activerDesactiver(id_chauffeur: string) {
+    const modalRef = this.modalService.open(PopupChauffeurComponent);
+    modalRef.componentInstance.title = "DESACTIVATION CHAUFFEUR";
+    modalRef.componentInstance.id_chauffeur = id_chauffeur;
   }
 }

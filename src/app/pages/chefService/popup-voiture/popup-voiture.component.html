@@ -5,33 +5,33 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<form *ngIf="this.voiture&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate> 
+<form *ngIf="this.voiture&&!this.show" name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
 <div  class="modal-body" >
 
         <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-listing-number"></i></label></span>
-            <input  type="text" class="form-control" id="exampleInputMat" 
-            name="matricule" required [(ngModel)]="this.voiture.matricule" #matricule="ngModel" 
+            <input  type="text" class="form-control" id="exampleInputMat"
+            name="matricule" required [(ngModel)]="this.voiture.matricule" #matricule="ngModel"
             placeholder="Matricule"/>
         </div>
           <div *ngIf="(matricule.invalid && matricule.touched)||(this.controls.validateEmailregex(matricule) && matricule.touched)
-          ||(this.controls.validateLength(matricule) && matricule.touched)" 
+          ||(this.controls.validateLength(matricule) && matricule.touched)"
           class="alert alert-danger p-2" role="alert">
             La matricule est invalide
           </div>
           <div *ngIf="(this.controls.verifMatriculeExiste(matricule,this.matList) && matricule.touched)" class="alert alert-danger" role="alert">
             La matricule existe déjà
           </div>
-    
+
         <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-car-alt-1"></i></label></span>
-            <input  type="text" class="form-control" id="exampleInputType" 
-            name="type" required [(ngModel)]="this.voiture.type" #type="ngModel" 
+            <input  type="text" class="form-control" id="exampleInputType"
+            name="type" required [(ngModel)]="this.voiture.type" #type="ngModel"
             placeholder="Type Voiture"/>
           </div>
-          <div *ngIf="(type.invalid && type.touched)" 
+          <div *ngIf="(type.invalid && type.touched)"
           class="alert alert-danger p-2" role="alert">
             Le type voiture est invalide
           </div>
@@ -43,22 +43,22 @@
             required #dmc="ngModel"  />
         </div>
         <div *ngIf="(dmc.invalid && dmc.touched)" class="alert alert-danger p-2" role="alert">
-            Saisir la date 
+            Saisir la date
         </div>
 
-       
+
         <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-energy-oil"></i></label></span>
             <input type="number" min="1" max="10" class="form-control" [(ngModel)]="this.voiture.puissance"
             name="puissance" required  #puissance="ngModel" placeholder="Puissance">
         </div>
-        
+
         <div *ngIf="(puissance.invalid && puissance.touched)||(puissance.touched&&puissance.value<=0)" class="alert alert-danger p-2" role="alert">
             Puissance est invalide
         </div>
 
-        
+
         <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-speed-meter"></i></label></span>
@@ -66,63 +66,63 @@
             name="service" required  #service="ngModel" placeholder="Service">
         </div>
 
-        
+
         <div *ngIf="(service.invalid && service.touched)" class="alert alert-danger p-2" role="alert">
             Service est invalide
         </div>
 
         <div class="modal-footer">
 
-            <input type="submit" class="btn btn-outline-primary" value="Modifier" 
+            <input type="submit" class="btn btn-outline-primary" value="Modifier"
             [disabled]="f.invalid||this.controls.verifMatriculeExiste(matricule,this.matList)
             ||this.controls.validateLength(matricule)||this.controls.validateEmailregex(matricule)||puissance.value<=0"/>
             <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
         </div>
     </div>
-</form> 
+</form>
 
 
 
 
-<form *ngIf="!this.voiture" name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
+<form *ngIf="!this.voiture&&!this.id" name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
 
     <div  class="modal-body" >
-    
+
 
         <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-listing-number"></i></label></span>
-            <input  type="text" class="form-control" id="exampleInputMat" 
-            name="matricule" required ngModel #matricule="ngModel" 
+            <input  type="text" class="form-control" id="exampleInputMat"
+            name="matricule" required ngModel #matricule="ngModel"
             placeholder="Matricule"/>
           </div>
           <div *ngIf="(matricule.invalid && matricule.touched)||(this.controls.validateEmailregex(matricule) && matricule.touched)
-          ||(this.controls.validateLength(matricule) && matricule.touched)" 
+          ||(this.controls.validateLength(matricule) && matricule.touched)"
           class="alert alert-danger p-2" role="alert">
             La matricule est invalide
           </div>
           <div *ngIf="(this.controls.verifMatriculeExiste(matricule,this.matList) && matricule.touched)" class="alert alert-danger" role="alert">
             La matricule existe déjà
           </div>
-       
 
-        
+
+
 
         <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
                   class="icofont icofont-car-alt-1"></i></label></span>
-            <input  type="text" class="form-control" id="exampleInputType" 
-            name="type" required ngModel #type="ngModel" 
+            <input  type="text" class="form-control" id="exampleInputType"
+            name="type" required ngModel #type="ngModel"
             placeholder="Type Voiture"/>
           </div>
-          <div *ngIf="(type.invalid && type.touched)" 
+          <div *ngIf="(type.invalid && type.touched)"
           class="alert alert-danger p-2" role="alert">
             Le type voiture est invalide
           </div>
-          
 
 
-     
+
+
 
         <div class="input-group">
 
@@ -132,11 +132,11 @@
             required #dmc="ngModel"  />
         </div>
         <div *ngIf="(dmc.invalid && dmc.touched)" class="alert alert-danger p-2" role="alert">
-            Saisir la date 
+            Saisir la date
         </div>
 
 
-        
+
 
         <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
@@ -144,13 +144,13 @@
             <input type="number" min="1" max="10" class="form-control" ngModel
             name="puissance" required  #puissance="ngModel" placeholder="Puissance">
         </div>
-        
+
         <div *ngIf="(puissance.invalid && puissance.touched)||(puissance.touched&&puissance.value<=0)" class="alert alert-danger p-2" role="alert">
             Puissance est invalide
         </div>
 
 
-       
+
 
         <div class="input-group">
             <span class="input-group-prepend"><label class="input-group-text"><i
@@ -159,16 +159,16 @@
             name="service" required  #service="ngModel" placeholder="Service">
         </div>
 
-        
+
         <div *ngIf="(service.invalid && service.touched)" class="alert alert-danger p-2" role="alert">
             Service est invalide
         </div>
 
-       
+
         <div class="modal-footer">
-            <input type="submit" class="btn btn-outline-primary" 
+            <input type="submit" class="btn btn-outline-primary"
             [disabled]="fadd.invalid||this.controls.verifMatriculeExiste(matricule,this.matList)
-            ||this.controls.validateLength(matricule)||this.controls.validateEmailregex(matricule)||puissance.value<=0" 
+            ||this.controls.validateLength(matricule)||this.controls.validateEmailregex(matricule)||puissance.value<=0"
             value="Confirmer" />
             <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
         </div>
@@ -176,8 +176,8 @@
 </form>
 
 <div class="modal-body" *ngIf="this.show&&this.voiture">
-  
-    
+
+
     <div class="view-info">
         <div class="row">
           <div class="col-lg-12">
@@ -212,14 +212,14 @@
                             <td *ngIf="this.voiture.statut=='1'"> {{"ACTIF"}}</td>
                             <td *ngIf="this.voiture.statut=='0'"> {{"INACTIF"}}</td>
 
-                          </tr>   
-                        
+                          </tr>
+
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <!-- end of table col-lg-6 -->
-               
+
                 <!-- end of table col-lg-6 -->
               </div>
               <!-- end of row -->
@@ -230,10 +230,50 @@
         </div>
         <!-- end of row -->
       </div>
-   
+
 
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
     </div>
+</div>
+
+<div class="modal-body" *ngIf="this.id&&!this.voiture">
+
+  <div class="view-info">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="general-info">
+            <div class="row">
+              <div class="col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <tbody>
+                      <tr>
+                        <th scope="row" *ngIf="!this.actif">Confirmer la désactivation !</th>
+                        <th scope="row" *ngIf="this.actif">Confirmer l'activation !</th>
+                      </tr>
+
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- end of table col-lg-6 -->
+
+              <!-- end of table col-lg-6 -->
+            </div>
+            <!-- end of row -->
+          </div>
+          <!-- end of general info -->
+        </div>
+        <!-- end of col-lg-12 -->
+      </div>
+      <!-- end of row -->
+    </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="this.activerDesactiver()">Confirmer</button>
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+  </div>
 </div>
 </ng-container>

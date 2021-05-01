@@ -50,17 +50,10 @@ export class AffectmissionComponent implements OnInit {
     modalRef.componentInstance.mission = { ...mission };
   }
 
-  async supprimerMission(id_mission: string) {
-    try {
-      const { msg, erorer } =
-        ((await this.missionService.deleteMission(id_mission)) as any) || [];
-      if (!erorer) {
-        this.controls.reloadComponent();
-      }
-    } catch (error) {
-      const modalRef = this.modalService.open(LoginErrorComponent);
-      modalRef.componentInstance.message = "Suppression non effectuée";
-    }
+  supprimerMission(id_mission: string) {
+    const modalRef = this.modalService.open(PopupMissionComponent);
+    modalRef.componentInstance.title = "SUPPRESSION MISSION";
+    modalRef.componentInstance.id = Number(id_mission);
   }
 
   showMission(mission) {

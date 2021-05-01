@@ -27,22 +27,6 @@ export class VoituresinactifsComponent implements OnInit {
     });
   }
 
-  async activerDesactiver(id: string) {
-    try {
-      const { erorer, msg } = (await this.voitureService.activeDisactiveVoiture(
-        id,
-        true
-      )) as any;
-
-      if (!erorer) {
-        this.controls.reloadComponent();
-      }
-    } catch (error) {
-      const modalRef = this.modalService.open(LoginErrorComponent);
-      modalRef.componentInstance.message = "Opération non effectuée !";
-    }
-  }
-
   showVoiture(voiture: Voiture) {
     const modalRef = this.modalService.open(PopupVoitureComponent);
     modalRef.componentInstance.title = "DONNEES VOITURE";
@@ -62,5 +46,12 @@ export class VoituresinactifsComponent implements OnInit {
     } catch (error) {
       return error;
     }
+  }
+
+  activerDesactiver(id: string) {
+    const modalRef = this.modalService.open(PopupVoitureComponent);
+    modalRef.componentInstance.title = "ACTIVATION VOITURE";
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.actif = true;
   }
 }
