@@ -49,25 +49,6 @@ export class FirstconnectionComponent implements OnInit {
       this.controls.verifLogin();
     }
 
-    // if (idcnx != null) {
-    //   const { loggedin, connexionid } = idcnx;
-
-    //   if (loggedin) {
-    //     return this.route.navigate(['/dashboard', userRoleData[0]]);
-
-    //   }
-
-    //   if (this.idUser != this.controls.decryptData(connexionid)) {
-    //     return this.route.navigate(['/user/' + this.idUser]);
-    //   }
-    // }
-
-
-    // else {
-    //   return this.route.navigate(['/user/' + this.idUser]);
-
-    // }
-
   }
 
 
