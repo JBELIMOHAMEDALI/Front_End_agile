@@ -36,7 +36,7 @@
                             </tr>
                             <tr *ngIf="this.mission.etat==='0'">
                               <th scope="row">Dépassement de délai</th>
-                              <td *ngIf="this.controls.daysDiff(this.mission.date_fin)[0]<0">Oui, Délai dépassé par {{this.controls.daysDiff(this.mission.date_fin)[0]*-1+" jour(s) et "+ this.controls.daysDiff(this.mission.date_fin)[1]}}</td>
+                              <td *ngIf="this.controls.daysDiff(this.mission.date_fin)[0]<0">Oui, Délai dépassé par {{this.controls.daysDiff(this.mission.date_fin)[2]*-1+" jour(s) et "+ this.controls.daysDiff(this.mission.date_fin)[1]+" heures"}}</td>
                               <td *ngIf="this.controls.daysDiff(this.mission.date_fin)[0]>0">Non, il vous reste {{this.controls.daysDiff(this.mission.date_fin)[0]+" jour(s) et "+this.controls.daysDiff(this.mission.date_fin)[1]+" heures"}} </td>
                               <td *ngIf="this.controls.daysDiff(this.mission.date_fin)[0]===0">Non, il vous reste {{this.controls.daysDiff(this.mission.date_fin)[1]+" heures"}}</td>
 

@@ -276,7 +276,6 @@ export class ControlsService {
   navigateAndreload(navigateto: string) {
     this.router.navigate([navigateto]);
   }
-
   verifVF(role: string) {
     switch (this.verifLocalStorage()) {
       case role:
@@ -288,7 +287,6 @@ export class ControlsService {
         break;
     }
   }
-
   verifLogin() {
     const idcnx = JSON.parse(localStorage.getItem("idConnexion"));
     if (idcnx) {
@@ -298,9 +296,7 @@ export class ControlsService {
         this.navigateAndreload(`/dashboard/${type}`);
       }
     }
-
   }
-
   verifProfile() {
     switch (this.verifLocalStorage()) {
       case "chauffeur":
@@ -354,15 +350,18 @@ export class ControlsService {
       const date2 = new Date(df);
       const Difference_In_Time = date2.getTime() - date1.getTime();
       const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-
       const res = [Math.ceil(Difference_In_Days), this.hoursDiff(date1, date2)];
+
+      if (Difference_In_Days < 0)
+        return [
+          -1,
+          this.hoursDiff(date1, date2),
+          Math.ceil(Difference_In_Days),
+        ];
       if (Math.floor(Difference_In_Days) == 0)
         return [0, this.hoursDiff(date1, date2)];
-
-      return res;
-    }
+      return res;    }
   };
-
   dureeDiff = (date_debut, date_fin) => {
     if (date_fin) {
       const dd = moment(date_debut).format("MM/DD/YYYY hh:mm:ss").toString();
@@ -371,7 +370,6 @@ export class ControlsService {
       const date2 = new Date(df) as any;
       const Difference_In_Time = date2.getTime() - date1.getTime();
       const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-
       return [Math.floor(Difference_In_Days), this.hoursDiff(date1, date2)];
     }
   };
