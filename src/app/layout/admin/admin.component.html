@@ -14,14 +14,7 @@
               [exclude]="'#main_navbar'" (clickOutside)="onClickedOutside($event)">
               <i class="ti-menu"></i>
             </a>
-            <!-- <a [routerLink]="['/dashboard',this.getuserRole()]">
-            <img
-              (click)="redirectToProfile()"
-              class="img-fluid"
-              src="assets/images/agile.png"
-              alt="Theme-Logo"
-            />
-          </a> -->
+
             <a (click)="onMobileMenu()" class="mobile-options">
               <i class="ti-more"></i>
             </a>
@@ -234,49 +227,6 @@
               </perfect-scrollbar>
             </div>
 
-
-
-
-
-            <!-- <div class="d-color">
-            <ul
-              class="pcoded-item pcoded-left-item"
-              [attr.item-border]="itemBorder"
-              [attr.item-border-style]="itemBorderStyle"
-              [attr.subitem-border]="subItemBorder"
-              appAccordionLink
-              group="dashboard"
-            >
-              <li
-                class="pcoded-hasmenu"
-                [attr.dropdown-icon]="dropDownIcon"
-                [attr.subitem-icon]="subItemIcon"
-                appAccordionLink
-                group="dashboard"
-              >
-                <a href="javascript:;" appAccordionToggle>
-                  <span class="pcoded-micon"
-                    ><i class="ti-home"></i><b>d</b></span
-                  >
-                  <span class="pcoded-mtext">Dashboard</span>
-                  <span class="pcoded-mcaret"></span>
-                </a>
-                <ul class="pcoded-submenu">
-                  <li appAccordionLink>
-                    <a
-                      [routerLink]="['/dashboard/profil']"
-                      appAccordionToggle
-                    >
-                      <span class="pcoded-micon">
-                        <i class="ti-angle-right"></i>
-                      </span>
-                      <span class="pcoded-mtext">Gestion Voitures</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div> -->
 
           </nav>
           <div class="pcoded-content">

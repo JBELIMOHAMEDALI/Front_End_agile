@@ -22,20 +22,15 @@ export class CarnetDeBoardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // setTimeout(() => {
-
     this.getAllCarnetBoard((result) => {
       this.carnetboardlist = result;
     });
-    // }, 100);
   }
 
   async getAllCarnetBoard(callback) {
     try {
       const { msg, erorer } =
-        ((await this.serviceCarnetBord.getAllCarnetBored(
-          this.getId()
-        )) as any) || [];
+        ((await this.serviceCarnetBord.getAllCarnetBored(this.getId())) as any) || [];
       if (!erorer) {
         callback(msg);
       }
